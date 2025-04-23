@@ -1,21 +1,33 @@
-
-import { createHashRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import RouterLayout from "./RouterLayout/RouterLayout";
+
+// Pages & Components
+import ChossePath from "./Components/ChoosePath/ChossePath";
+import LoginPatient from "./Components/LoginPatient/LoginPatient";
+import SignUpPatient from "./Components/SignUpPatient/SignUpPatient";
+import AllDoctors from "./Components/AllDoctors/AllDoctors";
 import LandingPage from "./Components/Pages/LandingPage/LandingPage";
+import RouterLayout from "./RouterLayout/RouterLayout";
+
+// Slick Carousel styles
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-const route = createHashRouter([
+
+// Router configuration
+const router = createBrowserRouter([
   {
-    path: '', element: <RouterLayout />, children: [
-    {index: true, element: <LandingPage/>},
-  ]},
-])
-function App() {
+    path: "/",
+    element: <RouterLayout />,
+    children: [
+      { index: true, element: <LandingPage /> },
+      { path: "choose", element: <ChossePath /> },
+      { path: "loginPatient", element: <LoginPatient /> },
+      { path: "signupPatient", element: <SignUpPatient /> },
+      { path: "doctors", element: <AllDoctors /> },
+    ],
+  },
+]);
 
-  return <>
-    <RouterProvider router={route} />
-  </>
+export default function App() {
+  return <RouterProvider router={router} />;
 }
-
-export default App;

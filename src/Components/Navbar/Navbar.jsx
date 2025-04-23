@@ -14,28 +14,23 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 50);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const links = [
-    { name: 'Home', target: '/' },
-    { name: 'About', target: 'about' },
-    { name: 'Why Us', target: 'whyUs' },
-    { name: 'Experts', target: 'experts' },
-    { name: 'Contact Us', target: 'contact' }
+    { name: "Home", target: "home" },
+    { name: "About", target: "about" },
+    { name: "Why Us", target: "whyUs" },
+    { name: "Experts", target: "experts" },
+    { name: "Contact Us", target: "contact" },
   ];
 
   return (
     <nav
-      className={`container rounded-full fixed top-4 left-0 right-0 z-50 transition-colors duration-300 border border-solid ${
+      className={`container rounded-full fixed top-4 left-0 right-0 z-50 transition-colors duration-300 border ${
         scrolled
           ? "bg-[#40C1BD] shadow-lg backdrop-blur-md border-gray-200"
           : "bg-transparent border-gray-100 dark:bg-[#f7f1f14e]"
@@ -47,7 +42,7 @@ export default function Navbar() {
           <img src={logoDark} className="h-8" alt="Balance-توازون" />
         </div>
 
-        {/* Nav Links */}
+        {/* Center Links */}
         <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 gap-6 font-bold text-white">
           {links.map((item, i) => (
             <ScrollLink
@@ -65,23 +60,23 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Right Side */}
+        {/* Right side */}
         <div className="flex items-center space-x-4 z-10">
           <div className="flex items-center gap-1">
             <CiGlobe style={{ color: "white" }} />
             <span className="uppercase text-white">en</span>
           </div>
 
-          <Link to={'/choose'}>
-          <button
-            type="button"
-            className="text-textColor bg-subColor hover:bg-hoverSubColor focus:ring-4 focus:outline-none focus:ring-hoverSubColor font-medium text-base rounded-full font-poppins px-4 py-2"
-          >
-            sign in \ sign up
-          </button>
+          <Link to="/choose">
+            <button
+              type="button"
+              className="text-textColor bg-subColor hover:bg-hoverSubColor focus:ring-4 focus:outline-none focus:ring-hoverSubColor font-medium text-base rounded-full font-poppins px-4 py-2"
+            >
+              sign in \ sign up
+            </button>
           </Link>
 
-          {/* Hamburger */}
+          {/* Hamburger for mobile */}
           <button
             type="button"
             className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-100 rounded-lg lg:hidden"
@@ -100,7 +95,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile menu */}
         {isNavOpen && (
           <div className="absolute top-20 right-10 w-[90%] rounded-md shadow-lg bg-[#f7f1f14e] ring-1 ring-black ring-opacity-5 z-50 lg:hidden">
             <ul className="py-2">
