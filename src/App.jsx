@@ -1,16 +1,21 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-
+import RouterLayout from "./RouterLayout/RouterLayout";
+import LandingPage from "./Components/Pages/LandingPage/LandingPage";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+const route = createHashRouter([
+  {
+    path: '', element: <RouterLayout />, children: [
+    {index: true, element: <LandingPage/>},
+  ]},
+])
 function App() {
-  const [count, setCount] = useState(0);
 
-  return (
-    <>
-    
-    </>
-  );
+  return <>
+    <RouterProvider router={route} />
+  </>
 }
 
 export default App;

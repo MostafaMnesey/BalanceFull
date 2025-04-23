@@ -8,7 +8,29 @@ export default {
     ".flowbite-react\\class-list.json"
   ],
   theme: {
-    extend: {},
+    container: {
+      center: true,
+      padding: {
+        // DEFAULT: '.,4rem',
+        sm: '2.5rem',
+        lg: '4rem',
+        xl: '2.5rem',
+        '2xl': '6rem',
+      },
+    },
+    extend: {
+      colors: {
+        mainColor: '#40C1BD', 
+        subColor: '#F6D776',
+        hoverSubColor: '#E7BF46',
+        textColor:'#1B514F'
+        
+      },
+      fontFamily: {
+        poppins: ["Poppins", 'sans'],
+        inter: ["Inter", 'sans'],
+      },
+    },
   },
   plugins: [flowbiteReact],
 }
