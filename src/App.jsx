@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 import "./App.css";
+
+// Pages & Components
 import ChossePath from "./Components/ChoosePath/ChossePath";
 import LoginPatient from "./Components/LoginPatient/LoginPatient";
 import SignUpPatient from "./Components/SignUpPatient/SignUpPatient";
@@ -9,9 +9,11 @@ import AllDoctors from "./Components/AllDoctors/AllDoctors";
 import LandingPage from "./Components/Pages/LandingPage/LandingPage";
 import RouterLayout from "./RouterLayout/RouterLayout";
 
+// Slick Carousel styles
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+// Router configuration
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,7 +29,5 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return<>
-  
-  <RouterProvider router={router} />;
-  </>}  
+  return <RouterProvider router={router} />;
+}

@@ -4,7 +4,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 
 export default function Contact() {
     return (
-        <section className="mt-20">
+        <section className="mt-20" id="contact">
             <div className="relative w-full flex justify-center">
                 {/* Background Form Section */}
                 <div className="bg-[#A7E2E1] w-[70%] p-10 rounded-xl flex flex-col justify-center items-center">
@@ -46,39 +46,41 @@ export default function Contact() {
                         >
                             Send
                         </button>
-                        <div className="  flex text-sm gap-2  lg:text-sm lg:hidden  md:flex md:items-center md:justify-between md:mt-3 md:text-teal-900 md:font-semibold md:text-md ">
-                            <div className="flex  items-center gap-1 text-[10px] ">
-                                <FaLocationDot />
-                                <p> Mansoura,Egypt</p>
-                                {/* <span >
-                                Mansoura, Egypt
-                                </span> */}
-                            </div>
-                        <div className="flex items-center gap-2 text-[10px]">
-                            
 
-                            <MdEmail />
-                            
-                            tbalance.support@gmail.com
+                        {/* Inline Contact Info for small screens */}
+                        <div className="mt-3 flex text-sm gap-2 lg:text-sm lg:hidden md:flex md:items-center md:justify-between md:mt-3 md:text-teal-900 md:font-semibold md:text-md">
+                            <div className="flex items-center gap-1 text-[10px]">
+                                <FaLocationDot />
+                                <p>Mansoura, Egypt</p>
+                            </div>
+                            <div className="flex items-center gap-2 text-[10px]">
+                                <MdEmail />
+                                <span>tbalance.support@gmail.com</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-[10px]">
+                                <FaPhoneAlt />
+                                <span>0123456789</span>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-2 text-[10px]"><FaPhoneAlt /> 0123456789</div>
-                    </div>
                     </form>
                 </div>
 
-                {/* Contact Info Card (overlapping) */}
-                <div className=" hidden absolute left-10 top-1/2 -translate-y-1/2 bg-[#3FC1C9] text-white p-10 rounded-xl shadow-xl w-[300px] h-[600px] lg:w-[250px] lg:block md:hidden">
+                {/* Contact Info Card for large screens */}
+                <div className="hidden absolute left-10 top-1/2 -translate-y-1/2 bg-[#3FC1C9] text-white p-10 rounded-xl shadow-xl w-[300px] h-[600px] lg:w-[250px] lg:block md:hidden">
                     <h2 className="text-2xl font-bold mb-6">Contact Us</h2>
                     <div className="space-y-4 text-base lg:text-sm">
-                        <div className="flex items-center gap-2"><FaLocationDot /> Mansoura, Egypt</div>
                         <div className="flex items-center gap-2">
-                            <div>
-
-                            <MdEmail />
-                            </div>
-                            tbalance.support@gmail.com
+                            <FaLocationDot />
+                            <span>Mansoura, Egypt</span>
                         </div>
-                        <div className="flex items-center gap-2"><FaPhoneAlt /> 0123456789</div>
+                        <div className="flex items-center gap-2">
+                            <MdEmail />
+                            <span>tbalance.support@gmail.com</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <FaPhoneAlt />
+                            <span>0123456789</span>
+                        </div>
                     </div>
                 </div>
             </div>

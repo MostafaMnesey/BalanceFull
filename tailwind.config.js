@@ -4,7 +4,7 @@ import flowbiteReact from "flowbite-react/plugin/tailwindcss";
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src//*.{js,ts,jsx,tsx}",
 
     ".flowbite-react/class-list.json",
   ],
@@ -12,9 +12,9 @@ export default {
     container: {
       center: true,
       padding: {
-        sm: "2.5rem",
-        lg: "4rem",
-        xl: "2.5rem",
+        "sm": "2.5rem",
+        "lg": "4rem",
+        "xl": "2.5rem",
         "2xl": "6rem",
       },
     },
