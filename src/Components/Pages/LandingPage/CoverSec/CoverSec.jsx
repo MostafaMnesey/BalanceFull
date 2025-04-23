@@ -2,7 +2,7 @@ import coverBg from '../../../../assets/Cover.png';
 
 export default function CoverSec() {
   return (
-    <section className="relative w-full h-screen">
+    <section className="relative w-full h-screen" id="/">
       {/* Background Image */}
       <img
         src={coverBg}
