@@ -4,7 +4,8 @@ import flowbiteReact from "flowbite-react/plugin/tailwindcss";
 export default {
   content: [
     "./index.html",
-    "./src//*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",
+
     ".flowbite-react/class-list.json",
   ],
   theme: {
@@ -19,20 +20,20 @@ export default {
     },
     extend: {
       colors: {
-        mainColor: "#40C1BD",
-        subColor: "#F6D776",
-        hoverSubColor: "#E7BF46",
-        textColor: "#1B514F",
-        grayy: "#4C4C4C",
-        bluee: "#40C1BD",
+        "mainColor": "#40C1BD",
+        "subColor": "#F6D776",
+        "hoverSubColor": "#E7BF46",
+        "textColor": "#1B514F",
+        "grayy": "#4C4C4C",
+        "bluee": "#40C1BD",
       },
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
-        inter: ["Inter", "sans-serif"],
-        roboto: ["Roboto", "sans-serif"],
+        "poppins": ["Poppins", "sans-serif"],
+        "inter": ["Inter", "sans-serif"],
+        "roboto": ["Roboto", "sans-serif"],
       },
       backgroundImage: {
-        side: "url('./src/assets/images/side.png')",
+        "side": "url('./src/assets/images/side.png')",
       },
     },
   },
