@@ -24,3 +24,10 @@ const router = createBrowserRouter([
       { path: "doctors", element: <AllDoctors /> },
     ],
   },
+]);
+
+export default function App() {
+  return<>
+  
+  <RouterProvider router={router} />;
+  </>}  
