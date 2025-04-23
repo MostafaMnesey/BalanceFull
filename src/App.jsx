@@ -1,40 +1,26 @@
 import { useState } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./App.css";
-import { createBrowserRouter, Route, RouterProvider } from "react-router-dom";
 import ChossePath from "./Components/ChoosePath/ChossePath";
-
 import LoginPatient from "./Components/LoginPatient/LoginPatient";
 import SignUpPatient from "./Components/SignUpPatient/SignUpPatient";
 import AllDoctors from "./Components/AllDoctors/AllDoctors";
+import LandingPage from "./Components/Pages/LandingPage/LandingPage";
+import RouterLayout from "./RouterLayout/RouterLayout";
 
-function App() {
-  const [count, setCount] = useState(0);
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <ChossePath />,
-    },
-    {
-      path: "/loginPatient",
-      element: <LoginPatient/>,
-    },
-    {
-      path: "/SignupPatient",
-      element: <SignUpPatient />,
-    },
-    {
-      path: "/Doctors",
-      element: <AllDoctors />,
-    }
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-  ]);
-
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
-}
-
-export default App;
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RouterLayout />,
+    children: [
+      { index: true, element: <LandingPage /> },
+      { path: "choose", element: <ChossePath /> },
+      { path: "loginPatient", element: <LoginPatient /> },
+      { path: "signupPatient", element: <SignUpPatient /> },
+      { path: "doctors", element: <AllDoctors /> },
+    ],
+  },
