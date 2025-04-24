@@ -12,6 +12,7 @@ import RouterLayout from "./RouterLayout/RouterLayout";
 // Slick Carousel styles
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import TasksPage from "./Components/Pages/TaskPage/TaskPage";
 
 // Router configuration
 const router = createBrowserRouter([
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { path: "loginPatient", element: <LoginPatient /> },
       { path: "signupPatient", element: <SignUpPatient /> },
       { path: "doctors", element: <AllDoctors /> },
+      { path: "tasks", element: <TasksPage /> },
     ],
   },
 ]);
