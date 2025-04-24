@@ -22,7 +22,9 @@ export default {
     extend: {
       colors: {
         "mainColor": "#40C1BD",
+        "darkGreen": "#236A68",
         "subColor": "#F6D776",
+        "txtGray": '#676767',
         "hoverSubColor": "#E7BF46",
         "textColor": "#1B514F",
         "grayy": "#4C4C4C",
