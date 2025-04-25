@@ -1,11 +1,11 @@
 import SearchBar from "./SearchBar/SearchBar";
 import TaskInfo from "./TaskInfo/TaskInfo";
-import TaspProgress from "./TaspProgress/TaspProgress";
+import TaskProgress from "./TaskProgress/TaskProgress";
 
 export default function TasksPage() {
     return <>
         <TaskInfo />
         <SearchBar />
-        <TaspProgress/>
+        <TaskProgress/>
     </>
 }
