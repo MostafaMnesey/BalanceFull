@@ -1,0 +1,31 @@
+Merge branch 'main' of https://github.com/MostafaMnesey/BalanceFull
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please run
+#	git update-ref -d MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch main
+# Your branch and 'origin/main' have diverged,
+# and have 1 and 4 different commits each, respectively.
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   index.html
+#	modified:   package-lock.json
+#	modified:   package.json
+#	modified:   src/App.jsx
+#	modified:   src/Components/Navbar/Navbar.jsx
+#	new file:   src/Components/Pages/TaskPage/SearchBar/SearchBar.jsx
+#	new file:   src/Components/Pages/TaskPage/TaskInfo/TaskInfo.jsx
+#	new file:   src/Components/Pages/TaskPage/TaskPage.jsx
+#	new file:   src/Components/Pages/TaskPage/TaskPops/TaskPops.jsx
+#	new file:   src/Components/Pages/TaskPage/TaskProgress/TaskProgress.jsx
+#	new file:   src/assets/images/Dropdown.svg
+#	modified:   tailwind.config.js
+#

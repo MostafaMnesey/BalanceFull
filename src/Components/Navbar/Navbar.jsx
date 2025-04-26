@@ -9,12 +9,16 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const isTaskPage = location.pathname === "/tasks";
+ const [token, setToken] = useState(null);
 
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    setToken(token);
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
@@ -29,6 +33,7 @@ export default function Navbar() {
     { name: "Experts", target: "experts" },
     { name: "Contact Us", target: "contact" },
   ];
+  
 
   const navBackground = isTaskPage
     ? "bg-mainColor  shadow-sm"
@@ -52,7 +57,8 @@ export default function Navbar() {
         <div
           className={`hidden lg:flex absolute left-1/2 transform -translate-x-1/2 gap-6 font-bold ${textColor}`}
         >
-          {links.map((item, i) => (
+          { 
+            token ? <Link to="/tasks">Tasks</Link>:links.map((item, i) => (
             <ScrollLink
               key={i}
               to={item.target}

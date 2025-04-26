@@ -20,6 +20,7 @@ export default function SignUpPatient() {
   const [selectedRole, setSelectedRole] = useState(null);
   const [selectedAvatar, setSelectedAvatar] = useState(0);
   const [nickname, setNickname] = useState("");
+
   const roles = [
     {
       label: "Male",
@@ -366,6 +367,7 @@ export default function SignUpPatient() {
 className="w-full  text-white py-2 bg-bluee rounded-md hover:bg-[#2D8986] transition">
                     <button
                       type="button"
+                      onClick={localStorage.setItem("tkn","true")}
                       className="w-full  text-white py-2 bg-bluee rounded-md hover:bg-[#2D8986] transition"
                     >
                       Sign Up
