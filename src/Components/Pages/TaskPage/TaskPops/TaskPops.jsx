@@ -51,7 +51,7 @@ export default function TaskPops({ task, onClose }) {
                             </div>
 
                             <div className=" flex justify-end gap-4">
-                                <button className="px-[10%]  border-2 border-gray-300 text-gray-500 rounded-xl bg-white font-semibold transition-colors duration-300 ease-in-out hover:bg-mainColor hover:text-white"
+                                <button className="px-[10%]  border-2 border-gray-300 text-gray-500 rounded-xl bg-white font-semibold transition-colors duration-300 ease-in-out hover:bg-gray-200 "
                                     onClick={handleCancel}>
                                     Cancel
                                 </button>

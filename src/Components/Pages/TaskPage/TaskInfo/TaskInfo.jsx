@@ -36,7 +36,7 @@ export default function TaskInfo() {
                                 className="group w-full sm:w-[80%] md:w-[45%] lg:w-[30%] p-6 
                                            bg-gary-200 border border-gray-300 rounded-lg shadow-sm 
                                            dark:bg-[#FAFAFA] dark:border-gray-300 
-                                           transform transition-all duration-300 ease-in-out hover:translate-y-2"
+                                           transform transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-lg   "
                             >
                                 <div className="grid grid-cols-6 gap-4 relative">
                                     <div className="col-span-2 text-3xl 
