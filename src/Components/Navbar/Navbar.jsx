@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { Link as ScrollLink } from "react-scroll";
 import logoDark from "../../assets/Logo (Dark)-02 1.png";
 import { CiGlobe } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const isTaskPage = location.pathname === "/tasks";
 
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);
@@ -28,13 +30,17 @@ export default function Navbar() {
     { name: "Contact Us", target: "contact" },
   ];
 
+  const navBackground = isTaskPage
+    ? "bg-mainColor  shadow-sm"
+    : scrolled
+    ? "bg-[#40C1BD] shadow-lg backdrop-blur-md border-gray-200"
+    : "bg-transparent border-gray-100 dark:bg-[#f7f1f14e]";
+
+  const textColor = isTaskPage ? "text-gray-100" : "text-white";
+
   return (
     <nav
-      className={`container rounded-full fixed top-4 left-0 right-0 z-50 transition-colors duration-300 border ${
-        scrolled
-          ? "bg-[#40C1BD] shadow-lg backdrop-blur-md border-gray-200"
-          : "bg-transparent border-gray-100 dark:bg-[#f7f1f14e]"
-      }`}
+      className={`container rounded-full fixed top-4 left-0 right-0 z-50 transition-colors duration-300 border ${navBackground}`}
     >
       <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4 relative">
         {/* Logo */}
@@ -43,7 +49,9 @@ export default function Navbar() {
         </div>
 
         {/* Center Links */}
-        <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 gap-6 font-bold text-white">
+        <div
+          className={`hidden lg:flex absolute left-1/2 transform -translate-x-1/2 gap-6 font-bold ${textColor}`}
+        >
           {links.map((item, i) => (
             <ScrollLink
               key={i}
@@ -62,9 +70,9 @@ export default function Navbar() {
 
         {/* Right side */}
         <div className="flex items-center space-x-4 z-10">
-          <div className="flex items-center gap-1">
-            <CiGlobe style={{ color: "white" }} />
-            <span className="uppercase text-white">en</span>
+          <div className={`flex items-center gap-1 ${textColor}`}>
+            <CiGlobe />
+            <span className="uppercase">en</span>
           </div>
 
           <Link to="/choose">
