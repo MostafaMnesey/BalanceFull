@@ -9,25 +9,25 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const isTaskPage = location.pathname === "/tasks";
- const [token, setToken] = useState(null);
+//  const [token, setToken] = useState(null);
 
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setToken(token);
+    // const token = localStorage.getItem("token");
+    // setToken(token);
 
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY >500);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const links = [
-    { name: "Home", target: "home" },
+    { name: "Home", target: "/" },
     { name: "About", target: "about" },
     { name: "Why Us", target: "whyUs" },
     { name: "Experts", target: "experts" },
@@ -57,7 +57,22 @@ export default function Navbar() {
         <div
           className={`hidden lg:flex absolute left-1/2 transform -translate-x-1/2 gap-6 font-bold ${textColor}`}
         >
-          { 
+
+         {links.map((link) => (
+  <ScrollLink
+    key={link.target} // Use a unique value for key (e.g., link.target)
+    to={link.target}
+    smooth={true}
+    duration={500}
+    spy={true}
+    offset={-100}
+    activeClass="active"
+    className="cursor-pointer hover:text-subColor transition-colors duration-200"
+  >
+    {link.name}
+  </ScrollLink>
+))}
+          {/* { 
             token ? <Link to="/tasks">Tasks</Link>:links.map((item, i) => (
             <ScrollLink
               key={i}
@@ -71,7 +86,7 @@ export default function Navbar() {
             >
               {item.name}
             </ScrollLink>
-          ))}
+          ))} */}
         </div>
 
         {/* Right side */}
