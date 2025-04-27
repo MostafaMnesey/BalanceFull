@@ -13,6 +13,7 @@ import RouterLayout from "./RouterLayout/RouterLayout";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import TasksPage from "./Components/Pages/TaskPage/TaskPage";
+import Doctor from "./Components/Doctor/Doctor";
 
 // Router configuration
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       { path: "tasks", element: <TasksPage /> },
     ],
   },
+  {
+    path: "doctor",
+    element: <Doctor />,
+  }
 ]);
 
 export default function App() {
