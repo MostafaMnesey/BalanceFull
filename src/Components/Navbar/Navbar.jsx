@@ -9,6 +9,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const isTaskPage = location.pathname === "/tasks";
+  const isCommPage = location.pathname === "/community";
 //  const [token, setToken] = useState(null);
 
   const toggleNavbar = () => {
@@ -36,13 +37,17 @@ export default function Navbar() {
   
 
   
-  const navBackground = isTaskPage
-    ? "bg-mainColor  shadow-sm"
-    : scrolled
-    ? "bg-[#40C1BD] shadow-lg backdrop-blur-md border-gray-200"
-    : "bg-transparent border-gray-100 dark:bg-[#f7f1f14e]";
 
-  const textColor = isTaskPage ? "text-gray-100" : "text-white";
+const isTaskOrCommunityPage = isTaskPage || isCommPage;
+
+const navBackground = isTaskOrCommunityPage
+  ? "bg-mainColor shadow-sm"
+  : scrolled
+  ? "bg-[#40C1BD] shadow-lg backdrop-blur-md border-gray-200"
+  : "bg-transparent border-gray-100 dark:bg-[#f7f1f14e]";
+
+const textColor = isTaskOrCommunityPage ? "text-gray-100" : "text-white";
+
 
   return (
     <nav
