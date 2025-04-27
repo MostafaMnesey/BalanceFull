@@ -35,6 +35,7 @@ export default function Navbar() {
   ];
   
 
+  
   const navBackground = isTaskPage
     ? "bg-mainColor  shadow-sm"
     : scrolled
