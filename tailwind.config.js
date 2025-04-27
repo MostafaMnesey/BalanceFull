@@ -29,8 +29,11 @@ export default {
         "textColor": "#1B514F",
         "grayy": "#4C4C4C",
         "bluee": "#40C1BD",
+        "txt-black": "#1F1F1F",
+        "txt-op-0":"#696969"
       },
       fontFamily: {
+        sans: ['Poppins', 'sans-serif'], // Set Poppins as the default font
         "poppins": ["Poppins", "sans-serif"],
         "inter": ["Inter", "sans-serif"],
         "roboto": ["Roboto", "sans-serif"],

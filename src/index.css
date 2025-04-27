@@ -5,3 +5,6 @@
 .active {
     @apply text-subColor font-bold;
 }
+body {
+  font-family: 'Poppins', sans-serif;
+}
