@@ -66,7 +66,7 @@ export default function Contact() {
                 </div>
 
                 {/* Contact Info Card for large screens */}
-                <div className="hidden absolute left-10 top-1/2 -translate-y-1/2 bg-[#3FC1C9] text-white p-10 rounded-xl shadow-xl w-[300px] h-[600px] lg:w-[250px] lg:block md:hidden">
+                <div className="hidden absolute left-10 top-1/2 -translate-y-1/2 bg-[#3FC1C9] text-white p-10 rounded-xl shadow-xl w-[300px] h-[600px] lg:w-[250px] lg:block md:hidden xl:block xl:w-[300px]">
                     <h2 className="text-2xl font-bold mb-6">Contact Us</h2>
                     <div className="space-y-4 text-base lg:text-sm">
                         <div className="flex items-center gap-2">

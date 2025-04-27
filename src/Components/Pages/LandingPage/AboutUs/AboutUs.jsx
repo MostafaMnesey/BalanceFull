@@ -1,11 +1,12 @@
 import React from 'react'
 import aboutImg from '../../../../assets/aboutImg.png'
-import WhyUs from '../WhyUs/WhyUs'
+import Services from '../Services/Services'
 
 export default function AboutUs() {
   return (
     <>
-      <section id="about">
+      <section id="about" className='mt-20'>
+        <Services/>
         <div className="container">
           <div className="grid grid-cols-6 gap-20 p-7 items-center justify-center">
             <div className="col-span-6 md:col-span-4 space-y-4">
@@ -33,7 +34,7 @@ export default function AboutUs() {
             </div>
           </div>
 
-          <WhyUs />
+          
         </div>
       </section>
     </>

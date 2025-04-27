@@ -1,8 +1,9 @@
 import coverBg from '../../../../assets/Cover.png';
+import Services from '../Services/Services';
 
 export default function CoverSec() {
   return (
-    <section className="relative w-full h-screen" id="/">
+    <section className="relative w-full h-screen " id="/">
       {/* Background Image */}
       <img
         src={coverBg}
@@ -26,5 +27,6 @@ export default function CoverSec() {
         </button>
       </div>
     </section>
+    
   );
 }

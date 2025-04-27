@@ -1,17 +1,16 @@
 import AboutUs from './AboutUs/AboutUs'
 import Contact from './Contact/Contact'
 import CoverSec from './CoverSec/CoverSec'
-import GallarySec from './GallarySec/GallarySec'
-import Services from './Services/Services'
 import TopDoc from './TopDoc/TopDoc'
+import WhyUs from './WhyUs/WhyUs'
 
 export default function LandingPage() {
     return <>
         <CoverSec />
-        <Services />
+        {/* <Services /> */}
         <AboutUs />
+        <WhyUs />
         <TopDoc />
-        <GallarySec />
         <Contact/>
     </>
 }

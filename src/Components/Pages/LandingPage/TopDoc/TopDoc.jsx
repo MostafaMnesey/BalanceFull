@@ -6,6 +6,7 @@ import doc5 from "../../../../assets/Ellipse 1510.png";
 import doc6 from "../../../../assets/Ellipse 1511.png";
 import { FaStar } from "react-icons/fa";
 import Slider from "react-slick";
+import GallarySec from "../GallarySec/GallarySec";
 
 export default function TopDoc() {
   const topDocData = [
@@ -73,7 +74,7 @@ export default function TopDoc() {
   };
 
   return (
-    <section className="mt-20">
+    <section className="mt-20" id="experts">
       <div className="container">
         <div className="bg-gray-100 overflow-hidden py-6 pl-6">
           <h2 className="text-center text-3xl font-poppins font-bold mb-2">
@@ -114,6 +115,8 @@ export default function TopDoc() {
           </div>
         </div>
       </div>
+
+      <GallarySec/>
     </section>
   );
 }
