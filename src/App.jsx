@@ -15,6 +15,7 @@ import "slick-carousel/slick/slick-theme.css";
 import TasksPage from "./Components/Pages/TaskPage/TaskPage";
 import Doctor from "./Components/Doctor/Doctor";
 import CommunityPage from "./Components/Pages/CommunityPage/CommunityPage";
+import Chat from "./Components/Pages/Chat/Chat";
 
 // Router configuration
 const router = createBrowserRouter([
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       { path: "doctors", element: <AllDoctors /> },
       { path: "tasks", element: <TasksPage /> },
       { path: "community", element: <CommunityPage /> },
+      { path: "chat", element: <Chat /> },
     ],
   },
   {
