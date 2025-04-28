@@ -40,7 +40,7 @@ export default function CommCards() {
       </p>
       <div className="flex justify-end">
         {card.btnTxt ? (
-          <button className="bg-mainColor py-3 px-7 rounded-lg text-white text-md font-medium transition-all duration-300 group-hover:bg-white group-hover:text-mainColor group-hover:border group-hover:border-3 group-hover:border-mainColor">
+          <button className="bg-mainColor py-3 px-7 rounded-lg text-white text-md font-medium transition-all duration-300 border border-3 border-transparent group-hover:bg-white group-hover:text-mainColor group-hover:border group-hover:border-3 group-hover:border-mainColor">
             {card.btnTxt}
           </button>
         ) : null}
