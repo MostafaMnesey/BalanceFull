@@ -9,8 +9,9 @@ import avt5 from "../../assets/images/Avtar5.png";
 import avt6 from "../../assets/images/Avtar6.png";
 import avt7 from "../../assets/images/Avtar7.png";
 import ChangeImg from "../Profile/ChangeImg/ChangeImg";
+import { PiSmileySadThin } from "react-icons/pi";
 
-export default function Modal({ show, onClose, type, data }) {
+export default function Modal({ show, onClose, type, data = null }) {
   if (!show) return null;
 
   console.log(data);
@@ -281,7 +282,7 @@ export default function Modal({ show, onClose, type, data }) {
           </div>
         </div>
       )}
-      {type === "user" && (
+      {type === "Update" && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white rounded-lg shadow-lg w-full max-w-2xl mx-4 p-6 relative   ">
             {/* Close Button */}
@@ -331,7 +332,7 @@ export default function Modal({ show, onClose, type, data }) {
                       htmlFor="Phone"
                       className="block mb-2 text-base font-medium text-txt-black"
                     >
-                    Phone Number
+                      Phone Number
                     </label>
                     <input
                       type="text"
@@ -405,6 +406,168 @@ export default function Modal({ show, onClose, type, data }) {
               >
                 Save Change
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {type === "DeleteAcc" && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg w-3/12  mx-4 p-6 relative   ">
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+
+            {/* Modal Content */}
+            <div className="flex flex-col space-y-2 items-center">
+              <div className=" flex justify-center items-center">
+                <PiSmileySadThin className="w-20 h-20 text-txtGray" />
+              </div>
+              
+
+
+              <p className="text-stone-900 text-center px-4 text-base font-medium">
+                Deleting your account is irreversible. All your data will be
+                permanently removed. Do you wish to proceed?
+              </p>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="flex justify-center gap-2 mt-6">
+              <button
+                onClick={onClose}
+                className="px-16 py-3 bg-bluee border transition-all border-transparent text-white rounded-[12px] hover:bg-white hover:text-mainColor hover:border-mainColor"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={onClose}
+                className="px-8 py-3 bg-transparent  border-[1px] border-redd transition-all text-redd rounded-[12px] hover:bg-redd hover:text-white"
+              >
+                Delete Account  
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {type === "Logout" && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg w-3/12  mx-4 p-6 relative   ">
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+
+            {/* Modal Content */}
+            <div className="flex flex-col space-y-2 items-center">
+              <div className=" flex justify-center items-center">
+                <PiSmileySadThin className="w-20 h-20 text-txtGray" />
+              </div>
+              
+
+
+              <p className="text-stone-900 text-center px-4 text-base font-medium">
+              Are you sure you want to log out?
+              </p>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="flex justify-center gap-2 mt-6">
+              <button
+                onClick={onClose}
+                className="px-16 py-3 bg-bluee border transition-all border-transparent text-white rounded-[12px] hover:bg-white hover:text-mainColor hover:border-mainColor"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={onClose}
+                className="px-16 py-3 bg-transparent  border-[1px] border-redd transition-all text-redd rounded-[12px] hover:bg-redd hover:text-white"
+              >
+                Logout  
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {type === "doctorSearch" && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg w-3/12  mx-4 p-6 relative   ">
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+
+            {/* Modal Content */}
+            <div className="flex flex-col space-y-2 items-center">
+              <div className=" flex justify-center items-center">
+                <PiSmileySadThin className="w-20 h-20 text-txtGray" />
+              </div>
+              
+
+
+              <p className="text-stone-900 text-center px-4 text-base font-medium">
+              Sorry, the doctor is currently unavailable. Please 
+              try again later or choose another doctor.
+              </p>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="flex justify-center gap-2 mt-6">
+              <button
+                onClick={onClose}
+                className="px-20 py-3 bg-bluee border transition-all border-transparent text-white rounded-[12px] hover:bg-white hover:text-mainColor hover:border-mainColor"
+              >
+               Choose Another Doctor
+              </button>
+              
             </div>
           </div>
         </div>

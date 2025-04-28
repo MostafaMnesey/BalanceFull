@@ -11,7 +11,8 @@ export default function Profile() {
     age: "25",
     location: "Egypt",
   };
-    const [showModal, setShowModal] = useState(false);
+    const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   return (
     <>
@@ -24,8 +25,8 @@ export default function Profile() {
           </div>
         </div>
 
-        <div className="container">
-          <div className="flex items-center justify-center  p-6">
+        <div className="container ">
+          <div className="flex items-center  justify-center  p-6">
             <div className=" w-full space-y-5  p-8 ">
               <div className="flex justify-between  py-4 border-b">
                 <span className="text-txt-black text-xl font-normal">Name</span>
@@ -66,11 +67,13 @@ export default function Profile() {
             </div>
           </div>
           <div className="flex justify-end gap-3 items-center">
-            <button className="px-20 py-3 bg-transparent   text-[#FF0000] text-base font-semibold transition-all rounded-[12px] hover:bg-[#FF0000] hover:text-white">
+            <button
+            onClick={()=>setShowDeleteModal(true)}
+            className="px-20 py-3 bg-transparent   text-[#FF0000] text-base font-semibold transition-all rounded-[12px] hover:bg-[#FF0000] hover:text-white">
               Delete Account
             </button>
             <button
-            onClick={()=>setShowModal(true)}
+            onClick={()=>setShowUpdateModal(true)}
             className="px-20 py-3 bg-mainColor transition-all text-white rounded-[12px] hover:bg-darkGreen">
               Update
             </button>
@@ -78,10 +81,16 @@ export default function Profile() {
         </div>
       </div>
       <Modal
-          show={showModal}
+          show={showUpdateModal}
           data={user} // تمرير بيانات الطبيب المحدد إلى المودال
-          type="user"
-          onClose={() => setShowModal(false)}
+          type="Update"
+          onClose={() => setShowUpdateModal(false)}
+      />
+      <Modal
+          show={showDeleteModal}
+          // تمرير بيانات الطبيب المحدد إلى المودال
+          type="DeleteAcc"
+          onClose={() => setShowDeleteModal(false)}
       />
     </>
   );
