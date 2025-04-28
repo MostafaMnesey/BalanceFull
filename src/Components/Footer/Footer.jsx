@@ -5,6 +5,10 @@ import { MdEmail } from "react-icons/md";
 import { FaPhoneAlt } from "react-icons/fa";
 
 export default function Footer() {
+      const isChatPage = location.pathname === "/chat"; 
+if (isChatPage) {
+  return null; 
+}
     return (
         <footer className="bg-[#2D8986] dark:bg-[#2D8986] mt-20">
             <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">

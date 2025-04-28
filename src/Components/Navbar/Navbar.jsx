@@ -10,6 +10,8 @@ export default function Navbar() {
   const location = useLocation();
   const isTaskPage = location.pathname === "/tasks";
   const isCommPage = location.pathname === "/community";
+  const isChatPage = location.pathname === "/chat"; 
+
 //  const [token, setToken] = useState(null);
 
   const toggleNavbar = () => {
@@ -47,7 +49,9 @@ const navBackground = isTaskOrCommunityPage
   : "bg-transparent border-gray-100 dark:bg-[#f7f1f14e]";
 
 const textColor = isTaskOrCommunityPage ? "text-gray-100" : "text-white";
-
+if (isChatPage) {
+  return null; 
+}
 
   return (
     <nav

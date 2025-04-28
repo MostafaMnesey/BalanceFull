@@ -8,10 +8,10 @@ import TaskPops from "../TaskPops/TaskPops";
 
 export default function TaskProgress() {
   const [selectedTask, setSelectedTask] = useState(null);
-  const [newTasks, setNewTasks] = useState(3); // Initial number of visible tasks
-  const [onGoingTask, setOnGoingTask] = useState(3); // Initial number of visible tasks
-  const [missedTasks, SetMissedTasks] = useState(3); // Initial number of visible tasks
-  const [completedTask, setCompletedTask] = useState(3); // Initial number of visible tasks
+  const [newTasks, setNewTasks] = useState(3); 
+  const [onGoingTask, setOnGoingTask] = useState(3); 
+  const [missedTasks, SetMissedTasks] = useState(3);
+  const [completedTask, setCompletedTask] = useState(3); 
 
   const progressData = [
     {

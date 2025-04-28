@@ -8,14 +8,15 @@ import SignUpPatient from "./Components/SignUpPatient/SignUpPatient";
 import AllDoctors from "./Components/AllDoctors/AllDoctors";
 import LandingPage from "./Components/Pages/LandingPage/LandingPage";
 import RouterLayout from "./RouterLayout/RouterLayout";
+import TasksPage from "./Components/Pages/TaskPage/TaskPage";
+import Doctor from "./Components/Doctor/Doctor";
+import CommunityPage from "./Components/Pages/CommunityPage/CommunityPage";
+import Chat from "./Components/Pages/Chat/Chat";
+import Profile from "./Components/Profile/Profile";
 
 // Slick Carousel styles
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import TasksPage from "./Components/Pages/TaskPage/TaskPage";
-import Doctor from "./Components/Doctor/Doctor";
-import CommunityPage from "./Components/Pages/CommunityPage/CommunityPage";
-import Profile from "./Components/Profile/Profile";
 
 // Router configuration
 const router = createBrowserRouter([
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
       { path: "doctors", element: <AllDoctors /> },
       { path: "tasks", element: <TasksPage /> },
       { path: "community", element: <CommunityPage /> },
+      { path: "chat", element: <Chat /> },
     ],
   },
   {
@@ -39,7 +41,7 @@ const router = createBrowserRouter([
   {
     path: "profile",
     element: <Profile />,
-  }
+  },
 ]);
 
 export default function App() {
