@@ -2,12 +2,14 @@ import avatar1 from '../../../../assets/images/Avtar1.png';
 import avatar4 from '../../../../assets/images/Avtar4.png';
 import avatar7 from '../../../../assets/images/Avtar7.png';
 import post1 from '../../../../assets/images/post1.png';
-import { FaRegHeart } from "react-icons/fa6";
+import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { FaRegComment } from "react-icons/fa";
 import { AiOutlineRetweet } from "react-icons/ai";
 import { PiShareFat } from "react-icons/pi";
+import { useState } from 'react';
 
 export default function Posts() {
+    const [like,setLike]=useState(false)
     const postData = [
         {
             userInfo: [
@@ -68,9 +70,10 @@ export default function Posts() {
                                 )}
 
                                 <div className="flex items-center justify-between mt-4">
-                                    <button className="flex items-center gap-2 text-gray-600 text-lg">
-                                        <FaRegHeart />
-                                        <span className="text-sm text-[#676767] font-normal">{reaction.likes || 0}</span>
+                                    <button className={`flex  items-center gap-2 text-gray-600 text-lg`}
+                                    onClick={() => setLike(!like)}>
+                                        <FaHeart className={`${like ? 'text-mainColor' : ''}`} />
+                                    <span className={`text-sm text-[#676767] ${like ? 'text-mainColor' : ''}  font-normal`}>{reaction.likes || 0}</span>
                                     </button>
                                     <button className="flex items-center gap-2 text-gray-600 text-lg">
                                         <FaRegComment />
