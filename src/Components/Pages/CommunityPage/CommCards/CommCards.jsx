@@ -17,7 +17,7 @@ export default function CommCards() {
       image: commCard2,
       title: 'Join the Community Chat',
       content: "You're not alone on this journey. Join the group chat to connect, share, and support each other.",
-      btnTxt: 'Join Chat'
+      btnTxt: 'Join Chat',
     },
   ];
 
