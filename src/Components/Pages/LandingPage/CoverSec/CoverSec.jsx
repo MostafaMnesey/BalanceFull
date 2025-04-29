@@ -1,5 +1,6 @@
-import coverBg from '../../../../assets/Cover.png';
-import Services from '../Services/Services';
+import { Link } from "react-router-dom";
+import coverBg from "../../../../assets/Cover.png";
+import Services from "../Services/Services";
 
 export default function CoverSec() {
   return (
@@ -20,13 +21,17 @@ export default function CoverSec() {
           Your First Step Toward a New Life
         </h1>
         <p className="max-w-2xl text-base md:text-lg mb-6 font-poppins">
-          We’re here to support you every step of the way. Comprehensive treatment programs, professional counseling, and personalized recovery plans – just for you.
+          We’re here to support you every step of the way. Comprehensive
+          treatment programs, professional counseling, and personalized recovery
+          plans – just for you.
         </p>
-        <button className="bg-subColor hover:bg-hoverSubColor transition px-6 py-3 rounded-full text-textColor font-poppins font-semibold text-sm md:text-base">
-          Start Your Journey Now
-        </button>
+        <Link to='/choosePath'>
+          {" "}
+          <button className="bg-subColor hover:bg-hoverSubColor transition px-6 py-3 rounded-full text-textColor font-poppins font-semibold text-sm md:text-base">
+            Start Your Journey Now
+          </button>
+        </Link>
       </div>
     </section>
-    
   );
 }

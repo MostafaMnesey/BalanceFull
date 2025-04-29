@@ -25,15 +25,15 @@ const router = createBrowserRouter([
     element: <RouterLayout />,
     children: [
       { index: true, element: <LandingPage /> },
-      { path: "choose", element: <ChossePath /> },
-      { path: "loginPatient", element: <LoginPatient /> },
-      { path: "signupPatient", element: <SignUpPatient /> },
       { path: "doctors", element: <AllDoctors /> },
       { path: "tasks", element: <TasksPage /> },
       { path: "community", element: <CommunityPage /> },
       { path: "chat", element: <Chat /> },
     ],
   },
+  { path: "signupPatient", element: <SignUpPatient /> },
+  { path: "loginPatient", element: <LoginPatient /> },
+  { path: "choosePath", element: <ChossePath /> },
   {
     path: "doctor",
     element: <Doctor />,

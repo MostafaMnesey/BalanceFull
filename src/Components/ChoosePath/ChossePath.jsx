@@ -11,7 +11,7 @@ export default function ChossePath() {
     {
       label: "For Individuals",
       description: "Book visits, ask doctors, manage your health records",
-      icon: <FaUser className={`text-3xl ${selectedRole === "individual"  ? " text-[##2D8986]" : "text-[#4C4C4C]"} `} />,
+      icon: <FaUser className={`text-3xl  ${selectedRole === "individual"  ? " text-[##2D8986]" : "text-[#4C4C4C]"} `} />,
       value: "individual",
     },
     {
@@ -50,7 +50,7 @@ export default function ChossePath() {
                 {roles.map((role) => (
                   <label
                     key={role.value}
-                    className={`flex items-start gap-4 border rounded-xl p-8 md:p-6 px- cursor-pointer transition-all duration-200 relative ${
+                    className={`flex items-center gap-4 border rounded-xl p-8 md:p-6 px- cursor-pointer transition-all duration-200 relative ${
                       selectedRole === role.value
                         ? "border-[#2D8986] bg-[#40C1BD]/20 shadow-md ring-2 ring-[#40C1BD]"
                         : "bg-gray-100 border-gray-300"
@@ -70,7 +70,7 @@ export default function ChossePath() {
                     <div className={`pt-1 ${selectedRole?"text-[#2D8986]":"text-[#4C4C4C]"}`}>{role.icon}</div>
                     <div>
                       <div className="font-semibold text-[#4C4C4C]">{role.label}</div>
-                      <p className="text-sm text-gray-600 leading-snug">{role.description}</p>
+                      <p className="text-sm px-3 py-1 text-gray-600 leading-snug">{role.description}</p>
                     </div>
                   </label>
                 ))}
