@@ -3,16 +3,17 @@ import { Link as ScrollLink } from "react-scroll";
 import logoDark from "../../assets/Logo (Dark)-02 1.png";
 import { CiGlobe } from "react-icons/ci";
 import { Link, useLocation } from "react-router-dom";
+import LandingPage from "../Pages/LandingPage/LandingPage";
 
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const isTaskPage = location.pathname === "/tasks";
-  const isCommPage = location.pathname === "/community";
-  const isChatPage = location.pathname === "/chat"; 
+  const isLandingPage = location.pathname === "/";
+  const isChatPage = location.pathname === "/chat";
 
-//  const [token, setToken] = useState(null);
+
+  //  const [token, setToken] = useState(null);
 
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);
@@ -23,7 +24,7 @@ export default function Navbar() {
     // setToken(token);
 
     const handleScroll = () => {
-      setScrolled(window.scrollY >500);
+      setScrolled(window.scrollY > 500);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -36,22 +37,19 @@ export default function Navbar() {
     { name: "Experts", target: "experts" },
     { name: "Contact Us", target: "contact" },
   ];
-  
 
-  
 
-const isTaskOrCommunityPage = isTaskPage || isCommPage;
 
-const navBackground = isTaskOrCommunityPage
-  ? "bg-mainColor shadow-sm"
-  : scrolled
-  ? "bg-[#40C1BD] shadow-lg backdrop-blur-md border-gray-200"
-  : "bg-transparent border-gray-100 dark:bg-[#f7f1f14e]";
+  const navBackground = !isLandingPage
+    ? "bg-mainColor shadow-sm"
+    : scrolled
+    ? "bg-[#40C1BD] shadow-lg backdrop-blur-md border-gray-200"
+    : "bg-transparent border-gray-100 dark:bg-[#f7f1f14e]";
 
-const textColor = isTaskOrCommunityPage ? "text-gray-100" : "text-white";
-if (isChatPage) {
-  return null; 
-}
+  const textColor = !isLandingPage ? "text-gray-100" : "text-white";
+  if (isChatPage) {
+    return null;
+  }
 
   return (
     <nav
@@ -59,29 +57,29 @@ if (isChatPage) {
     >
       <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4 relative">
         {/* Logo */}
-        <div className="flex items-center space-x-3 rtl:space-x-reverse z-10">
-          <img src={logoDark} className="h-8" alt="Balance-توازون" />
-        </div>
-
+        <Link to="/">
+          <div className="flex items-center space-x-3 rtl:space-x-reverse z-10">
+            <img src={logoDark} className="h-8" alt="Balance-توازون" />
+          </div>
+        </Link>
         {/* Center Links */}
         <div
           className={`hidden lg:flex absolute left-1/2 transform -translate-x-1/2 gap-6 font-bold ${textColor}`}
         >
-
-         {links.map((link) => (
-  <ScrollLink
-    key={link.target} // Use a unique value for key (e.g., link.target)
-    to={link.target}
-    smooth={true}
-    duration={500}
-    spy={true}
-    offset={-100}
-    activeClass="active"
-    className="cursor-pointer hover:text-subColor transition-colors duration-200"
-  >
-    {link.name}
-  </ScrollLink>
-))}
+          {links.map((link) => (
+            <ScrollLink
+              key={link.target} // Use a unique value for key (e.g., link.target)
+              to={link.target}
+              smooth={true}
+              duration={500}
+              spy={true}
+              offset={-100}
+              activeClass="active"
+              className="cursor-pointer hover:text-subColor transition-colors duration-200"
+            >
+              {link.name}
+            </ScrollLink>
+          ))}
           {/* { 
             token ? <Link to="/tasks">Tasks</Link>:links.map((item, i) => (
             <ScrollLink
