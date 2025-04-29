@@ -3,7 +3,6 @@ import { Link as ScrollLink } from "react-scroll";
 import logoDark from "../../assets/Logo (Dark)-02 1.png";
 import { CiGlobe } from "react-icons/ci";
 import { Link, useLocation } from "react-router-dom";
-import LandingPage from "../Pages/LandingPage/LandingPage";
 
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -11,20 +10,14 @@ export default function Navbar() {
   const location = useLocation();
   const isLandingPage = location.pathname === "/";
   const isChatPage = location.pathname === "/chat";
-
-
-  //  const [token, setToken] = useState(null);
-
+  
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);
   };
 
   useEffect(() => {
-    // const token = localStorage.getItem("token");
-    // setToken(token);
-
     const handleScroll = () => {
-      setScrolled(window.scrollY > 500);
+      setScrolled(window.scrollY > 500);  
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -37,8 +30,6 @@ export default function Navbar() {
     { name: "Experts", target: "experts" },
     { name: "Contact Us", target: "contact" },
   ];
-
-
 
   const navBackground = !isLandingPage
     ? "bg-mainColor shadow-sm"
@@ -80,21 +71,6 @@ export default function Navbar() {
               {link.name}
             </ScrollLink>
           ))}
-          {/* { 
-            token ? <Link to="/tasks">Tasks</Link>:links.map((item, i) => (
-            <ScrollLink
-              key={i}
-              to={item.target}
-              smooth={true}
-              duration={500}
-              spy={true}
-              offset={-100}
-              activeClass="active"
-              className="cursor-pointer hover:text-subColor transition-colors duration-200"
-            >
-              {item.name}
-            </ScrollLink>
-          ))} */}
         </div>
 
         {/* Right side */}
@@ -134,7 +110,11 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {isNavOpen && (
-          <div className="absolute top-20 right-10 w-[90%] rounded-md shadow-lg bg-[#f7f1f14e] ring-1 ring-black ring-opacity-5 z-50 lg:hidden">
+          <div
+            className={`absolute top-20 right-10 w-[90%] rounded-md shadow-lg ${
+              scrolled ? "bg-[#40C1BD]" : "bg-[#f7f1f14e]"
+            } ring-1 ring-black ring-opacity-5 z-50 lg:hidden`}
+          >
             <ul className="py-2">
               {links.map((item, i) => (
                 <li key={i}>

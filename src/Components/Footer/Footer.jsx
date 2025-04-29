@@ -3,9 +3,10 @@ import { FaFacebookF, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 import { FaInstagram, FaLocationDot } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { FaPhoneAlt } from "react-icons/fa";
-
+import { useLocation } from 'react-router-dom'; 
 export default function Footer() {
-      const isChatPage = location.pathname === "/chat"; 
+  const location = useLocation(); 
+  const isChatPage = location.pathname === "/chat"; 
 if (isChatPage) {
   return null; 
 }
