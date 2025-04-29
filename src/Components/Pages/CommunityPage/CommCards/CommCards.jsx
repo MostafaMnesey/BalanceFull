@@ -44,11 +44,14 @@ export default function CommCards() {
               key={index}
               className="group px-8 py-6 bg-[#F5F5F5] flex flex-col items-center rounded-lg shadow-sm md:flex-row md:max-w-xl transform transition-transform duration-300 hover:-translate-y-2"
             >
+              <div>
               <img
-                className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
+                className="object-fit w-full rounded-t-lg  md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
                 src={card.image}
                 alt={card.title}
               />
+
+              </div>
               <div className="flex flex-col justify-between p-4 leading-normal">
                 <h5 className="mb-2 text-md font-semibold tracking-tight text-gray-900">
                   {card.title}
