@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaFilter } from "react-icons/fa6";
 import {
   IoIosArrowDropdownCircle,
@@ -8,6 +8,7 @@ import {
 import Doc1 from "../../assets/images/Doctor.png";
 import Card from "../Card/Card";
 import Modal from "../Modal/Modal";
+import axios from "axios";
 
 const Alldoctors = [
   {
@@ -141,15 +142,44 @@ const topRated = [
 ];
 
 export default function AllDoctors() {
+
+  const [topRatedDoctors, setTopRatedDoctors] = useState  ([])
+  useEffect(() => {
+      getTopRatedDoctors()
+  },[])
+
+  const [ratedDoctorVisibleCards, setRatedDoctorVisibleCards] = useState(null);
+
   const [allDoctorVisibleCards, setAllDoctorVisibleCards] = useState(6);
-  const [ratedDoctorVisibleCards, setRatedDoctorVisibleCards] = useState(3);
   const [showModal, setShowModal] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState(null); // حالة لتخزين بيانات الطبيب المختار
-
+  
   const handleCardClick = (doctor) => {
     setSelectedDoctor(doctor); // تخزين بيانات الطبيب المحدد
     setShowModal(true); // عرض المودال
   };
+  async function getTopRatedDoctors(){
+  try {
+    const {data} =await axios.get("https://beige-wildcat-74200.zap.cloud/api/top-rated-doctors",{
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        }
+    })
+    setTopRatedDoctors(data.data)
+   
+console.log(data.data);
+
+    
+
+    
+setRatedDoctorVisibleCards(data?.data.length)
+  }catch (error) {
+    console.log(error)
+  
+  
+  }}
+console.log(topRatedDoctors);
 
   return (
     <>
@@ -237,8 +267,8 @@ export default function AllDoctors() {
 
           <div className="flex md:block justify-center  md:justify-start">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mt-4">
-              {topRated.slice(0, ratedDoctorVisibleCards).map((doctor) => (
-                <div key={doctor.id} onClick={() => handleCardClick(doctor)}>
+              {topRatedDoctors.map((doctor) => (
+                <div key={doctor.ID} onClick={() => handleCardClick(doctor)}>
                   <Card doctor={doctor} />
                 </div>
               ))}

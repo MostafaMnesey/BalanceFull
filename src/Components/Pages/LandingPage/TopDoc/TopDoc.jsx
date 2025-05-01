@@ -7,9 +7,10 @@ import doc6 from "../../../../assets/Ellipse 1511.png";
 import { FaStar } from "react-icons/fa";
 import Slider from "react-slick";
 import GallarySec from "../GallarySec/GallarySec";
+import { a, button } from "motion/react-client";
 
-export default function TopDoc() {
-  const topDocData = [
+export default function TopDoc({ data }) {
+  /*  const topDocData = [
     { img: doc1, name: "DR. Sami yasser", rating: 4.9 },
     { img: doc2, name: "DR. Mohamed Ali", rating: 4.9 },
     { img: doc3, name: "Dr khalid ahmed", rating: 4.7 },
@@ -25,11 +26,15 @@ export default function TopDoc() {
     { img: doc6, name: "Dr. Michael Brown", rating: 4.9 },
     { img: doc1, name: "DR. Emily Davis", rating: 4.9 },
   ];
+ */
+
 
   const settings = {
     infinite: true,
     speed: 2000,
-    slidesToShow: 6,
+    slidesToShow: 2,
+    dots: false,
+    arrows: true,
     slidesToScroll: 2,
     autoplay: true,
     autoplaySpeed: 2000,
@@ -85,25 +90,26 @@ export default function TopDoc() {
           </p>
           <div className="slider-container w-full">
             <Slider {...settings}>
-              {topDocData.map((doc, index) => (
+              {data.map((doc, index) => (
                 <div key={index} className="flex gap-2 px-1">
                   <div className="w-10/12 bg-blue-50 rounded-lg shadow-sm">
-                    <div className="overflow-hidden rounded-t-lg">
+                    <div className="overflow-hidden flex  rounded-t-lg">
                       <img
                         className="p-8 rounded-t-lg object-cover w-full h-full"
-                        src={doc.img}
-                        alt={doc.name}
+                        src={`https://beige-wildcat-74200.zap.cloud${doc.Image}`}
+                        alt={doc.FirstName}
                       />
                     </div>
                     <div className="px-5 pb-5 flex flex-col items-center justify-center">
                       <h5 className="text-sm font-semibold tracking-tight text-black-500">
-                        {doc.name}
+                        {doc.FirstName} <span>{doc.LastName}</span>
                       </h5>
+                 
                       <div className="flex items-center mt-2.5 mb-5">
                         <div className="flex items-center justify-center gap-1">
                           <FaStar className="text-subColor" />
                           <span className="text-black-500 text-xs font-semibold">
-                            {doc.rating}
+                            {doc.Rating}
                           </span>
                         </div>
                       </div>
@@ -116,7 +122,7 @@ export default function TopDoc() {
         </div>
       </div>
 
-      <GallarySec/>
+      <GallarySec />
     </section>
   );
 }
