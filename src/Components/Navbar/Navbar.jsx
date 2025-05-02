@@ -1,23 +1,30 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link as ScrollLink } from "react-scroll";
 import logoDark from "../../assets/Logo (Dark)-02 1.png";
 import { CiGlobe } from "react-icons/ci";
 import { Link, useLocation } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthContext";
+import { MdPerson } from "react-icons/md";
+import { PiSignOutFill } from "react-icons/pi";
+import axios from "axios";
 
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const isLandingPage = location.pathname === "/";
   const isChatPage = location.pathname === "/chat";
-  
+  const { user, setUser, token, setToken } = useContext(AuthContext);
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);
   };
-
+  const toggleDropdown = () => {
+    setIsOpen((prev) => !prev);
+  };
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 500);  
+      setScrolled(window.scrollY > 500);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -30,6 +37,11 @@ export default function Navbar() {
     { name: "Experts", target: "experts" },
     { name: "Contact Us", target: "contact" },
   ];
+  const authenticatedUserLinks = [
+    { name: "Doctors", target: "/doctors" },
+    { name: "Tasks", target: "/tasks" },
+    { name: "Community", target: "/community" },
+  ];
 
   const navBackground = !isLandingPage
     ? "bg-mainColor shadow-sm"
@@ -40,6 +52,35 @@ export default function Navbar() {
   const textColor = !isLandingPage ? "text-gray-100" : "text-white";
   if (isChatPage) {
     return null;
+  }
+
+  async function logout() {
+    try {
+      const res = await axios.post(
+        "https://beige-wildcat-74200.zap.cloud/api/logout",
+        {},
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setUser(null);
+      setToken(null);
+      console.log(res);
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+
+    /* localStorage.removeItem("token"); 
+    } catch (error) {
+      console.log(error);
+    } */
   }
 
   return (
@@ -57,37 +98,96 @@ export default function Navbar() {
         <div
           className={`hidden lg:flex absolute left-1/2 transform -translate-x-1/2 gap-6 font-bold ${textColor}`}
         >
-          {links.map((link) => (
-            <ScrollLink
-              key={link.target} // Use a unique value for key (e.g., link.target)
-              to={link.target}
-              smooth={true}
-              duration={500}
-              spy={true}
-              offset={-100}
-              activeClass="active"
-              className="cursor-pointer hover:text-subColor transition-colors duration-200"
-            >
-              {link.name}
-            </ScrollLink>
-          ))}
+          {token
+            ? authenticatedUserLinks.map((link) => (
+                <Link to={link.target}>{link.name}</Link>
+              ))
+            : links.map((link) => (
+                <ScrollLink
+                  key={link.target} // Use a unique value for key (e.g., link.target)
+                  to={link.target}
+                  smooth={true}
+                  duration={500}
+                  spy={true}
+                  offset={-100}
+                  activeClass="active"
+                  className="cursor-pointer hover:text-subColor transition-colors duration-200"
+                >
+                  {link.name}
+                </ScrollLink>
+              ))}
         </div>
 
         {/* Right side */}
         <div className="flex items-center space-x-4 z-10">
-          <div className={`flex items-center gap-1 ${textColor}`}>
-            <CiGlobe />
-            <span className="uppercase">en</span>
-          </div>
+          {!token ? (
+            <Link to="/choosePath">
+              <button
+                type="button"
+                className="text-textColor bg-subColor hover:bg-hoverSubColor focus:ring-4 focus:outline-none focus:ring-hoverSubColor font-medium text-base rounded-full font-poppins px-4 py-2"
+              >
+                sign in \ sign up
+              </button>
+            </Link>
+          ) : (
+            <>
+              <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                <button
+                  type="button"
+                  className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                  onClick={toggleDropdown}
+                >
+                  <span className="sr-only">Open user menu</span>
+                  <img
+                    className="w-8 h-8 rounded-full"
+                    src="/docs/images/people/profile-picture-3.jpg"
+                    alt="user photo"
+                  />
+                </button>
 
-          <Link to="/choose">
-            <button
-              type="button"
-              className="text-textColor bg-subColor hover:bg-hoverSubColor focus:ring-4 focus:outline-none focus:ring-hoverSubColor font-medium text-base rounded-full font-poppins px-4 py-2"
-            >
-              sign in \ sign up
-            </button>
-          </Link>
+                {/* Dropdown menu */}
+                {isOpen && (
+                  <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600 absolute top-14 right-0">
+                    <div className="px-4 py-3">
+                      <span className="block text-sm text-gray-900 text-center dark:text-white">
+                        {user?.user.Nickname}
+                      </span>
+                      <span className="block text-sm text-gray-500 text-center truncate dark:text-gray-400">
+                        {user?.user.Email}
+                      </span>
+                    </div>
+                    <ul className="py-2">
+                      <li className="px-4 py-2">
+                        <Link
+                          to={"/profile"}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        >
+                          <div className="flex items-center">
+                            <MdPerson className="text-mainColor " size={30} />
+                            <span className="ml-3 text-lg">Profile</span>
+                          </div>
+                        </Link>
+                      </li>
+                      <li className="px-4 py-2">
+                        <button
+                          onClick={() => logout()}
+                          className="block px-4 py-2 text-sm text-gray-700 "
+                        >
+                          <div className="flex items-center">
+                            <PiSignOutFill
+                              className="text-red-600 text-lg"
+                              size={30}
+                            />
+                            <span className="ml-3 text-lg">Logout</span>
+                          </div>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </>
+          )}
 
           {/* Hamburger for mobile */}
           <button

@@ -1,12 +1,64 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import side from "../../assets/images/side.png";
 import logo from "../../assets/images/logoWithBlack.png";
 import { TfiEye } from "react-icons/tfi";
 import { RxEyeClosed } from "react-icons/rx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import Toast from "../Toast/Toast";
+import AuthContextProvider, { AuthContext } from "../../Context/AuthContext";
 
 export default function LoginPatient() {
-  const [showPassword, setShowPassword] = useState(false); // [assword,se]
+  const  { setUser,  setToken } = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string().required("Password is required"),
+  });
+  const navigate = useNavigate();
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      loginPatient(values);
+    },
+  });
+
+  async function loginPatient(values) {
+    try {
+      const res = await axios.post(
+        "https://beige-wildcat-74200.zap.cloud/api/patient/login",
+        values,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setShowToast(true);
+      setUser(res?.data);
+      setToken(res?.data?.token);
+      localStorage.setItem("token", res?.data.token);
+      
+      
+        setTimeout(() => {
+          navigate("/Doctors");
+        }, 500);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  console.log(formik.errors);
+
   return (
     <div className="w-full h-screen grid grid-cols-3">
       {/* Left side image and message */}
@@ -39,7 +91,7 @@ export default function LoginPatient() {
               </p>
             </div>
 
-            <form className="space-y-4">
+            <form className="space-y-5" onSubmit={formik.handleSubmit}>
               <div>
                 <label
                   htmlFor="email"
@@ -51,8 +103,15 @@ export default function LoginPatient() {
                   type="email"
                   id="email"
                   placeholder="Enter Your Email"
-                  className="mt-1 block w-full px-4 py-2 border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#40C1BD]"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className="mt-1 block w-full px-4 py-2  rounded-lg bg-input focus:outline-none "
                 />
+                {formik.touched.email && formik.errors.email && (
+                  <div className="mt-5 ">
+                    <p className="text-redd text-sm">{formik.errors.email}</p>
+                  </div>
+                )}
               </div>
 
               <div>
@@ -67,11 +126,24 @@ export default function LoginPatient() {
                     type={`${showPassword ? "text" : "password"}`}
                     id="password"
                     placeholder="Enter Your Password"
-                    className="block w-full px-4 py-2 border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#40C1BD]"
+                    className="mt-1  block w-full px-4 py-2  rounded-lg bg-input focus:outline-none"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
+                  {formik.touched.password && formik.errors.password && (
+                    <div className="mt-5 ">
+                      <p className="text-redd text-sm">
+                        {formik.errors.password}
+                      </p>
+                    </div>
+                  )}
                   <button
                     type="button"
-                    className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+                    className={`absolute  right-3 ${
+                      formik.touched.password && formik.errors.password
+                        ? "text-redd top-[15%] "
+                        : "top-[34%]"
+                    } flex items-center cursor-pointer`}
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     <span className="">
@@ -87,15 +159,14 @@ export default function LoginPatient() {
               >
                 Sign in
               </button>
+              <Toast
+                title="Logged in successfully  "
+                icon="success"
+                show={showToast}
+              />
 
               <div className="text-center text-sm text-[#4C4C4C] mt-6">
-                Don’t have an account?{" "}
-                <Link
-                  to="/SignupPatient"
-                  className="text-[#40C1BD] font-semibold"
-                >
-                  Sign Up
-                </Link>
+                Don’t have an account? Sign Up
               </div>
             </form>
           </div>

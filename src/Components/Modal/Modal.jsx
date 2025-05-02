@@ -1,7 +1,7 @@
 // Modal.jsx
 import React from "react";
 import { MdStarRate } from "react-icons/md";
-import defaultt from "../../assets/images/defAvatar.jpeg";
+import avatar from "../../assets/images/defAvatar.jpeg";
 import avt2 from "../../assets/images/Avtar2.png";
 import avt3 from "../../assets/images/Avtar3.png";
 import avt4 from "../../assets/images/Avtar4.png";
@@ -48,26 +48,26 @@ export default function Modal({ show, onClose, type, data = null }) {
               <div className="  flex flex-col mt-3 items-center justify-center ">
                 <div className="bg-[#F5F5F5] w-full flex flex-col items-center rounded-[24px] p-4">
                   {/* صورة الدكتور */}
-                  <div className="mt-6">
+                  <div className="mt-6 flex justify-center" >
                     <img
-                      src={data.image}
-                      alt={data.name}
-                      className="rounded-[24px]"
+                      src={`https://beige-wildcat-74200.zap.cloud/${data.Image}`}
+                      alt={data.FirstName}
+                      className="rounded-[24px] w-[30%] h-[30%] "
                     />
                   </div>
 
                   {/* بيانات الدكتور */}
                   <div className="flex flex-col items-center space-y-2 mt-4">
                     <h1 className="text-[#1F1F1F] text-lg font-poppins font-semibold">
-                      {data.name}
+                      {data.FirstName} {data.LastName}
                     </h1>
                     <p className="text-[#1F1F1F] text-base font-poppins font-semibold">
                       Specialty:{" "}
-                      <span className="font-normal">{data.specialty}</span>
+                      <span className="font-normal">{data.MedicalSpecialty}</span>
                     </p>
                     <p className="flex items-center gap-1 text-[#1F1F1F]">
                       <MdStarRate className="text-[#FEB052] text-[25px]" />
-                      <span className="font-semibold">{data.rating}</span>
+                      <span className="font-semibold">{data.Rating}</span>
                       <span className="text-[#878787] text-sm">
                         (300 Rating)
                       </span>
@@ -110,7 +110,7 @@ export default function Modal({ show, onClose, type, data = null }) {
                 <div className="bg-[#F5F5F5] w-full flex flex-col  rounded-[24px] p-4 mt-4">
                   <div className=" text-start">
                     <h1 className="text-[#1F1F1F] text-start text-base font-poppins font-semibold">
-                      About {data.name}
+                      About {data.FirstName}
                     </h1>
                   </div>
                   <p className="text-[#1F1F1F] text-sm font-poppins font-normal mt-2">
@@ -142,7 +142,7 @@ export default function Modal({ show, onClose, type, data = null }) {
                         <div className="flex -space-x-2">
                           <img
                             className="w-8 h-8 rounded-full border-2 border-white"
-                            src={defaultt}
+                            src={avatar}
                             alt="avatar1"
                           />
                           <img
