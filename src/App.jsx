@@ -17,6 +17,8 @@ import Profile from "./Components/Profile/Profile";
 // Slick Carousel styles
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import AuthContextProvider from "./Context/AuthContext";
+import AuthGard from "./Components/Guard/AuthGard";
 
 // Router configuration
 const router = createBrowserRouter([
@@ -24,9 +26,26 @@ const router = createBrowserRouter([
     path: "/",
     element: <RouterLayout />,
     children: [
-      { index: true, element: <LandingPage /> },
-      { path: "doctors", element: <AllDoctors /> },
-      { path: "tasks", element: <TasksPage /> },
+      {
+        index: true,
+        element: <LandingPage />,
+      },
+      {
+        path: "doctors",
+        element: (
+          <AuthGard>
+            <AllDoctors />{" "}
+          </AuthGard>
+        ),
+      },
+      {
+        path: "tasks",
+        element: (
+          <AuthGard>
+            <TasksPage />
+          </AuthGard>
+        ),
+      },
       { path: "community", element: <CommunityPage /> },
       { path: "chat", element: <Chat /> },
     ],
@@ -45,5 +64,11 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <AuthContextProvider>
+        <RouterProvider router={router} />
+      </AuthContextProvider>
+    </>
+  );
 }

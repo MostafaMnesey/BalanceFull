@@ -233,7 +233,7 @@ console.log(topRatedDoctors);
             <h1 className="text-[#1F1F1F] text-xl font-semibold">
               Top Rated Doctors
             </h1>
-            {ratedDoctorVisibleCards < topRated.length ? (
+            {ratedDoctorVisibleCards < topRatedDoctors.length ? (
               <div className="text-center place-self-center mt-4">
                 <button
                   onClick={() => setRatedDoctorVisibleCards(topRated.length)}
