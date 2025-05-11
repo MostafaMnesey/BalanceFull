@@ -2,17 +2,21 @@ import { useContext, useEffect, useState } from "react";
 import { Link as ScrollLink } from "react-scroll";
 import logoDark from "../../assets/Logo (Dark)-02 1.png";
 import { CiGlobe } from "react-icons/ci";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
 import { MdPerson } from "react-icons/md";
 import { PiSignOutFill } from "react-icons/pi";
 import axios from "axios";
+import Modal from "../Modal/Modal";
+
 
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [showModal,setShowModal] = useState(false);
   const location = useLocation();
+  const nav =useNavigate();
   const isLandingPage = location.pathname === "/";
   const isChatPage = location.pathname === "/chat";
   const { user, setUser, token, setToken } = useContext(AuthContext);
@@ -54,6 +58,9 @@ export default function Navbar() {
     return null;
   }
 
+console.log(user);
+
+  
   async function logout() {
     try {
       const res = await axios.post(
@@ -67,12 +74,14 @@ export default function Navbar() {
           },
         }
       );
+      localStorage.removeItem("user")
+      localStorage.removeItem("token");
       setUser(null);
       setToken(null);
-      console.log(res);
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
-      console.log(res);
+      setShowModal(false);
+      nav("/");
+ 
+      
     } catch (error) {
       console.log(error);
     }
@@ -82,7 +91,8 @@ export default function Navbar() {
       console.log(error);
     } */
   }
-
+  console.log(user);
+ 
   return (
     <nav
       className={`container rounded-full fixed top-4 left-0 right-0 z-50 transition-colors duration-300 border ${navBackground}`}
@@ -140,7 +150,7 @@ export default function Navbar() {
                   <span className="sr-only">Open user menu</span>
                   <img
                     className="w-8 h-8 rounded-full"
-                    src="/docs/images/people/profile-picture-3.jpg"
+                  src={`https://beige-wildcat-74200.zap.cloud/${user?.user.Avatar}`}
                     alt="user photo"
                   />
                 </button>
@@ -170,7 +180,7 @@ export default function Navbar() {
                       </li>
                       <li className="px-4 py-2">
                         <button
-                          onClick={() => logout()}
+                          onClick={()=>setShowModal(true)}
                           className="block px-4 py-2 text-sm text-gray-700 "
                         >
                           <div className="flex items-center">
@@ -236,6 +246,7 @@ export default function Navbar() {
           </div>
         )}
       </div>
+      <Modal show={showModal} onClose={() => setShowModal(false)} type="Logout" onaccept={logout} />
     </nav>
   );
 }

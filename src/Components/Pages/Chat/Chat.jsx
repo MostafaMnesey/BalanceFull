@@ -1,9 +1,9 @@
 import doc1 from '../../../assets/images/doc1.svg'
 import doc2 from '../../../assets/images/Doctor.png'
-import avatar1 from '../../../assets/images/Avtar1.png'
-import avatar2 from '../../../assets/images/Avtar2.png'
-import avatar3 from '../../../assets/images/Avtar3.png'
-import avatar4 from '../../../assets/images/Avtar4.png'
+import avatar1 from '../../../assets/images/avatars/1.png'
+import avatar2 from '../../../assets/images/avatars/2.png'
+import avatar3 from '../../../assets/images/avatars/3.png'
+import avatar4 from '../../../assets/images/avatars/4.png'
 import { IoMdMore } from "react-icons/io";
 import { useState } from 'react'
 import { IoSend } from "react-icons/io5";
@@ -11,6 +11,7 @@ import { CgAttachment } from "react-icons/cg";
 import { MdKeyboardVoice } from "react-icons/md";
 import { VscListFlat } from "react-icons/vsc";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+
 
 export default function Chat() {
     const [isTyping, setIsTypinf] = useState(false)

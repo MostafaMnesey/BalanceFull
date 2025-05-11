@@ -11,9 +11,10 @@ import Toast from "../Toast/Toast";
 import AuthContextProvider, { AuthContext } from "../../Context/AuthContext";
 
 export default function LoginPatient() {
-  const  { setUser,  setToken } = useContext(AuthContext);
+  const { setUser, setToken } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string().required("Password is required"),
@@ -32,6 +33,8 @@ export default function LoginPatient() {
   });
 
   async function loginPatient(values) {
+    setShowToast(false);
+    setErrorMessage("");
     try {
       const res = await axios.post(
         "https://beige-wildcat-74200.zap.cloud/api/patient/login",
@@ -47,17 +50,24 @@ export default function LoginPatient() {
       setUser(res?.data);
       setToken(res?.data?.token);
       localStorage.setItem("token", res?.data.token);
-      
-      
-        setTimeout(() => {
-          navigate("/Doctors");
-        }, 500);
+
+      setTimeout(() => {
+        navigate("/Doctors");
+      }, 100);
     } catch (error) {
+      if (error.status === 401) {
+        setErrorMessage("Invalid email or password");
+        setShowToast(true);
+      } else {
+        setErrorMessage("Something went wrong");
+        setShowToast(true);
+      }
+
       console.log(error);
     }
   }
-
-  console.log(formik.errors);
+  console.log(errorMessage);
+  
 
   return (
     <div className="w-full h-screen grid grid-cols-3">
@@ -159,14 +169,21 @@ export default function LoginPatient() {
               >
                 Sign in
               </button>
-              <Toast
-                title="Logged in successfully  "
-                icon="success"
-                show={showToast}
-              />
+              {errorMessage ? (
+                <Toast icon="error" title={errorMessage} show={showToast} />
+              ) : (
+                <Toast
+                  title="Logged in successfully  "
+                  icon="success"
+                  show={showToast}
+                />
+              )}
 
               <div className="text-center text-sm text-[#4C4C4C] mt-6">
-                Don’t have an account? Sign Up
+                Don’t have an account?{" "}
+                <span className="text-base text-bluee">
+                  <Link to="/signupPatient">Sign up</Link>
+                </span>
               </div>
             </form>
           </div>

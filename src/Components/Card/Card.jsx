@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Modal from "../Modal/Modal";
 
 export default function Card({ doctor }) {
+
+  
   return (
     <>
       <div
@@ -10,17 +12,17 @@ export default function Card({ doctor }) {
       >
         <div className="mr-4">
           <img
-            src={`https://beige-wildcat-74200.zap.cloud/${doctor.Image}`}
-            alt={doctor.FirstName}
+            src={doctor.Image}
+            alt="doctor image"
             className="w-28 h-32 rounded-lg object-cover"
           />
         </div>
         <div className="flex flex-col flex-grow">
           <h2 className="font-semibold text-[#1F1F1F] font-poppins text-lg">
-            {doctor.FirstName} <span>{doctor.LastName}</span>
+            {doctor.FullName} 
           </h2>
           <p className="text-gray-500 font-poppins text-sm">
-            {doctor.MedicalSpecialty}
+            {doctor.Specialization}
           </p>
           <div className="flex items-center mt-1">
             <svg

@@ -19,8 +19,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import AuthContextProvider from "./Context/AuthContext";
 import AuthGard from "./Components/Guard/AuthGard";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Router configuration
+const queryClient = new QueryClient();
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -67,7 +70,9 @@ export default function App() {
   return (
     <>
       <AuthContextProvider>
-        <RouterProvider router={router} />
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
       </AuthContextProvider>
     </>
   );
