@@ -2,29 +2,91 @@
 import React from "react";
 import { MdStarRate } from "react-icons/md";
 import avatar from "../../assets/images/defAvatar.jpeg";
-import avt2 from "../../assets/images/Avtar2.png";
-import avt3 from "../../assets/images/Avtar3.png";
-import avt4 from "../../assets/images/Avtar4.png";
-import avt5 from "../../assets/images/Avtar5.png";
-import avt6 from "../../assets/images/Avtar6.png";
-import avt7 from "../../assets/images/Avtar7.png";
+import avt2 from "../../assets/images/avatars/2.png";
+import avt3 from "../../assets/images/avatars/3.png";
+import avt4 from "../../assets/images/avatars/4.png";
+import avt5 from "../../assets/images/avatars/5.png";
+import avt6 from "../../assets/images/avatars/6.png";
+import avt7 from "../../assets/images/avatars/7.png";
 import ChangeImg from "../Profile/ChangeImg/ChangeImg";
 import { PiSmileySadThin } from "react-icons/pi";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
 
-export default function Modal({ show, onClose, type, data = null }) {
+export default function Modal({ show, onClose, onaccept, type, data = null }) {
   if (!show) return null;
+const token = localStorage.getItem("token");
 
-  console.log(data);
+
+  async function assignUserToDoctor(values) {
+
+    console.log(values.durationOfAddication);
+    
+    try {
+      const res = await axios.post(
+        `https://beige-wildcat-74200.zap.cloud/api/assign-doctor/${data?.ID}`,
+        values,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (res.status === 200) {
+       
+      }
+      console.log(res);
+      
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const valudationSchema = Yup.object().shape({
+    fullname: Yup.string()
+      .required("Full name is required")
+      .min(8, "Full name must be at least 8 characters"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    age: Yup.string().required("Age is required"),
+    phoneNumber: Yup.string().required("Phone number is required"),
+    typeOfAddiction: Yup.string().required("Type of addiction is required"),
+    durationOfAddication: Yup.string().required("Duration of addiction is required"),  
+  });
+  const formik = useFormik({
+    initialValues: {
+      fullname: "",
+      phoneNumber: "",
+      email: "",
+      age: "",
+      typeOfAddiction: "",
+      durationOfAddication: "",
+      
+    },
+    validationSchema: valudationSchema,
+      validate: (values) => {
+      console.log(values);
+    }, 
+
+    onSubmit: (values) => {
+      assignUserToDoctor(values);
+    },
+  });
+  console.log(data?.ID);
+  
 
   return (
     <>
       {type === "doctor" && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-lg w-full max-w-2xl mx-4 p-6 relative   ">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-2xl mx-4 p-8 relative   ">
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+              className="absolute top-4  right-4 text-gray-500 hover:text-gray-700"
             >
               <svg
                 className="w-5 h-5"
@@ -48,10 +110,10 @@ export default function Modal({ show, onClose, type, data = null }) {
               <div className="  flex flex-col mt-3 items-center justify-center ">
                 <div className="bg-[#F5F5F5] w-full flex flex-col items-center rounded-[24px] p-4">
                   {/* صورة الدكتور */}
-                  <div className="mt-6 flex justify-center" >
+                  <div className="mt-6 flex justify-center">
                     <img
-                      src={`https://beige-wildcat-74200.zap.cloud/${data.Image}`}
-                      alt={data.FirstName}
+                      src={data.Image}
+                      alt="doctor image"
                       className="rounded-[24px] w-[30%] h-[30%] "
                     />
                   </div>
@@ -59,18 +121,18 @@ export default function Modal({ show, onClose, type, data = null }) {
                   {/* بيانات الدكتور */}
                   <div className="flex flex-col items-center space-y-2 mt-4">
                     <h1 className="text-[#1F1F1F] text-lg font-poppins font-semibold">
-                      {data.FirstName} {data.LastName}
+                      {data.FullName}
                     </h1>
                     <p className="text-[#1F1F1F] text-base font-poppins font-semibold">
                       Specialty:{" "}
-                      <span className="font-normal">{data.MedicalSpecialty}</span>
+                      <span className="font-normal">{data.Specialization}</span>
                     </p>
                     <p className="flex items-center gap-1 text-[#1F1F1F]">
                       <MdStarRate className="text-[#FEB052] text-[25px]" />
-                      <span className="font-semibold">{data.Rating}</span>
-                      <span className="text-[#878787] text-sm">
-                        (300 Rating)
+                      <span className="font-semibold">
+                        {data.Statistics.AverageRating}
                       </span>
+                      <span className="text-[#878787] text-sm"></span>
                     </p>
                   </div>
 
@@ -81,7 +143,9 @@ export default function Modal({ show, onClose, type, data = null }) {
                       <span className="text-gray-500 text-sm text-center">
                         Number of Patients
                       </span>
-                      <span className="font-bold text-lg mt-1">100</span>
+                      <span className="font-bold text-lg mt-1">
+                        {data.Statistics.NumberofPatients}
+                      </span>
                     </div>
 
                     {/* Divider */}
@@ -90,7 +154,9 @@ export default function Modal({ show, onClose, type, data = null }) {
                     {/* Views */}
                     <div className="flex flex-col items-center">
                       <span className="text-gray-500 text-sm">Views</span>
-                      <span className="font-bold text-lg mt-1">30</span>
+                      <span className="font-bold text-lg mt-1">
+                        {data.Statistics.Views}
+                      </span>
                     </div>
 
                     {/* Divider */}
@@ -101,7 +167,9 @@ export default function Modal({ show, onClose, type, data = null }) {
                       <span className="text-gray-500 text-sm text-center">
                         Years of Experience
                       </span>
-                      <span className="font-bold text-lg mt-1">11</span>
+                      <span className="font-bold text-lg mt-1">
+                        {data.Years_of_Experience}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -110,11 +178,11 @@ export default function Modal({ show, onClose, type, data = null }) {
                 <div className="bg-[#F5F5F5] w-full flex flex-col  rounded-[24px] p-4 mt-4">
                   <div className=" text-start">
                     <h1 className="text-[#1F1F1F] text-start text-base font-poppins font-semibold">
-                      About {data.FirstName}
+                      About {data.FullName}
                     </h1>
                   </div>
                   <p className="text-[#1F1F1F] text-sm font-poppins font-normal mt-2">
-                    Dr. Ahmed Nabih is an experienced Addiction Specialist
+                    Dr. {data.FullName} is an experienced Addiction Specialist
                     dedicated to helping individuals overcome substance use and
                     behavioral addictions. With a compassionate approach and
                     evidence-based methods, he supports patients in their
@@ -127,7 +195,7 @@ export default function Modal({ show, onClose, type, data = null }) {
                   {/* Text Content */}
                   <div>
                     <h2 className="text-[#1F1F1F] text-base font-poppins font-semibold">
-                      Join Dr. Ahmed Nabil’s Support Community
+                      Join {data.FullName}’s Support Community
                     </h2>
                     <p className="text-[#1F1F1F] text-sm mt-2 max-w-md">
                       Be part of a safe and supportive community with people
@@ -168,7 +236,7 @@ export default function Modal({ show, onClose, type, data = null }) {
                         </div>
                         {/* عدد الاعضاء */}
                         <span className="text-sm text-[#1F1F1F] font-medium">
-                          +25
+                          +{data.Statistics.NumberofPatients}
                         </span>
                       </div>
                       <button className="border border-gray-300 text-[#5F5F5F] px-4 py-2 rounded-lg text-sm hover:bg-mainColor hover:text-white transition">
@@ -192,96 +260,192 @@ export default function Modal({ show, onClose, type, data = null }) {
                 </div>
 
                 <div className=" mt-4">
-                  <form>
+                  <form onSubmit={formik.handleSubmit}>
                     <div className="grid gap-6 mb-6 md:grid-cols-2">
                       <div>
-                        <label
-                          htmlFor="first_name"
-                          className="block mb-2 text-base font-medium text-txt-black"
-                        >
-                          Full name
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Full Name
                         </label>
                         <input
                           type="text"
-                          id="first_name"
-                          className="bg-input  text-sm rounded-lg  block w-full p-2.5 focus:outline-none"
-                          placeholder="John"
-                          required
+                          name="fullname"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          placeholder="Enter Your Name"
+                          className="w-full px-4 py-2  rounded-md bg-[#F5F5F5] focus:outline-none "
                         />
                       </div>
+                      {formik.touched.fullname && formik.errors.fullname && (
+                        <div className="mt-5 ">
+                          <p className="text-redd text-sm">
+                            {formik.errors.fullname}
+                          </p>
+                        </div>
+                      )}
                       <div>
-                        <label
-                          htmlFor="last_name"
-                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                        >
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
                           Email
                         </label>
                         <input
                           type="email"
-                          id="last_name"
-                          className="bg-input  text-sm rounded-lg  block w-full p-2.5 focus:outline-none"
-                          placeholder="Doe"
-                          required
+                          name="email"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          placeholder="Enter Your Email"
+                          className="w-full px-4 py-2  bg-[#F5F5F5] rounded-md focus:outline-none "
                         />
                       </div>
+                      {formik.touched.email && formik.errors.email && (
+                        <div className="mt-5 ">
+                          <p className="text-redd text-sm">
+                            {formik.errors.email}
+                          </p>
+                        </div>
+                      )}
+
                       <div>
-                        <label
-                          htmlFor="phone"
-                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                        >
-                          Phone number
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Phone Number
                         </label>
                         <input
-                          type="tel"
-                          id="phone"
-                          className="bg-input  text-sm rounded-lg  block w-full p-2.5 focus:outline-none"
-                          placeholder="123-45-678"
-                          pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                          required
+                          type="text"
+                          name="phoneNumber"
+                          onChange={(e) => {
+                            const onlyNums = e.target.value.replace(
+                              /[^0-9]/g,
+                              ""
+                            );
+                            formik.setFieldValue("phoneNumber", onlyNums);
+                          }}
+                          value={formik.values.phoneNumber}
+                          onBlur={formik.handleBlur}
+                          placeholder="Enter Your Email"
+                          className="w-full px-4 py-2  bg-[#F5F5F5] rounded-md focus:outline-none "
                         />
                       </div>
+
+                      {formik.touched.phoneNumber &&
+                        formik.errors.phoneNumber && (
+                          <div className="mt-5 ">
+                            <p className="text-redd text-sm">
+                              {formik.errors.phoneNumber}
+                            </p>
+                          </div>
+                        )}
                       <div>
-                        <label
-                          htmlFor="company"
-                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                        >
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
                           Age
                         </label>
                         <input
                           type="text"
-                          id="company"
-                          className="bg-input  text-sm rounded-lg  block w-full p-2.5 focus:outline-none"
-                          placeholder="Flowbite"
-                          required
+                          name="age"
+                          value={formik.values.age}
+                          onChange={(e) => {
+                            const onlyNums = e.target.value.replace(
+                              /[^0-9]/g,
+                              ""
+                            );
+                            formik.setFieldValue("age", onlyNums);
+                          }}
+                          onBlur={formik.handleBlur}
+                          placeholder="Enter Your Age"
+                          className="w-full px-4 py-2 bg-[#F5F5F5]  rounded-md focus:outline-none "
                         />
                       </div>
+                      {formik.touched.age && formik.errors.age && (
+                        <div className="mt-5 ">
+                          <p className="text-redd text-sm">
+                            {formik.errors.age}
+                          </p>
+                        </div>
+                      )}
+                       <div className="my-1 mb-2">
+                      <label
+                        htmlFor="company"
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        Type of Addiction
+                      </label>
+                      <input
+                        type="text"
+                        id="company"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        name="typeOfAddiction"
+                        className="bg-input  text-sm rounded-lg  block w-full p-2.5 focus:outline-none"
+                        placeholder="Type of Addiction"
+                        required
+                      />
                     </div>
+                    {formik.touched.typeOfAddiction &&
+                      formik.errors.typeOfAddiction && (
+                        <div className="my-2 ">
+                          <p className="text-redd text-sm">
+                            {formik.errors.typeOfAddiction}
+                          </p>
+                        </div>
+                      )}
+                       <div className="my-1 mb-2">
+                      <label
+                        htmlFor="company"
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        Duration of Addiction
+                      </label>
+                      <input
+                        type="text"
+                        id="company"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        name="durationOfAddication"
+                        className="bg-input  text-sm rounded-lg  block w-full p-2.5 focus:outline-none"
+                        placeholder="Duration of Addiction"
+                        required
+                      />
+                    </div>
+                    {formik.touched.typeOfAddiction &&
+                      formik.errors.typeOfAddiction && (
+                        <div className="my-2 ">
+                          <p className="text-redd text-sm">
+                            {formik.errors.typeOfAddiction}
+                          </p>
+                        </div>
+                      )}
+                    </div>{" "}
+                   
                     <p className="text-start text-txtGray text-sm font-normal font-poppins">
                       All your information is 100% safe and confidential
-                    </p>
+                    </p>{" "}
+                    <div className="grid  md:grid-cols-2 gap-4">
+                      <div className="flex justify-center">
+                        <button
+                          type=""
+                          onClick={onClose}
+                          className="px-20 py-3 bg-white border transition-all text-center border-[#D6D6D6] text-txtGray rounded-[12px] hover:bg-gray-200"
+                        >
+                          Decline
+                        </button>
+                      </div>
+                      <div className=" flex justify-center">
+                        <button
+                          type="submit"
+                       
+                          className="px-20 py-3 bg-mainColor transition-all text-white rounded-[12px] hover:bg-darkGreen"
+                        >
+                          Start Now
+                        </button>
+                      </div>
+                    </div>
                   </form>
                 </div>
               </div>
             </div>
 
             {/* Modal Footer */}
-            <div className="flex justify-end gap-2 mt-6">
-              <button
-                onClick={onClose}
-                className="px-20 py-3 bg-white border transition-all border-[#D6D6D6] text-txtGray rounded-[12px] hover:bg-gray-200"
-              >
-                Decline
-              </button>
-              <button
-                onClick={onClose}
-                className="px-20 py-3 bg-mainColor transition-all text-white rounded-[12px] hover:bg-darkGreen"
-              >
-                Start Now
-              </button>
-            </div>
           </div>
         </div>
       )}
+
       {type === "Update" && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white rounded-lg shadow-lg w-full max-w-2xl mx-4 p-6 relative   ">
@@ -388,25 +552,25 @@ export default function Modal({ show, onClose, type, data = null }) {
                       required
                     />
                   </div>
+                </div>{" "}
+                <div className="flex justify-end gap-2 mt-6">
+                  <button
+                    onClick={onClose}
+                    className="px-10 py-3 bg-white border transition-all border-[#D6D6D6] text-txtGray rounded-[12px] hover:bg-gray-200"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={onClose}
+                    className="px-8 py-3 bg-mainColor transition-all text-white rounded-[12px] hover:bg-darkGreen"
+                  >
+                    Save Change
+                  </button>
                 </div>
               </form>
             </div>
 
             {/* Modal Footer */}
-            <div className="flex justify-end gap-2 mt-6">
-              <button
-                onClick={onClose}
-                className="px-10 py-3 bg-white border transition-all border-[#D6D6D6] text-txtGray rounded-[12px] hover:bg-gray-200"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={onClose}
-                className="px-8 py-3 bg-mainColor transition-all text-white rounded-[12px] hover:bg-darkGreen"
-              >
-                Save Change
-              </button>
-            </div>
           </div>
         </div>
       )}
@@ -439,8 +603,6 @@ export default function Modal({ show, onClose, type, data = null }) {
               <div className=" flex justify-center items-center">
                 <PiSmileySadThin className="w-20 h-20 text-txtGray" />
               </div>
-              
-
 
               <p className="text-stone-900 text-center px-4 text-base font-medium">
                 Deleting your account is irreversible. All your data will be
@@ -460,7 +622,7 @@ export default function Modal({ show, onClose, type, data = null }) {
                 onClick={onClose}
                 className="px-8 py-3 bg-transparent  border-[1px] border-redd transition-all text-redd rounded-[12px] hover:bg-redd hover:text-white"
               >
-                Delete Account  
+                Delete Account
               </button>
             </div>
           </div>
@@ -468,7 +630,7 @@ export default function Modal({ show, onClose, type, data = null }) {
       )}
       {type === "Logout" && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-lg w-3/12  mx-4 p-6 relative   ">
+          <div className="bg-white rounded-lg shadow-lg md:w-[30%]  mx-4 p-6 relative   ">
             {/* Close Button */}
             <button
               onClick={onClose}
@@ -495,11 +657,9 @@ export default function Modal({ show, onClose, type, data = null }) {
               <div className=" flex justify-center items-center">
                 <PiSmileySadThin className="w-20 h-20 text-txtGray" />
               </div>
-              
-
 
               <p className="text-stone-900 text-center px-4 text-base font-medium">
-              Are you sure you want to log out?
+                Are you sure you want to log out?
               </p>
             </div>
 
@@ -507,15 +667,15 @@ export default function Modal({ show, onClose, type, data = null }) {
             <div className="flex justify-center gap-2 mt-6">
               <button
                 onClick={onClose}
-                className="px-16 py-3 bg-bluee border transition-all border-transparent text-white rounded-[12px] hover:bg-white hover:text-mainColor hover:border-mainColor"
+                className="px-[10%] py-3 bg-bluee border transition-all border-transparent text-white rounded-[12px] hover:bg-white hover:text-mainColor hover:border-mainColor"
               >
                 Cancel
               </button>
               <button
-                onClick={onClose}
-                className="px-16 py-3 bg-transparent  border-[1px] border-redd transition-all text-redd rounded-[12px] hover:bg-redd hover:text-white"
+                onClick={onaccept}
+                className="px-[10%] py-3 bg-transparent  border-[1px] border-redd transition-all text-redd rounded-[12px] hover:bg-redd hover:text-white"
               >
-                Logout  
+                Logout
               </button>
             </div>
           </div>
@@ -523,7 +683,7 @@ export default function Modal({ show, onClose, type, data = null }) {
       )}
       {type === "doctorSearch" && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-lg w-3/12  mx-4 p-6 relative   ">
+          <div className="bg-white rounded-lg shadow-lg md:w-[30%]  mx-4 p-6 relative   ">
             {/* Close Button */}
             <button
               onClick={onClose}
@@ -550,12 +710,10 @@ export default function Modal({ show, onClose, type, data = null }) {
               <div className=" flex justify-center items-center">
                 <PiSmileySadThin className="w-20 h-20 text-txtGray" />
               </div>
-              
-
 
               <p className="text-stone-900 text-center px-4 text-base font-medium">
-              Sorry, the doctor is currently unavailable. Please 
-              try again later or choose another doctor.
+                Sorry, the doctor is currently unavailable. Please try again
+                later or choose another doctor.
               </p>
             </div>
 
@@ -565,9 +723,8 @@ export default function Modal({ show, onClose, type, data = null }) {
                 onClick={onClose}
                 className="px-20 py-3 bg-bluee border transition-all border-transparent text-white rounded-[12px] hover:bg-white hover:text-mainColor hover:border-mainColor"
               >
-               Choose Another Doctor
+                Choose Another Doctor
               </button>
-              
             </div>
           </div>
         </div>

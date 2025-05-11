@@ -1,6 +1,6 @@
-import avatar1 from '../../../../assets/images/Avtar1.png';
-import avatar4 from '../../../../assets/images/Avtar4.png';
-import avatar7 from '../../../../assets/images/Avtar7.png';
+import avatar1 from '../../../../assets/images/avatars/1.png';
+import avatar4 from '../../../../assets/images/avatars/4.png';
+import avatar7 from '../../../../assets/images/avatars/7.png';
 import post1 from '../../../../assets/images/post1.png';
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { FaRegComment } from "react-icons/fa";

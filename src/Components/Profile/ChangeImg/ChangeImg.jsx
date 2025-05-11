@@ -1,6 +1,6 @@
 import React from "react";
 import { RiEdit2Line } from "react-icons/ri";
-import profile from "../../../assets/images/Avtar7.png"
+import profile from "../../../assets/images/avatars/1.png";
 
 export default function ChangeImg() {
   return (
