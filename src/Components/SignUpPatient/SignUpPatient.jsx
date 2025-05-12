@@ -84,7 +84,8 @@ export default function SignUpPatient() {
       password: "",
       password_confirmation: "",
       gander: "",
-      avatar: "defaultt",
+      avatar: "0",
+      phoneNumber: "",
     },
     validationSchema: valudationSchema,
     validate: (values) => {
@@ -166,7 +167,6 @@ export default function SignUpPatient() {
     { id: 33, src: avt33, alt: "Avatar 33" },
     { id: 34, src: avt34, alt: "Avatar 34" },
   ];
-  
 
   async function Register(values) {
     try {
