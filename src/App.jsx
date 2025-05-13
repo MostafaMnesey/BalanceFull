@@ -17,56 +17,72 @@ import Profile from "./Components/Profile/Profile";
 // Slick Carousel styles
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import AuthContextProvider from "./Context/AuthContext";
+import AuthContextProvider, { AuthContext } from "./Context/AuthContext";
 import AuthGard from "./Components/Guard/AuthGard";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useContext } from "react";
+import HasDoctor from "./Components/HasDoctor/HasDoctor";
 
 // Router configuration
 const queryClient = new QueryClient();
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <RouterLayout />,
-    children: [
-      {
-        index: true,
-        element: <LandingPage />,
-      },
-      {
-        path: "doctors",
-        element: (
-          <AuthGard>
-            <AllDoctors />{" "}
-          </AuthGard>
-        ),
-      },
-      {
-        path: "tasks",
-        element: (
-          <AuthGard>
-            <TasksPage />
-          </AuthGard>
-        ),
-      },
-      { path: "community", element: <CommunityPage /> },
-      { path: "chat", element: <Chat /> },
-    ],
-  },
-  { path: "signupPatient", element: <SignUpPatient /> },
-  { path: "loginPatient", element: <LoginPatient /> },
-  { path: "choosePath", element: <ChossePath /> },
-  {
-    path: "doctor",
-    element: <Doctor />,
-  },
-  {
-    path: "profile",
-    element: <Profile />,
-  },
-]);
-
 export default function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <RouterLayout />,
+      children: [
+        {
+          index: true,
+          element: <LandingPage />,
+        },
+
+        {
+          path: "doctors",
+          element: <HasDoctor/>,
+        },
+        {
+          path: "tasks",
+          element: (
+            <AuthGard>
+              <TasksPage />
+            </AuthGard>
+          ),
+        },
+        {
+          path: "Alldoctors",
+          element: (
+            <AuthGard>
+              <AllDoctors />
+            </AuthGard>
+          ),
+        },
+        {
+          path: "doctor",
+          element: (
+            <AuthGard>
+              <Doctor />
+            </AuthGard>
+          ),
+        },
+        { path: "community", element: <CommunityPage /> },
+        { path: "chat", element: <Chat /> },
+      ],
+    },
+    { path: "signupPatient", element: <SignUpPatient /> },
+    { path: "loginPatient", element: <LoginPatient /> },
+    { path: "choosePath", element: <ChossePath /> },
+
+    {
+      path: "profile",
+      element: (
+        <AuthGard>
+          <Profile />
+        </AuthGard>
+      ),
+    },
+  ]);
+
   return (
     <>
       <AuthContextProvider>

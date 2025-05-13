@@ -52,7 +52,7 @@ export default function LoginPatient() {
       localStorage.setItem("token", res?.data.token);
 
       setTimeout(() => {
-        navigate("/Doctors");
+        navigate("/doctors");
       }, 100);
     } catch (error) {
       if (error.status === 401) {
@@ -66,7 +66,7 @@ export default function LoginPatient() {
       console.log(error);
     }
   }
-  console.log(errorMessage);
+  
   
 
   return (

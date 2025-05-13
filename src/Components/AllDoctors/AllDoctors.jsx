@@ -101,7 +101,7 @@ import Loadingg from "../Loadingg/Loadingg";
 
 export default function AllDoctors() {
   let topRated = [];
-  const [ratedDoctorVisibleCards, setRatedDoctorVisibleCards] = useState(null);
+  const [ratedDoctorVisibleCards, setRatedDoctorVisibleCards] = useState(3);
   const [allDoctorVisibleCards, setAllDoctorVisibleCards] = useState(3);
   const [showModal, setShowModal] = useState(false);
 
@@ -111,9 +111,10 @@ export default function AllDoctors() {
     setSelectedDoctor(doctor); // تخزين بيانات الطبيب المحدد
     setShowModal(true); // عرض المودال
   };
-  const { data, isLoading } = useQuery({
+  const { data, isLoading,refetch } = useQuery({
     queryKey: ["doctors"],
     queryFn: getDoctors, 
+    refetchOnMount: true,
   });
   async function getDoctors() {
     return await axios.get(
@@ -126,9 +127,35 @@ export default function AllDoctors() {
       }
     );
   }
-
+  async function incrementView(id) {
+    
+    
+    try{
+      const res = await axios.post(
+        `https://beige-wildcat-74200.zap.cloud/api/doctors/${id}/increment-view`,{},
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      refetch();
+    
+      
+    }
+    catch (error) {
+      console.log(error);
+    } 
+  }
   const allDoctors = data?.data.data;
-  console.log(allDoctors);
+
+topRated=allDoctors?.filter((doctor) => doctor.Statistics.AverageRating >= 4.5);
+
+
+ 
+
 
   return (
     <>
@@ -177,12 +204,12 @@ export default function AllDoctors() {
           </button>
         </div>
         {/* top rated doctors */}
-        {/* <div className="mt-[32px]">
+         <div className="mt-[32px]">
           <div className="flex justify-between items-center  me-10">
             <h1 className="text-[#1F1F1F] text-xl font-semibold">
               Top Rated Doctors
             </h1>
-            {ratedDoctorVisibleCards < topRated.length ? (
+            {ratedDoctorVisibleCards < topRated?.length ? (
               <div className="text-center place-self-center mt-4">
                 <button
                   onClick={() => setRatedDoctorVisibleCards(topRated.length)}
@@ -216,14 +243,14 @@ export default function AllDoctors() {
 
           <div className="flex md:block justify-center  md:justify-start">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mt-4">
-              {topRatedDoctors.map((doctor) => (
+              {topRated?.slice(0, ratedDoctorVisibleCards).map((doctor) => (
                 <div key={doctor.ID} onClick={() => handleCardClick(doctor)}>
-                  <Card doctor={doctor} />
+                  <Card doctor={doctor} view={incrementView} />
                 </div>
               ))}
             </div>
           </div>
-        </div> */}
+        </div> 
         {/* all doctors */}
         <div className="mt-[32px]">
           <div className="flex justify-between me-10">
@@ -267,7 +294,7 @@ export default function AllDoctors() {
               <Loadingg />
             ) : (
               <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mt-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                   {allDoctors?.slice(0, allDoctorVisibleCards).map((doctor) => (
                     <div
                       key={doctor.id}
@@ -287,6 +314,7 @@ export default function AllDoctors() {
         data={selectedDoctor} // تمرير بيانات الطبيب المحدد إلى المودال
         type="doctor"
         onClose={() => setShowModal(false)}
+        onaccept={() => setShowModal(false)}
       />
     </>
   );

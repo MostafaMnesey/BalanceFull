@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import Modal from "../Modal/Modal";
 
-export default function Card({ doctor }) {
+export default function Card({ doctor,view }) {
 
+  
+  
   
   return (
     <>
       <div
         key={doctor.ID}
-        className="flex items-center w-full   bg-[#F5F5F5] rounded-lg px-4 py-5"
+        className="flex items-center w-full   bg-[#F5F5F5] rounded-lg p-5"
       >
         <div className="mr-4">
           <img
@@ -43,7 +45,7 @@ export default function Card({ doctor }) {
             </span>
           </div>
           <button
-           
+           onClick={()=>{view(doctor.ID)}}
             className=" bg-bluee text-white py-2 rounded-2xl mt-6 w-full hover:bg-[#2D8986] transition-colors"
           >
             Join Now
