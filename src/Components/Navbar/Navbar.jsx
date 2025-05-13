@@ -58,7 +58,7 @@ export default function Navbar() {
     return null;
   }
 
-console.log(user);
+
 
   
   async function logout() {
@@ -91,7 +91,7 @@ console.log(user);
       console.log(error);
     } */
   }
-  console.log(user);
+
  
   return (
     <nav

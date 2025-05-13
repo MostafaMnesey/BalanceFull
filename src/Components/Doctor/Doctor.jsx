@@ -11,9 +11,10 @@ const data = {
   image: Doc1,
 };
 export default function Doctor() {
+  
   return (
     <>
-      <div className="container">
+      <div className="container mt-28">
         <div className="bg-[#F5F5F5] w-full flex flex-col items-center rounded-[24px] p-4">
           {/* صورة الدكتور */}
           <div className="mt-6">
