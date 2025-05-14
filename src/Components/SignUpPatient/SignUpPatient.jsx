@@ -205,7 +205,7 @@ export default function SignUpPatient() {
       {/* Right login section */}
       <div className="col-span-3 md:col-span-2 flex flex-col h-full">
         <div className="flex justify-end p-6">
-          <img src={logo} alt="Balance Logo" />
+        
         </div>
         <form className="" onSubmit={formik.handleSubmit}>
           <div className="flex-grow flex items-center pb-32 justify-center px-4">

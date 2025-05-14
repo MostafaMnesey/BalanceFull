@@ -87,7 +87,7 @@ export default function LoginPatient() {
       {/* Right login section */}
       <div className="col-span-3 md:col-span-2 flex flex-col h-full">
         <div className="flex justify-end p-6">
-          <img src={logo} alt="Balance Logo" />
+         
         </div>
 
         <div className="flex-grow flex items-center justify-center px-4">

@@ -59,7 +59,7 @@ export default function ChossePath() {
 
           <div className="home col-span-3 md:col-span-2 flex flex-col h-full">
             <div className="logo flex justify-end m-7">
-              <img src={logo} alt="Balance Logo" />
+             
             </div>
             <div className="flex-grow flex flex-col justify-center items-center">
               <div className="text-center text-2xl text-[#4C4C4C] md:text-4xl font-bold font-['Poppins']">
