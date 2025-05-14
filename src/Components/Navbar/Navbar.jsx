@@ -111,7 +111,7 @@ export default function Navbar() {
         {/* Mobile menu */}
         {isNavOpen && (
           <div
-            className={`absolute top-20 right-10 w-[90%] rounded-md shadow-lg ${
+            className={`absolute top-20 right-7 w-[90%] rounded-md shadow-lg ${
               scrolled ? "bg-[#40C1BD]" : "bg-[#f7f1f14e]"
             } ring-1 ring-black ring-opacity-5 z-50 lg:hidden`}
           >
