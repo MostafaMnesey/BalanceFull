@@ -88,9 +88,7 @@ export default function SignUpPatient() {
       phoneNumber: "",
     },
     validationSchema: valudationSchema,
-    validate: (values) => {
-      console.log(values);
-    },
+  
 
     onSubmit: (values) => {
       Register(values);
