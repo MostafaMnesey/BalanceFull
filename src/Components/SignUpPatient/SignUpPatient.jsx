@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import side from "../../assets/images/side.png";
-import logo from "../../assets/images/logoWithBlack.png";
+
 import { TfiEye } from "react-icons/tfi";
 import { RxEyeClosed } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
