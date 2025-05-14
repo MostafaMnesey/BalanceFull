@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import side from "../../assets/images/side.png";
-import logo from "../../assets/images/blackLogo.png"
+
 import { FaStethoscope, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
