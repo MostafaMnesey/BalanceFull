@@ -11,6 +11,8 @@ import { CgAttachment } from "react-icons/cg";
 import { MdKeyboardVoice } from "react-icons/md";
 import { VscListFlat } from "react-icons/vsc";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { IoArrowBackOutline } from "react-icons/io5";
+import { Link } from 'react-router-dom'
 
 export default function Chat() {
     const [isTyping, setIsTypinf] = useState(false)
@@ -130,6 +132,13 @@ export default function Chat() {
                             </li>
                         ))}
                     </ul>
+                     <div>
+                        <Link to={'/dashboard'} className="capitalize absolute bottom-8 left-9 flex items-center text-sm font-medium text-mainColor  hover:-translate-x-5 w-48 p-2 rounded-lg transition-all duration-300 ease-in-out">
+                            
+                                    <IoArrowBackOutline className="mr-2 text-2xl" />
+                                    back to dashboard
+                                  </Link>
+                                </div>
                 </div>
             </aside>
             <div className=" sm:ml-64">

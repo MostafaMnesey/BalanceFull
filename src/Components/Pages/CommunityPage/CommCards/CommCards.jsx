@@ -12,6 +12,7 @@ export default function CommCards() {
       image: commCard1,
       title: 'Weekly Challenge',
       content: 'Share something that helped you stay away from triggers this week. *Post in the group and support others with your ideas!*',
+      btnTxt: 'Submit Challenge',
     },
     {
       image: commCard2,
@@ -38,7 +39,7 @@ export default function CommCards() {
       )}
 
       <section className="mt-20">
-        <div className="container flex flex-wrap gap-6 justify-center">
+        <div className="container flex  gap-6 justify-center">
           {commCardData.map((card, index) => (
             <div
               key={index}

@@ -6,8 +6,10 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { useLocation } from 'react-router-dom'; 
 export default function Footer() {
   const location = useLocation(); 
-  const isChatPage = location.pathname === "/chat"; 
-if (isChatPage) {
+    const isChatPage = location.pathname === "/chat"; 
+    const isDashPage = location.pathname === "/dashboard";
+
+if (isChatPage||isDashPage) {
   return null; 
 }
     return (

@@ -10,6 +10,7 @@ export default function Navbar() {
   const location = useLocation();
   const isLandingPage = location.pathname === "/";
   const isChatPage = location.pathname === "/chat";
+  const isDashPage = location.pathname === "/dashboard";
   
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);
@@ -38,7 +39,7 @@ export default function Navbar() {
     : "bg-transparent border-gray-100 dark:bg-[#f7f1f14e]";
 
   const textColor = !isLandingPage ? "text-gray-100" : "text-white";
-  if (isChatPage) {
+  if (isChatPage|| isDashPage) {
     return null;
   }
 
@@ -80,7 +81,7 @@ export default function Navbar() {
             <span className="uppercase">en</span>
           </div>
 
-          <Link to="/choose">
+          <Link to="/choosePath">
             <button
               type="button"
               className="text-textColor bg-subColor hover:bg-hoverSubColor focus:ring-4 focus:outline-none focus:ring-hoverSubColor font-medium text-base rounded-full font-poppins px-4 py-2"
