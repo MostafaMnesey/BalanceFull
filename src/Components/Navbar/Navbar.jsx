@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link as ScrollLink } from "react-scroll";
 import logoDark from "../../assets/Logo (Dark)-02 1.png";
-import { CiGlobe } from "react-icons/ci";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
 import { MdPerson } from "react-icons/md";
@@ -9,23 +8,29 @@ import { PiSignOutFill } from "react-icons/pi";
 import axios from "axios";
 import Modal from "../Modal/Modal";
 
-
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [showModal,setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
   const location = useLocation();
-  const nav =useNavigate();
+  const nav = useNavigate();
+
+  const { user, setUser, token, setToken } = useContext(AuthContext);
+
   const isLandingPage = location.pathname === "/";
   const isChatPage = location.pathname === "/chat";
-  const { user, setUser, token, setToken } = useContext(AuthContext);
+  const isDashPage = location.pathname === "/dashboard";
+
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);
   };
+
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 500);
@@ -41,6 +46,7 @@ export default function Navbar() {
     { name: "Experts", target: "experts" },
     { name: "Contact Us", target: "contact" },
   ];
+
   const authenticatedUserLinks = [
     { name: "Doctors", target: "/doctors" },
     { name: "Tasks", target: "/tasks" },
@@ -54,16 +60,15 @@ export default function Navbar() {
     : "bg-transparent border-gray-100 dark:bg-[#f7f1f14e]";
 
   const textColor = !isLandingPage ? "text-gray-100" : "text-white";
-  if (isChatPage) {
+
+  // لا تظهر النافبار في صفحات الداشبورد والدردشة
+  if (isChatPage || isDashPage) {
     return null;
   }
 
-
-
-  
   async function logout() {
     try {
-      const res = await axios.post(
+      await axios.post(
         "https://beige-wildcat-74200.zap.cloud/api/logout",
         {},
         {
@@ -74,47 +79,42 @@ export default function Navbar() {
           },
         }
       );
-      localStorage.removeItem("user")
+      localStorage.removeItem("user");
       localStorage.removeItem("token");
       setUser(null);
       setToken(null);
       setShowModal(false);
       nav("/");
- 
-      
     } catch (error) {
       console.log(error);
     }
-
-    /* localStorage.removeItem("token"); 
-    } catch (error) {
-      console.log(error);
-    } */
   }
 
- 
   return (
     <nav
       className={`container rounded-full fixed top-4 left-0 right-0 z-50 transition-colors duration-300 border ${navBackground}`}
     >
       <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4 relative">
-        {/* Logo */}
+        {/* شعار الموقع */}
         <Link to="/">
           <div className="flex items-center space-x-3 rtl:space-x-reverse z-10">
             <img src={logoDark} className="h-8" alt="Balance-توازون" />
           </div>
         </Link>
-        {/* Center Links */}
+
+        {/* روابط التنقل المركزية */}
         <div
           className={`hidden lg:flex absolute left-1/2 transform -translate-x-1/2 gap-6 font-bold ${textColor}`}
         >
           {token
             ? authenticatedUserLinks.map((link) => (
-                <Link to={link.target}>{link.name}</Link>
+                <Link key={link.target} to={link.target}>
+                  {link.name}
+                </Link>
               ))
             : links.map((link) => (
                 <ScrollLink
-                  key={link.target} // Use a unique value for key (e.g., link.target)
+                  key={link.target}
                   to={link.target}
                   smooth={true}
                   duration={500}
@@ -128,7 +128,7 @@ export default function Navbar() {
               ))}
         </div>
 
-        {/* Right side */}
+        {/* الأزرار الجانبية (تسجيل الدخول أو الملف الشخصي) */}
         <div className="flex items-center space-x-4 z-10">
           {!token ? (
             <Link to="/choosePath">
@@ -150,12 +150,11 @@ export default function Navbar() {
                   <span className="sr-only">Open user menu</span>
                   <img
                     className="w-8 h-8 rounded-full"
-                  src={`https://beige-wildcat-74200.zap.cloud/${user?.user.Avatar}`}
+                    src={`https://beige-wildcat-74200.zap.cloud/${user?.user.Avatar}`}
                     alt="user photo"
                   />
                 </button>
 
-                {/* Dropdown menu */}
                 {isOpen && (
                   <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600 absolute top-14 right-0">
                     <div className="px-4 py-3">
@@ -173,15 +172,15 @@ export default function Navbar() {
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                         >
                           <div className="flex items-center">
-                            <MdPerson className="text-mainColor " size={30} />
+                            <MdPerson className="text-mainColor" size={30} />
                             <span className="ml-3 text-lg">Profile</span>
                           </div>
                         </Link>
                       </li>
                       <li className="px-4 py-2">
                         <button
-                          onClick={()=>setShowModal(true)}
-                          className="block px-4 py-2 text-sm text-gray-700 "
+                          onClick={() => setShowModal(true)}
+                          className="block px-4 py-2 text-sm text-gray-700"
                         >
                           <div className="flex items-center">
                             <PiSignOutFill
@@ -199,7 +198,7 @@ export default function Navbar() {
             </>
           )}
 
-          {/* Hamburger for mobile */}
+          {/* زر الهامبرغر لفتح القائمة في الجوال */}
           <button
             type="button"
             className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-100 rounded-lg lg:hidden"
@@ -218,7 +217,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile menu */}
+        {/* القائمة الجانبية في الجوال */}
         {isNavOpen && (
           <div
             className={`absolute top-20 right-7 w-[90%] rounded-md shadow-lg ${
@@ -242,11 +241,27 @@ export default function Navbar() {
                   </ScrollLink>
                 </li>
               ))}
+              {!token && (
+                <li className="px-4 py-2">
+                  <Link to="/choosePath" onClick={() => setIsNavOpen(false)}>
+                    Sign In \ Sign Up
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         )}
       </div>
-      <Modal show={showModal} onClose={() => setShowModal(false)} type="Logout" onaccept={logout} />
+
+      {/* مودال تأكيد تسجيل الخروج */}
+      {showModal && (
+        <Modal
+          closeModal={() => setShowModal(false)}
+          message="Are you sure you want to logout?"
+          action={logout}
+          actionText="Logout"
+        />
+      )}
     </nav>
   );
 }
