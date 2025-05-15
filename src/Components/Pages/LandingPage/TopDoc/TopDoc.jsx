@@ -7,29 +7,17 @@ import doc6 from "../../../../assets/Ellipse 1511.png";
 import { FaStar } from "react-icons/fa";
 import Slider from "react-slick";
 import GallarySec from "../GallarySec/GallarySec";
+import { a, button } from "motion/react-client";
 
-export default function TopDoc() {
-  const topDocData = [
-    { img: doc1, name: "DR. Sami yasser", rating: 4.9 },
-    { img: doc2, name: "DR. Mohamed Ali", rating: 4.9 },
-    { img: doc3, name: "Dr khalid ahmed", rating: 4.7 },
-    { img: doc4, name: "Dr. Sarah Johnson", rating: 4.9 },
-    { img: doc5, name: "DR. Anna Smith", rating: 4.9 },
-    { img: doc6, name: "Dr. Michael Brown", rating: 4.9 },
-    { img: doc1, name: "DR. Emily Davis", rating: 4.9 },
-    { img: doc1, name: "DR. Sami yasser", rating: 4.9 },
-    { img: doc2, name: "DR. Mohamed Ali", rating: 4.9 },
-    { img: doc3, name: "Dr khalid ahmed", rating: 4.7 },
-    { img: doc4, name: "Dr. Sarah Johnson", rating: 4.9 },
-    { img: doc5, name: "DR. Anna Smith", rating: 4.9 },
-    { img: doc6, name: "Dr. Michael Brown", rating: 4.9 },
-    { img: doc1, name: "DR. Emily Davis", rating: 4.9 },
-  ];
+export default function TopDoc({ data }) {
+
 
   const settings = {
     infinite: true,
     speed: 2000,
-    slidesToShow: 6,
+    slidesToShow: 3,
+    dots: false,
+    arrows: false,
     slidesToScroll: 2,
     autoplay: true,
     autoplaySpeed: 2000,
@@ -85,27 +73,32 @@ export default function TopDoc() {
           </p>
           <div className="slider-container w-full">
             <Slider {...settings}>
-              {topDocData.map((doc, index) => (
+              {data.map((doc, index) => (
                 <div key={index} className="flex gap-2 px-1">
-                  <div className="w-10/12 bg-blue-50 rounded-lg shadow-sm">
-                    <div className="overflow-hidden rounded-t-lg">
+                  <div className="w-full bg-[#ECF9F8] rounded-lg shadow-sm flex flex-col items-center p-4">
+                    <div className="overflow-hidden flex justify-center items-center mb-3">
                       <img
-                        className="p-8 rounded-t-lg object-cover w-full h-full"
-                        src={doc.img}
-                        alt={doc.name}
+                        className="w-28 h-28 rounded-full border-[0.5px] border-[#7E53FD] "
+                        src={`https://beige-wildcat-74200.zap.cloud${doc.Image}`}
+                        alt={doc.FirstName}
                       />
                     </div>
-                    <div className="px-5 pb-5 flex flex-col items-center justify-center">
-                      <h5 className="text-sm font-semibold tracking-tight text-black-500">
-                        {doc.name}
+                    <div className="flex flex-col items-center justify-center">
+                      <h5 className="text-base font-semibold text-gray-800 mb-1">
+                        Dr. {doc.FirstName} {doc.LastName}
                       </h5>
-                      <div className="flex items-center mt-2.5 mb-5">
-                        <div className="flex items-center justify-center gap-1">
-                          <FaStar className="text-subColor" />
-                          <span className="text-black-500 text-xs font-semibold">
-                            {doc.rating}
-                          </span>
-                        </div>
+                      <div className="flex items-center gap-1 mt-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4 text-yellow-400"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <span className="text-gray-800 text-sm font-semibold">
+                          {doc.Rating}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -116,7 +109,7 @@ export default function TopDoc() {
         </div>
       </div>
 
-      <GallarySec/>
+      <GallarySec />
     </section>
   );
 }
