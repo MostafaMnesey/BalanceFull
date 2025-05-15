@@ -8,8 +8,10 @@ export default function Footer() {
   const location = useLocation(); 
     const isChatPage = location.pathname === "/chat"; 
     const isDashPage = location.pathname === "/dashboard";
+    const isDashChat = location.pathname === "/dashboard-chat";
 
-if (isChatPage||isDashPage) {
+
+if (isChatPage||isDashPage || isDashChat) {
   return null; 
 }
     return (

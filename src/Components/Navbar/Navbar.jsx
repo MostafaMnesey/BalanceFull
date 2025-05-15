@@ -22,6 +22,7 @@ export default function Navbar() {
   const isLandingPage = location.pathname === "/";
   const isChatPage = location.pathname === "/chat";
   const isDashPage = location.pathname === "/dashboard";
+  const isDashChat = location.pathname === "/dashboard-chat";
 
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);
@@ -62,7 +63,7 @@ export default function Navbar() {
   const textColor = !isLandingPage ? "text-gray-100" : "text-white";
 
   // لا تظهر النافبار في صفحات الداشبورد والدردشة
-  if (isChatPage || isDashPage) {
+  if (isChatPage || isDashPage || isDashChat) {
     return null;
   }
 

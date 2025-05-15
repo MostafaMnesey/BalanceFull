@@ -13,16 +13,18 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import CommunityPage from "../CommunityPage/CommunityPage";
 import DashNav from "./DashNav/DashNav";
+import ErrPopUp from "./DashPopsUp/ErrPopUp/ErrPopUp";
 
 export default function DashboardLayout() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [selectedPage, setSelectedPage] = useState("dashboard");
-    const navigate = useNavigate(); // ✅ Hook for navigation
+    const navigate = useNavigate(); 
+    
 
     const dashLinks = [
         { key: "dashboard", title: "Dashboard", icon: <RiDashboardFill className="text-2xl" /> },
         { key: "patient", title: "Patient", icon: <FaUserFriends className="text-2xl" /> },
-        { key: "chat", title: "Chat", icon: <MdMarkUnreadChatAlt className="text-2xl" />, external: true }, // ✅ mark as external
+        { key: "dashboard-chat", title: "Chat", icon: <MdMarkUnreadChatAlt className="text-2xl" />, external: true }, 
         { key: "community", title: "Community", icon: <TbWorld className="text-2xl" /> },
         { key: "setting", title: "Setting", icon: <IoSettingsSharp className="text-2xl" /> },
     ];
@@ -54,7 +56,7 @@ export default function DashboardLayout() {
             <div>
                 {/* Sidebar */}
                 <aside
-                    className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform duration-300 bg-mainColor sm:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                    className={`  fixed top-0 left-0 z-40 w-64 h-screen transition-transform duration-300 bg-mainColor sm:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
                         }`}
                 >
                     <div className="relative h-full px-3 py-4 overflow-y-auto flex flex-col items-start gap-8">
@@ -66,7 +68,7 @@ export default function DashboardLayout() {
                                         onClick={() => {
                                             setIsSidebarOpen(false);
                                             if (link.external) {
-                                                navigate("/chat"); // ✅ navigate to another route
+                                                navigate("/dashboard-chat"); 
                                             } else {
                                                 setSelectedPage(link.key);
                                             }
@@ -92,13 +94,13 @@ export default function DashboardLayout() {
                 {/* Main Content */}
 
                 <div className="p-4 sm:ml-64">
-                    <div className="p-4 rounded-lg dark:border-gray-700">
+                    {/* <div className="p-4 rounded-lg dark:border-gray-700">
                         {/* Top Bar */}
                         {/* <DashNav/> */}
 
                         {/* Conditional Page Content */}
+                    {/* </div> */} 
                         {renderContent()}
-                    </div>
                 </div>
             </div>
         </section>
