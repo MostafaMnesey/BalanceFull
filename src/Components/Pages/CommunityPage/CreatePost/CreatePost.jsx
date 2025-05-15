@@ -2,8 +2,9 @@ import gallerySvg from '../../../../assets/images/gallery.svg'
 import videoSvg from '../../../../assets/images/video-play.svg'
 export default function CreatePost() {
     return <>
-        <section className='mt-28 '>
+        <section className=' '>
             <div className="container">
+                    {/* <h1 className='text-mainColor text-3xl font-bold capitalize mr-4 mb-6'>create post</h1> */}
                 <div className=" flex  gap-4">
                     <form className="w-[80%]">
                         <div className="relative">

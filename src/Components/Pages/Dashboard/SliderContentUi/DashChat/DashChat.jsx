@@ -1,9 +1,9 @@
-import doc1 from '../../../assets/images/doc1.svg'
-import doc2 from '../../../assets/images/Doctor.png'
-import avatar1 from '../../../assets/images/avatars/1.png'
-import avatar2 from '../../../assets/images/avatars/2.png'
-import avatar3 from '../../../assets/images/avatars/3.png'
-import avatar4 from '../../../assets/images/avatars/4.png'
+// import doc1 from '../../../assets/images/doc1.svg'
+import avatar1 from '../../../../../assets/images/avatars/12.png'
+// import avatar1 from '../../../assets/images/avatars/1.png'
+import avatar2 from '../../../../../assets/images/avatars/2.png'
+import avatar3 from '../../../../../assets/images/avatars/3.png'
+import avatar4 from '../../../../../assets/images/avatars/4.png'
 import { IoMdMore } from "react-icons/io";
 import { useState } from 'react'
 import { IoSend } from "react-icons/io5";
@@ -15,7 +15,7 @@ import { IoArrowBackOutline } from "react-icons/io5";
 import { Link } from 'react-router-dom'
 
 
-export default function Chat() {
+export default function DashChat() {
     const [isTyping, setIsTypinf] = useState(false)
     const [userIsType, setUserIsType] = useState(true);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -56,14 +56,13 @@ export default function Chat() {
 
     const userData = [
         {
-            avatarDoc: doc1,
-            name: 'Dr. Ahmed Nabil',
+            avatarPat: avatar4,
+            name: 'Amiii',
             type: true
         },
         {
-            avatarDoc: doc2,
-            title: 'Community Chat',
-            name: 'Amii',
+            avatarPat: avatar3,
+            name: 'loulia',
             type: true
         },
     ]
@@ -85,7 +84,7 @@ export default function Chat() {
                 <div className="h-full px-3 py-4 overflow-y-auto border-1 border-[#DFDFDF] bg-[#F5F5F5] dark:bg-[#F5F5F5]">
                     <div className="flex flex-col items-start gap-2 p-2 text-gray-900 rounded-lg dark:text-white ">
 
-                    <div className='flex items-center gap-2'>
+                        <div className='flex items-center gap-2'>
                             <Link to={'/dashboard'} className="capitalize text-white  bg-mainColor p-1 rounded-md  transition-all hover:bg-transparent hover:text-mainColor hover:-translate-x-1  ">
 
                                 <IoArrowBackOutline className="text-2xl" />
@@ -114,7 +113,7 @@ export default function Chat() {
                             <li className='flex gap-2 mb-4' key={index}>
 
 
-                                <img src={user.avatarDoc} alt="" className='w-12 h-12 rounded-full' />
+                                <img src={user.avatarPat} alt="" className='w-12 h-12 rounded-full' />
                                 <div className='flex flex-col'>
                                     {user.title === 'Community Chat' ? (
                                         <>
@@ -139,7 +138,7 @@ export default function Chat() {
                             </li>
                         ))}
                     </ul>
-                    
+
                 </div>
             </aside>
             <div className=" sm:ml-64">
@@ -158,7 +157,7 @@ export default function Chat() {
 
 
                                 <div className="relative">
-                                    <img className="w-10 h-10 rounded-full" src={doc1} alt="Community Chat" />
+                                    <img className="w-10 h-10 rounded-full" src={avatar1} alt="Community Chat" />
                                     <div className="w-3 h-3 bg-mainColor rounded-full absolute bottom-0 left-7"></div>
                                 </div>
 

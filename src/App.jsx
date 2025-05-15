@@ -24,6 +24,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // Slick Carousel styles
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import DashChat from "./Components/Pages/Dashboard/SliderContentUi/DashChat/DashChat";
+import ErrPopUp from "./Components/Pages/Dashboard/DashPopsUp/ErrPopUp/ErrPopUp";
 
 // React Query client
 const queryClient = new QueryClient();
@@ -70,6 +72,22 @@ const router = createBrowserRouter([
           </AuthGard>
         ),
       },
+      {
+        path: "dashboard-chat",
+        element: (
+          <AuthGard>
+            <DashChat />
+          </AuthGard>
+        ),
+      },
+      // {
+      //   path: "errPop",
+      //   element: (
+      //     <AuthGard>
+      //       <ErrPopUp />
+      //     </AuthGard>
+      //   ),
+      // },
     ],
   },
   { path: "signupPatient", element: <SignUpPatient /> },

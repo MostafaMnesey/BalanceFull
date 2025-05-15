@@ -3,6 +3,11 @@ import { CiBellOn } from "react-icons/ci";
 
 export default function DashNav() {
     return <>
+        <div className="p-4 rounded-lg dark:border-gray-700">
+                        {/* Top Bar */}
+                        {/* <DashNav/> */}
+
+                        {/* Conditional Page Content */}
         <div className="gap-4 mb-4 w-full mt-1">
                             <div className="flex items-center justify-end w-full h-20 rounded-sm bg-gray-50 dark:bg-white shadow-md">
                                 <div className="flex items-center justify-center gap-3 p-3">
@@ -17,5 +22,6 @@ export default function DashNav() {
                                 </div>
                             </div>
                         </div>
+                    </div>
     </>
 }
