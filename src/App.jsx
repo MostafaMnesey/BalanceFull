@@ -26,6 +26,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import DashChat from "./Components/Pages/Dashboard/SliderContentUi/DashChat/DashChat";
 import ErrPopUp from "./Components/Pages/Dashboard/DashPopsUp/ErrPopUp/ErrPopUp";
+import Post from "./Components/Pages/CommunityPage/Post/Post";
+import Challanges from "./Components/Challanges/Challanges";
+import SignUpDoctor from "./Components/SignUpDoctor/SignUpDoctor";
 
 // React Query client
 const queryClient = new QueryClient();
@@ -62,7 +65,14 @@ const router = createBrowserRouter([
           </AuthGard>
         ),
       },
-      { path: "community", element: <CommunityPage /> },
+      {
+        path: "community",
+        element: (
+          <AuthGard>
+            <CommunityPage />
+          </AuthGard>
+        ),
+      },
       { path: "chat", element: <Chat /> },
       {
         path: "dashboard",
@@ -80,6 +90,14 @@ const router = createBrowserRouter([
           </AuthGard>
         ),
       },
+      {
+        path: "/post/:postId",
+        element: (
+          <AuthGard>
+            <Post />
+          </AuthGard>
+        ),
+      },
       // {
       //   path: "errPop",
       //   element: (
@@ -91,8 +109,10 @@ const router = createBrowserRouter([
     ],
   },
   { path: "signupPatient", element: <SignUpPatient /> },
-  { path: "loginPatient", element: <LoginPatient /> },
+  { path: "signupDoctor", element: <SignUpDoctor /> },
+  { path: "loginPatient/:type", element: <LoginPatient /> },
   { path: "choosePath", element: <ChossePath /> },
+  { path: "Challenges", element: <Challanges /> },
   {
     path: "profile",
     element: (

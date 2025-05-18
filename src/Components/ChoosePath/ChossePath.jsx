@@ -116,8 +116,8 @@ export default function ChossePath() {
                 <Link
                   to={`${
                     selectedRole === "individual"
-                      ? "/loginPatient"
-                      : "/loginSpecialist"
+                      ? "/loginPatient/patient"
+                      : "/loginPatient/specialist"
                   }`}
                 >
                   <button

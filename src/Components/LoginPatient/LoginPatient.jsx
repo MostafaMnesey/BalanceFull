@@ -3,7 +3,7 @@ import side from "../../assets/images/side.png";
 
 import { TfiEye } from "react-icons/tfi";
 import { RxEyeClosed } from "react-icons/rx";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -19,6 +19,7 @@ export default function LoginPatient() {
     email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string().required("Password is required"),
   });
+  const {type } = useParams();
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -28,7 +29,11 @@ export default function LoginPatient() {
 
     validationSchema: validationSchema,
     onSubmit: (values) => {
+    if (type === "patient") {
       loginPatient(values);
+    } else {
+      loginDoctor(values);
+    }
     },
   });
 
@@ -66,6 +71,41 @@ export default function LoginPatient() {
       console.log(error);
     }
   }
+  async function loginDoctor(values) {
+    setShowToast(false);
+    setErrorMessage("");
+    try {
+      const res = await axios.post(
+        "https://beige-wildcat-74200.zap.cloud/api/doctor/login",
+        values,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setShowToast(true);
+      setUser(res?.data);
+      setToken(res?.data?.token);
+      localStorage.setItem("token", res?.data.token);
+
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 100);
+    } catch (error) {
+      if (error.status === 401) {
+        setErrorMessage("Invalid email or password");
+        setShowToast(true);
+      } else {
+        setErrorMessage("Something went wrong");
+        setShowToast(true);
+      }
+
+      console.log(error);
+    }
+  }
+  
   
   
 
@@ -182,7 +222,13 @@ export default function LoginPatient() {
               <div className="text-center text-sm text-[#4C4C4C] mt-6">
                 Don’t have an account?{" "}
                 <span className="text-base text-bluee">
-                  <Link to="/signupPatient">Sign up</Link>
+                  {
+                    type === "patient" ? (
+                      <Link to="/signupPatient">Sign Up</Link>
+                    ) : (
+                      <Link to="/signupDoctor">Sign Up</Link>
+                    )
+                  }
                 </span>
               </div>
             </form>

@@ -3,6 +3,7 @@ import { MdEmail } from "react-icons/md";
 import { FaPhoneAlt } from "react-icons/fa";
 
 export default function Contact() {
+
     return (
         <section className="mt-20" id="contact">
             <div className="relative w-full flex justify-center">
@@ -48,8 +49,8 @@ export default function Contact() {
                         </button>
 
                         {/* Inline Contact Info for small screens */}
-                        <div className="mt-3 flex text-sm gap-2 lg:text-sm lg:hidden md:flex md:items-center md:justify-between md:mt-3 md:text-teal-900 md:font-semibold md:text-md">
-                            <div className="flex items-center gap-1 text-[10px]">
+                        <div className="mt-3 flex flex-col text-sm gap-2 lg:text-sm lg:hidden md:flex md:items-center md:justify-between md:mt-3 md:text-teal-900 md:font-semibold md:text-md">
+                            <div className="flex items-center  gap-1 text-[10px]">
                                 <FaLocationDot />
                                 <p>Mansoura, Egypt</p>
                             </div>

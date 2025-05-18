@@ -4,7 +4,7 @@ export default function AuthGard({ children }) {
   const token = localStorage.getItem("token");
 
   if (!token) {
-    return <Navigate to="/loginPatient" />;
+    return <Navigate to="/choosePath" />;
   }
 
   return children;

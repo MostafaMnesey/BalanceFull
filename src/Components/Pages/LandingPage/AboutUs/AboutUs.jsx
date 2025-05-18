@@ -8,7 +8,7 @@ export default function AboutUs() {
       <section id="about" className='mt-20'>
         <Services/>
         <div className="container">
-          <div className="grid grid-cols-6 gap-20 p-7 items-center justify-center">
+          <div className="grid grid-cols-6 gap-10 p-7 items-center justify-center">
             <div className="col-span-6 md:col-span-4 space-y-4">
               <h2 className="font-bold text-3xl leading-normal font-poppins">
                 About the Program

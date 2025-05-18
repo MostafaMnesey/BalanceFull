@@ -10,51 +10,51 @@ import { FaTheRedYeti } from "react-icons/fa6";
 export default function Profile() {
   const { user } = useContext(AuthContext);
 
-  const { data, isLoading, isFetching,refetch } = useQuery({
+  const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: ["user"],
     queryFn: () => getUser(user),
     refetchOnMount: true,
-
   });
 
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-
   async function getUser(user) {
     return await axios.get(
-      `https://beige-wildcat-74200.zap.cloud/api/patient/${user?.user.ID}`
+      `https://beige-wildcat-74200.zap.cloud/api/patient/${user?.user.ID}`,
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
     );
   }
 
   const userdet = data?.data.data;
 
-
-
-  async function deleteAccount(userdet,user) {
-console.log(userdet);
-
-  try { 
+  async function deleteAccount(userdet, user) {
+    try {
       const res = await axios.delete(
         `https://beige-wildcat-74200.zap.cloud/api/patient/${userdet}`,
         {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: `Bearer ${userdet?.token}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
       console.log(res);
-      if(res.status === 200){
+      if (res.status === 200) {
         localStorage.removeItem("user");
         localStorage.removeItem("token");
         window.location.reload();
-
       }
     } catch (error) {
       console.log(error);
-    } 
+    }
   }
   return (
     <>
@@ -153,8 +153,7 @@ console.log(userdet);
         show={showUpdateModal}
         data={userdet}
         refetch={refetch}
-      set={setShowUpdateModal}
-        // تمرير بيانات الطبيب المحدد إلى المودال
+        set={setShowUpdateModal}
         type="Update"
         onClose={() => setShowUpdateModal(false)}
       />
@@ -162,7 +161,7 @@ console.log(userdet);
         show={showDeleteModal}
         onaccept={deleteAccount}
         data={userdet?.ID}
-        // تمرير بيانات الطبيب المحدد إلى المودال
+        // تمرير  الطبيب المحدد إلى المودال
         type="DeleteAcc"
         onClose={() => setShowDeleteModal(false)}
       />

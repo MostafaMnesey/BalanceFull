@@ -5,6 +5,7 @@ import CoverSec from './CoverSec/CoverSec'
 import TopDoc from './TopDoc/TopDoc'
 import WhyUs from './WhyUs/WhyUs'
 import axios from 'axios'
+import Services from './Services/Services'
 
 export default function LandingPage() {
     const [topRatedDoctors, setTopRatedDoctors] = useState  ([])
@@ -33,7 +34,7 @@ try {
     
     return <>
         <CoverSec />
-        {/* <Services /> */}
+      
         <AboutUs />
         <WhyUs />
         <TopDoc data={topRatedDoctors} />
