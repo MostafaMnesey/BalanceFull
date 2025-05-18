@@ -1,5 +1,5 @@
 // Modal.jsx
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { MdStarRate } from "react-icons/md";
 import avatar from "../../assets/images/defAvatar.jpeg";
 import avt1 from "../../assets/images/avatars/1.png";
@@ -96,6 +96,7 @@ export default function Modal({
   const [showAvatar, setShowAvatar] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState(0);
   const [error, setError] = useState(null);
+ 
 
   const [showToast, setShowToast] = useState(null);
 console.log(data);
@@ -168,28 +169,7 @@ console.log(data);
       assignUserToDoctor(values);
     },
   });
-
-  let formik2 
-  if (type === "update") {
-   formik2 = useFormik({
-      initialValues: {
-        fullname: "",
-        nickname: "",
-        email: "",
-        age: "",
-        password: "",
-        password_confirmation: "",
-        phoneNumber: "",
-        avatar: `${number}`,
-      },
-      validationSchema: schema,
-      validate: (values) => {},
-
-      onSubmit: (values) => {
-        updateUserProfile(values);
-      },
-    });
-    const schema = Yup.object().shape({
+const schema = Yup.object().shape({
       fullname: Yup.string()
         .required("Full name is required")
         .min(8, "Full name must be at least 8 characters"),
@@ -213,8 +193,27 @@ console.log(data);
     });
     const userimg = data?.Avatar;
 
-    const number = userimg.split("/").pop().split(".")[0];
-  }
+    const number = userimg?.split("/").pop().split(".")[0];
+  
+  const formik2 = useFormik({
+      initialValues: {
+        fullname: "",
+        nickname: "",
+        email: "",
+        age: "",
+        password: "",
+        password_confirmation: "",
+        phoneNumber: "",
+        avatar: `${number}`,
+      },
+      validationSchema: schema,
+      validate: (values) => {},
+
+      onSubmit: (values) => {
+        updateUserProfile(values);
+      },
+    });
+    
 
 
 

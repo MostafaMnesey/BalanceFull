@@ -3,14 +3,10 @@ import Doc1 from "../../assets/images/Doctor.png";
 import { MdStarRate } from "react-icons/md";
 import community from "../../assets/images/DocComm.png";
 import chat from "../../assets/images/DrChat.png";
-const data = {
-  id: 1,
-  name: "Dr. Ahmed Nabil",
-  specialty: "Addiction",
-  rating: 5,
-  image: Doc1,
-};
+
 export default function Doctor() {
+
+  
   
   return (
     <>

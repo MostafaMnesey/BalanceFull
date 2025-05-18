@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import commCard1 from '../../../../assets/images/commCard1.svg';
-import commCard2 from '../../../../assets/images/commCard2.svg';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import commCard1 from "../../../../assets/images/commCard1.svg";
+import commCard2 from "../../../../assets/images/commCard2.svg";
 
 export default function CommCards() {
   const [loading, setLoading] = useState(false);
@@ -10,22 +10,24 @@ export default function CommCards() {
   const commCardData = [
     {
       image: commCard1,
-      title: 'Weekly Challenge',
-      content: 'Share something that helped you stay away from triggers this week. *Post in the group and support others with your ideas!*',
-      btnTxt: 'Submit Challenge',
+      title: " Challenges",
+      content:
+        "Share something that helped you stay away from triggers this week. *Post in the group and support others with your ideas!*",
+      btnTxt: "Show Challenges",
     },
     {
       image: commCard2,
-      title: 'Join the Community Chat',
-      content: "You're not alone on this journey. Join the group chat to connect, share, and support each other.",
-      btnTxt: 'Join Chat',
+      title: "Join the Community Chat",
+      content:
+        "You're not alone on this journey. Join the group chat to connect, share, and support each other.",
+      btnTxt: "Join Chat",
     },
   ];
 
   const handleJoinChatClick = () => {
-    setLoading(true); 
+    setLoading(true);
     setTimeout(() => {
-      navigate('/chat'); 
+      navigate("/chat");
     }, 1000);
   };
 
@@ -46,12 +48,11 @@ export default function CommCards() {
               className="group px-8 py-6 bg-[#F5F5F5] flex flex-col items-center rounded-lg shadow-sm md:flex-row md:max-w-xl transform transition-transform duration-300 hover:-translate-y-2"
             >
               <div>
-              <img
-                className="object-fit w-full rounded-t-lg  md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-                src={card.image}
-                alt={card.title}
-              />
-
+                <img
+                  className="object-fit w-full rounded-t-lg  md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
+                  src={card.image}
+                  alt={card.title}
+                />
               </div>
               <div className="flex flex-col justify-between p-4 leading-normal">
                 <h5 className="mb-2 text-md font-semibold tracking-tight text-gray-900">
@@ -62,12 +63,14 @@ export default function CommCards() {
                 </p>
                 <div className="flex justify-end">
                   {card.btnTxt ? (
-                    <button
-                      onClick={handleJoinChatClick}
-                      className="bg-mainColor py-3 px-7 rounded-lg text-white text-md font-medium transition-all duration-300 group-hover:bg-white group-hover:text-mainColor group-hover:border group-hover:border-3 group-hover:border-mainColor"
-                    >
-                      {card.btnTxt}
-                    </button>
+                    <Link to="/Challenges">
+                      <button
+                        onClick={handleJoinChatClick}
+                        className="bg-mainColor py-3 px-7 rounded-lg text-white text-md font-medium transition-all duration-300 group-hover:bg-white group-hover:text-mainColor group-hover:border group-hover:border-3 group-hover:border-mainColor"
+                      >
+                        {card.btnTxt}
+                      </button>
+                    </Link>
                   ) : null}
                 </div>
               </div>
