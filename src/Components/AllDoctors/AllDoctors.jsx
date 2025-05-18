@@ -12,92 +12,7 @@ import axios, { all } from "axios";
 import { useQuery } from "@tanstack/react-query";
 import Loadingg from "../Loadingg/Loadingg";
 
-/* const Alldoctors = [
-  {
-    id: 1,
-    name: "Dr. Ahmed Nabil",
-    specialty: "Addiction",
-    rating: 5,
-    image: Doc1,
-  },
-  {
-    id: 2,
-    name: "Dr. Sara Youssef",
-    specialty: "Psychiatry",
-    rating: 4.8,
-    image: Doc1,
-  },
-  {
-    id: 3,
-    name: "Dr. Hossam Khaled",
-    specialty: "Rehabilitation",
-    rating: 4.9,
-    image: Doc1,
-  },
-  {
-    id: 4,
-    name: "Dr. Mona Tarek",
-    specialty: "Mental Health",
-    rating: 5,
-    image: Doc1,
-  },
-  {
-    id: 5,
-    name: "Dr. Omar Farouk",
-    specialty: "Addiction",
-    rating: 4.7,
-    image: Doc1,
-  },
-  {
-    id: 6,
-    name: "Dr. Omar Farouk",
-    specialty: "Addiction",
-    rating: 4.7,
-    image: Doc1,
-  },
-  {
-    id: 7,
-    name: "Dr. Ahmed Nabil",
-    specialty: "Addiction",
-    rating: 5,
-    image: Doc1,
-  },
-  {
-    id: 8,
-    name: "Dr. Sara Youssef",
-    specialty: "Psychiatry",
-    rating: 4.8,
-    image: Doc1,
-  },
-  {
-    id: 9,
-    name: "Dr. Hossam Khaled",
-    specialty: "Rehabilitation",
-    rating: 4.9,
-    image: Doc1,
-  },
-  {
-    id: 10,
-    name: "Dr. Mona Tarek",
-    specialty: "Mental Health",
-    rating: 5,
-    image: Doc1,
-  },
-  {
-    id: 11,
-    name: "Dr. Omar Farouk",
-    specialty: "Addiction",
-    rating: 4.7,
-    image: Doc1,
-  },
-  {
-    id: 12,
-    name: "Dr. Omar Farouk",
-    specialty: "Addiction",
-    rating: 4.7,
-    image: Doc1,
-  },
-]; */
+
 
 export default function AllDoctors() {
   let topRated = [];
@@ -118,11 +33,12 @@ export default function AllDoctors() {
   });
   async function getDoctors() {
     return await axios.get(
-      "https://beige-wildcat-74200.zap.cloud/api/doctors",
+      "https://beige-wildcat-74200.zap.cloud/api/doctor",
       {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }
     );
@@ -132,7 +48,7 @@ export default function AllDoctors() {
     
     try{
       const res = await axios.post(
-        `https://beige-wildcat-74200.zap.cloud/api/doctors/${id}/increment-view`,{},
+        `https://beige-wildcat-74200.zap.cloud/api/statistics/${id}/increment-view`,{},
         {
           headers: {
             Accept: "application/json",
@@ -159,7 +75,7 @@ topRated=allDoctors?.filter((doctor) => doctor.Statistics.AverageRating >= 4.5);
 
   return (
     <>
-      <div className="container mx-auto mt-28">
+      <div className="container mx-auto min-h-[52vh] mt-28">
         <div className="flex justify-start ml-20 mx-auto gap-5 mt-[56px]">
           <form className="w-[570px]">
             <div className="relative">
@@ -300,7 +216,7 @@ topRated=allDoctors?.filter((doctor) => doctor.Statistics.AverageRating >= 4.5);
                       key={doctor.id}
                       onClick={() => handleCardClick(doctor)}
                     >
-                      <Card doctor={doctor} />
+                      <Card doctor={doctor} view={incrementView} />
                     </div>
                   ))}
                 </div>

@@ -5,16 +5,23 @@ import "./App.css";
 import ChossePath from "./Components/ChoosePath/ChossePath";
 import LoginPatient from "./Components/LoginPatient/LoginPatient";
 import SignUpPatient from "./Components/SignUpPatient/SignUpPatient";
+import SignUpDoctor from "./Components/SignUpDoctor/SignUpDoctor";
 import AllDoctors from "./Components/AllDoctors/AllDoctors";
 import LandingPage from "./Components/Pages/LandingPage/LandingPage";
 import RouterLayout from "./RouterLayout/RouterLayout";
 import TasksPage from "./Components/Pages/TaskPage/TaskPage";
 import Doctor from "./Components/Doctor/Doctor";
 import CommunityPage from "./Components/Pages/CommunityPage/CommunityPage";
+import Post from "./Components/Pages/CommunityPage/Post/Post";
 import Chat from "./Components/Pages/Chat/Chat";
 import Profile from "./Components/Profile/Profile";
 import DashboardLayout from "./Components/Pages/Dashboard/DashboardLayout";
 import HasDoctor from "./Components/HasDoctor/HasDoctor";
+import DashChat from "./Components/Pages/Dashboard/SliderContentUi/DashChat/DashChat";
+import SettingLayout from "./Components/Pages/Dashboard/SliderContentUi/Setting/SettingLayout";
+import DelPops from "./Components/Pages/Dashboard/SliderContentUi/Setting/SettingPopsUp/delPops/delPops";
+import ErrPopUp from "./Components/Pages/Dashboard/DashPopsUp/ErrPopUp/ErrPopUp";
+import Challanges from "./Components/Challanges/Challanges";
 
 // Context & Guards
 import AuthContextProvider from "./Context/AuthContext";
@@ -24,10 +31,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // Slick Carousel styles
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import DashChat from "./Components/Pages/Dashboard/SliderContentUi/DashChat/DashChat";
-import ErrPopUp from "./Components/Pages/Dashboard/DashPopsUp/ErrPopUp/ErrPopUp";
-import SettingLayout from "./Components/Pages/Dashboard/SliderContentUi/Setting/SettingLayout";
-import DelPops from "./Components/Pages/Dashboard/SliderContentUi/Setting/SettingPopsUp/delPops/delPops";
 
 // React Query client
 const queryClient = new QueryClient();
@@ -64,7 +67,14 @@ const router = createBrowserRouter([
           </AuthGard>
         ),
       },
-      { path: "community", element: <CommunityPage /> },
+      {
+        path: "community",
+        element: (
+          <AuthGard>
+            <CommunityPage />
+          </AuthGard>
+        ),
+      },
       { path: "chat", element: <Chat /> },
       {
         path: "dashboard",
@@ -82,14 +92,14 @@ const router = createBrowserRouter([
           </AuthGard>
         ),
       },
-      // {
-      //   path: "popsUp",
-      //   element: (
-      //     <AuthGard>
-      //       <DelPops/>
-      //     </AuthGard>
-      //   ),
-      // },
+      {
+        path: "post/:postId",
+        element: (
+          <AuthGard>
+            <Post />
+          </AuthGard>
+        ),
+      },
       {
         path: "setting",
         element: (
@@ -101,8 +111,10 @@ const router = createBrowserRouter([
     ],
   },
   { path: "signupPatient", element: <SignUpPatient /> },
-  { path: "loginPatient", element: <LoginPatient /> },
+  { path: "signupDoctor", element: <SignUpDoctor /> },
+  { path: "loginPatient/:type", element: <LoginPatient /> },
   { path: "choosePath", element: <ChossePath /> },
+  { path: "Challenges", element: <Challanges /> },
   {
     path: "profile",
     element: (

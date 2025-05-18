@@ -7,6 +7,7 @@ import { MdPerson } from "react-icons/md";
 import { PiSignOutFill } from "react-icons/pi";
 import axios from "axios";
 import Modal from "../Modal/Modal";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -14,15 +15,36 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
+
   const location = useLocation();
   const nav = useNavigate();
+  const { data } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => getUser(user),
+    refetchOnMount: true,
+  });
 
   const { user, setUser, token, setToken } = useContext(AuthContext);
 
   const isLandingPage = location.pathname === "/";
-  const isChatPage = location.pathname === "/chat";
+  const isChatPage = location.pathname === "/chat"; 
   const isDashPage = location.pathname === "/dashboard";
   const isDashChat = location.pathname === "/dashboard-chat";
+
+  const userDetails = data?.data.data
+
+  async function getUser(user) {
+    return await axios.get(
+      `https://beige-wildcat-74200.zap.cloud/api/patient/${user?.user.ID}`,
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+  }
 
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);
@@ -151,7 +173,7 @@ export default function Navbar() {
                   <span className="sr-only">Open user menu</span>
                   <img
                     className="w-8 h-8 rounded-full"
-                    src={`https://beige-wildcat-74200.zap.cloud/${user?.user.Avatar}`}
+                    src={`https://beige-wildcat-74200.zap.cloud/${userDetails?.Avatar}`}
                     alt="user photo"
                   />
                 </button>
@@ -160,10 +182,10 @@ export default function Navbar() {
                   <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600 absolute top-14 right-0">
                     <div className="px-4 py-3">
                       <span className="block text-sm text-gray-900 text-center dark:text-white">
-                        {user?.user.Nickname}
+                        {userDetails?.Nickname}
                       </span>
                       <span className="block text-sm text-gray-500 text-center truncate dark:text-gray-400">
-                        {user?.user.Email}
+                        {userDetails?.Email}
                       </span>
                     </div>
                     <ul className="py-2">
@@ -180,7 +202,7 @@ export default function Navbar() {
                       </li>
                       <li className="px-4 py-2">
                         <button
-                          onClick={() => setShowModal(true)}
+                          onClick={() => setShowModal(!showModal)}
                           className="block px-4 py-2 text-sm text-gray-700"
                         >
                           <div className="flex items-center">
@@ -257,10 +279,11 @@ export default function Navbar() {
       {/* مودال تأكيد تسجيل الخروج */}
       {showModal && (
         <Modal
-          closeModal={() => setShowModal(false)}
-          message="Are you sure you want to logout?"
-          action={logout}
-          actionText="Logout"
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          set={setShowModal}
+          onaccept={logout}
+          type="Logout"
         />
       )}
     </nav>
