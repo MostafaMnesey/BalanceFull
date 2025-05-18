@@ -26,6 +26,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import DashChat from "./Components/Pages/Dashboard/SliderContentUi/DashChat/DashChat";
 import ErrPopUp from "./Components/Pages/Dashboard/DashPopsUp/ErrPopUp/ErrPopUp";
+import SettingLayout from "./Components/Pages/Dashboard/SliderContentUi/Setting/SettingLayout";
+import DelPops from "./Components/Pages/Dashboard/SliderContentUi/Setting/SettingPopsUp/delPops/delPops";
 
 // React Query client
 const queryClient = new QueryClient();
@@ -81,13 +83,21 @@ const router = createBrowserRouter([
         ),
       },
       // {
-      //   path: "errPop",
+      //   path: "popsUp",
       //   element: (
       //     <AuthGard>
-      //       <ErrPopUp />
+      //       <DelPops/>
       //     </AuthGard>
       //   ),
       // },
+      {
+        path: "setting",
+        element: (
+          <AuthGard>
+            <SettingLayout />
+          </AuthGard>
+        ),
+      },
     ],
   },
   { path: "signupPatient", element: <SignUpPatient /> },

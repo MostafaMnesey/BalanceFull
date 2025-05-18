@@ -14,6 +14,7 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import CommunityPage from "../CommunityPage/CommunityPage";
 import DashNav from "./DashNav/DashNav";
 import ErrPopUp from "./DashPopsUp/ErrPopUp/ErrPopUp";
+import SettingLayout from "./SliderContentUi/Setting/SettingLayout";
 
 export default function DashboardLayout() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -45,7 +46,13 @@ export default function DashboardLayout() {
             case "community":
                 return <CommunityPage />;
             case "setting":
-                return <Setting />;
+
+                return (
+                    <>
+                        <DashNav />
+                        <SettingLayout />
+                    </>
+                ) 
             default:
                 return <DashCards />;
         }
