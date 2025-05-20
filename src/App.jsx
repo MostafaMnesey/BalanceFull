@@ -31,6 +31,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // Slick Carousel styles
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Patient from "./Components/Pages/Dashboard/SliderContentUi/Patient/Patient";
 
 // React Query client
 const queryClient = new QueryClient();
@@ -105,6 +106,14 @@ const router = createBrowserRouter([
         element: (
           <AuthGard>
             <SettingLayout />
+          </AuthGard>
+        ),
+      },
+      {
+        path: "patient-account",
+        element: (
+          <AuthGard>
+            <Patient />
           </AuthGard>
         ),
       },
