@@ -19,9 +19,9 @@ import DashboardLayout from "./Components/Pages/Dashboard/DashboardLayout";
 import HasDoctor from "./Components/HasDoctor/HasDoctor";
 import DashChat from "./Components/Pages/Dashboard/SliderContentUi/DashChat/DashChat";
 import SettingLayout from "./Components/Pages/Dashboard/SliderContentUi/Setting/SettingLayout";
-import DelPops from "./Components/Pages/Dashboard/SliderContentUi/Setting/SettingPopsUp/delPops/delPops";
-import ErrPopUp from "./Components/Pages/Dashboard/DashPopsUp/ErrPopUp/ErrPopUp";
 import Challanges from "./Components/Challanges/Challanges";
+import ShowChallange from "./Components/Challanges/ShowChallange/ShowChallange";
+import Patient from "./Components/Pages/Dashboard/SliderContentUi/Patient/Patient";
 
 // Context & Guards
 import AuthContextProvider from "./Context/AuthContext";
@@ -31,12 +31,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // Slick Carousel styles
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Patient from "./Components/Pages/Dashboard/SliderContentUi/Patient/Patient";
 
 // React Query client
 const queryClient = new QueryClient();
 
-// Router configuration
 const router = createBrowserRouter([
   {
     path: "/",
@@ -102,6 +100,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "Challenge/:ChallengeId",
+        element: (
+          <AuthGard>
+            <ShowChallange />
+          </AuthGard>
+        ),
+      },
+      {
         path: "setting",
         element: (
           <AuthGard>
@@ -117,13 +123,20 @@ const router = createBrowserRouter([
           </AuthGard>
         ),
       },
+      {
+        path: "Challenges",
+        element: (
+          <AuthGard>
+            <Challanges />
+          </AuthGard>
+        ),
+      },
     ],
   },
   { path: "signupPatient", element: <SignUpPatient /> },
   { path: "signupDoctor", element: <SignUpDoctor /> },
   { path: "loginPatient/:type", element: <LoginPatient /> },
   { path: "choosePath", element: <ChossePath /> },
-  { path: "Challenges", element: <Challanges /> },
   {
     path: "profile",
     element: (

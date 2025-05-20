@@ -14,7 +14,7 @@ import Loadingg from "../Loadingg/Loadingg";
 
 
 
-export default function AllDoctors() {
+export default function AllDoctors({refetchh}) {
   let topRated = [];
   const [ratedDoctorVisibleCards, setRatedDoctorVisibleCards] = useState(3);
   const [allDoctorVisibleCards, setAllDoctorVisibleCards] = useState(3);
@@ -43,12 +43,15 @@ export default function AllDoctors() {
       }
     );
   }
+console.log(data);
+
+  
   async function incrementView(id) {
     
     
     try{
       const res = await axios.post(
-        `https://beige-wildcat-74200.zap.cloud/api/statistics/${id}/increment-view`,{},
+        `https://beige-wildcat-74200.zap.cloud/api/doctors/${id}/increment-view`,{},
         {
           headers: {
             Accept: "application/json",
@@ -68,6 +71,8 @@ export default function AllDoctors() {
   const allDoctors = data?.data.data;
 
 topRated=allDoctors?.filter((doctor) => doctor.Statistics.AverageRating >= 4.5);
+console.log(topRated);
+
 
 
  
@@ -229,6 +234,7 @@ topRated=allDoctors?.filter((doctor) => doctor.Statistics.AverageRating >= 4.5);
         show={showModal}
         data={selectedDoctor} // تمرير بيانات الطبيب المحدد إلى المودال
         type="doctor"
+        refetch={refetchh}
         onClose={() => setShowModal(false)}
         onaccept={() => setShowModal(false)}
       />

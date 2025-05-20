@@ -27,6 +27,7 @@ export default function CommCards() {
   const handleJoinChatClick = () => {
     setLoading(true);
     setTimeout(() => {
+      if(commCardData)
       navigate("/chat");
     }, 1000);
   };
@@ -62,16 +63,25 @@ export default function CommCards() {
                   {card.content}
                 </p>
                 <div className="flex justify-end">
-                  {card.btnTxt ? (
-                    <Link to="/Challenges">
+                  {card.btnTxt === "Join Chat" ? (
+                   <Link to="/chat">
                       <button
-                        onClick={handleJoinChatClick}
+                       
                         className="bg-mainColor py-3 px-7 rounded-lg text-white text-md font-medium transition-all duration-300 group-hover:bg-white group-hover:text-mainColor group-hover:border group-hover:border-3 group-hover:border-mainColor"
                       >
                         {card.btnTxt}
                       </button>
-                    </Link>
-                  ) : null}
+                  </Link>
+                  ) : (
+                     <Link to="/Challenges">
+                      <button
+                       
+                        className="bg-mainColor py-3 px-7 rounded-lg text-white text-md font-medium transition-all duration-300 group-hover:bg-white group-hover:text-mainColor group-hover:border group-hover:border-3 group-hover:border-mainColor"
+                      >
+                        {card.btnTxt}
+                      </button>
+                  </Link>
+                  )}
                 </div>
               </div>
             </div>

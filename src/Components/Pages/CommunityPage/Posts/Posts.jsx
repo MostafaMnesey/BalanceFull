@@ -5,12 +5,14 @@ import axios from "axios";
 import Toast from "../../../Toast/Toast";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import ErrPopUp from "../../Dashboard/DashPopsUp/ErrPopUp/ErrPopUp";
 
 export default function Posts({ allPosts, refetch }) {
-  const [showDelete, setShowDelete] = useState(false);
+  const [showDelete, setShowDelete] = useState(null);
   const [toast, setToast] = useState(false);
   const [showCommentFor, setShowCommentFor] = useState(null);
   const [commentTexts, setCommentTexts] = useState({});
+  const [showPop,setShowPop]=useState(false)
   
   async function likePost(postId) {
     try {
@@ -42,7 +44,7 @@ export default function Posts({ allPosts, refetch }) {
       setToast(true);
       refetch();
     } catch (error) {
-      console.log(error);
+      setShowPop(true)
     }
   }
 
@@ -114,11 +116,11 @@ async function handleCommentSubmit(postId) {
               >
                 <div className="flex items-center gap-4 relative mb-4">
                   <div className="absolute top-0 right-0">
-                    <button onClick={() => setShowDelete(!showDelete)}>
+                    <button onClick={() => setShowDelete(showDelete === post.id ? null : post.id)}>
                       <IoMdMore className="text-lg" />
                     </button>
                   </div>
-                  {showDelete && (
+                  {showDelete ===post?.id && (
                     <div className="absolute top-5 right-0">
                       <button
                         onClick={() => deletePost(post?.id)}
@@ -260,6 +262,9 @@ async function handleCommentSubmit(postId) {
         </div>
       </div>
       <Toast show={toast} title="Post Deleted Successfully" icon="success" />
+      {
+        showPop?<ErrPopUp title={"You Can't Delete This Post"} onClose={()=>setShowPop(false)}/>:null
+      }
     </section>
   );
 }
