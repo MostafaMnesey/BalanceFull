@@ -20,6 +20,8 @@ import HasDoctor from "./Components/HasDoctor/HasDoctor";
 import DashChat from "./Components/Pages/Dashboard/SliderContentUi/DashChat/DashChat";
 import SettingLayout from "./Components/Pages/Dashboard/SliderContentUi/Setting/SettingLayout";
 import Challanges from "./Components/Challanges/Challanges";
+import ShowChallange from "./Components/Challanges/ShowChallange/ShowChallange";
+import Patient from "./Components/Pages/Dashboard/SliderContentUi/Patient/Patient";
 
 // Context & Guards
 import AuthContextProvider from "./Context/AuthContext";
@@ -29,12 +31,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // Slick Carousel styles
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ShowChallange from "./Components/Challanges/ShowChallange/ShowChallange";
 
 // React Query client
 const queryClient = new QueryClient();
 
-// Router configuration
 const router = createBrowserRouter([
   {
     path: "/",
@@ -115,7 +115,22 @@ const router = createBrowserRouter([
           </AuthGard>
         ),
       },
-      { path: "Challenges", element: <Challanges /> },
+      {
+        path: "patient-account",
+        element: (
+          <AuthGard>
+            <Patient />
+          </AuthGard>
+        ),
+      },
+      {
+        path: "Challenges",
+        element: (
+          <AuthGard>
+            <Challanges />
+          </AuthGard>
+        ),
+      },
     ],
   },
   { path: "signupPatient", element: <SignUpPatient /> },

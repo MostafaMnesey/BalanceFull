@@ -15,6 +15,7 @@ import CommunityPage from "../CommunityPage/CommunityPage";
 import DashNav from "./DashNav/DashNav";
 import ErrPopUp from "./DashPopsUp/ErrPopUp/ErrPopUp";
 import SettingLayout from "./SliderContentUi/Setting/SettingLayout";
+import Patient from "./SliderContentUi/Patient/Patient";
 
 export default function DashboardLayout() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -42,7 +43,11 @@ export default function DashboardLayout() {
                     </>
                 );
             case "patient":
-                return <Patient />;
+
+                return (<>
+                    <DashNav />
+                    < Patient />
+                </>) ;
             case "community":
                 return <CommunityPage />;
             case "setting":
