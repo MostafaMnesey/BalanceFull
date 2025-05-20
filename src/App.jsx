@@ -19,8 +19,6 @@ import DashboardLayout from "./Components/Pages/Dashboard/DashboardLayout";
 import HasDoctor from "./Components/HasDoctor/HasDoctor";
 import DashChat from "./Components/Pages/Dashboard/SliderContentUi/DashChat/DashChat";
 import SettingLayout from "./Components/Pages/Dashboard/SliderContentUi/Setting/SettingLayout";
-import DelPops from "./Components/Pages/Dashboard/SliderContentUi/Setting/SettingPopsUp/DelPops/delPops";
-import ErrPopUp from "./Components/Pages/Dashboard/DashPopsUp/ErrPopUp/ErrPopUp";
 import Challanges from "./Components/Challanges/Challanges";
 
 // Context & Guards
