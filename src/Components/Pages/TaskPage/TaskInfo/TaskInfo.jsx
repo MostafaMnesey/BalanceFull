@@ -2,26 +2,25 @@ import { FaAward } from "react-icons/fa6";
 import { GrTasks } from "react-icons/gr";
 import { SlCalender } from "react-icons/sl";
 
-export default function TaskInfo() {
-
+export default function TaskInfo({data}) {
     const taskInfo = [
         {
             date: '11:08 AM, 12 Aug',
             icon: <FaAward />,
             title: ' Points Earned',
-            points: '240 points'
+            points: ` ${data?.data.points} points`
         },
         {
             date: '11:08 AM, 12 Aug',
             icon: <GrTasks />,
             title: ' Tasks Completed',
-            points: '75%'
+            points: `${data?.data.completion_percentage}  %`
         },
         {
             date: '11:08 AM, 12 Aug',
             icon: <SlCalender />,
             title: ' Consecutive Days of Commitment',
-            points: '12 days'
+            points: `${data?.data.consecutive_commitment_days} days`
         },
     ]
     return (

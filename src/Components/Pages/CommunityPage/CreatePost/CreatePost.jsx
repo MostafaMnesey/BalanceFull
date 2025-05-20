@@ -5,7 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
 
-export default function CreatePost({ refetch }) {
+export default function CreatePost({ refetch,type }) {
   const vaildationSchema = Yup.object().shape({
     content: Yup.string().required("Content is required"),
   });
@@ -49,7 +49,7 @@ export default function CreatePost({ refetch }) {
     },
   });
 
-  /*  async function makePost(values, { resetForm })  {
+   async function makePost(values, { resetForm })  {
       const formData = new FormData();
       formData.append("content", values.content);
       if (values.image) {
@@ -57,6 +57,7 @@ export default function CreatePost({ refetch }) {
       }
 
       try {
+        if(type === "post"){
         const res = await axios.post(
           "https://beige-wildcat-74200.zap.cloud/api/posts",
           formData,
@@ -66,7 +67,18 @@ export default function CreatePost({ refetch }) {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
-        );
+        );}else if(type === "challenge"){
+          const res = await axios.post(
+            "https://beige-wildcat-74200.zap.cloud/api/challenges",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          );
+        }
         console.log("تم إنشاء المنشور:", res.data);
         resetForm();
         setPreview(null);
@@ -75,7 +87,7 @@ export default function CreatePost({ refetch }) {
         console.error("خطأ أثناء إرسال المنشور:", error);
       }
     
-} */
+}
 
   const handleImageChange = (e) => {
     const file = e.currentTarget.files[0];

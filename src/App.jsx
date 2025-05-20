@@ -31,6 +31,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // Slick Carousel styles
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ShowChallange from "./Components/Challanges/ShowChallange/ShowChallange";
 
 // React Query client
 const queryClient = new QueryClient();
@@ -101,6 +102,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "Challenge/:ChallengeId",
+        element: (
+          <AuthGard>
+            <ShowChallange />
+          </AuthGard>
+        ),
+      },
+      {
         path: "setting",
         element: (
           <AuthGard>
@@ -108,13 +117,13 @@ const router = createBrowserRouter([
           </AuthGard>
         ),
       },
+      { path: "Challenges", element: <Challanges /> },
     ],
   },
   { path: "signupPatient", element: <SignUpPatient /> },
   { path: "signupDoctor", element: <SignUpDoctor /> },
   { path: "loginPatient/:type", element: <LoginPatient /> },
   { path: "choosePath", element: <ChossePath /> },
-  { path: "Challenges", element: <Challanges /> },
   {
     path: "profile",
     element: (
