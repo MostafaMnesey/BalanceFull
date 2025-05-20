@@ -18,7 +18,7 @@ export default function CreatePost({ refetch,type }) {
     },
     validationSchema: vaildationSchema,
     onSubmit: async (values, helpers) => {
-      console.log("submit");
+     
 
       const { resetForm } = helpers;
 
@@ -29,6 +29,7 @@ export default function CreatePost({ refetch,type }) {
       }
 
       try {
+        if(type === "post"){
         const res = await axios.post(
           "https://beige-wildcat-74200.zap.cloud/api/posts",
           formData,
@@ -38,16 +39,31 @@ export default function CreatePost({ refetch,type }) {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
-        );
-        console.log("تم إنشاء المنشور:", res.data);
+        );}
+        else if(type === "challenge"){
+         console.log(type);  
+          const res = await axios.post(
+            "https://beige-wildcat-74200.zap.cloud/api/challenges",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          );
+        }
         resetForm(); // ✅ يمسح البيانات
         setPreview(null); // ✅ يمسح معاينة الصورة
         refetch();
+        console.log("تم إنشاء المنشور:", res.data);
+      
       } catch (error) {
         console.error("خطأ أثناء إرسال المنشور:", error);
       }
     },
   });
+
 
    async function makePost(values, { resetForm })  {
       const formData = new FormData();
@@ -67,7 +83,12 @@ export default function CreatePost({ refetch,type }) {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
-        );}else if(type === "challenge"){
+        );}
+        
+        else if(type === "challenge"){
+         console.log(type);
+         
+          
           const res = await axios.post(
             "https://beige-wildcat-74200.zap.cloud/api/challenges",
             formData,
