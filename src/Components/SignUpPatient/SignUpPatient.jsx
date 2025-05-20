@@ -185,7 +185,7 @@ export default function SignUpPatient() {
       if (data?.message === "Patient registered successfully") {
         setShowToast(true);
         setTimeout(() => {
-          navigate("/LoginPatient");
+          navigate("/LoginPatient/patient");
         }, 50);
       }
     } catch (error) {
