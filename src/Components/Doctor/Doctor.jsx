@@ -3,32 +3,64 @@ import Doc1 from "../../assets/images/Doctor.png";
 import { MdStarRate } from "react-icons/md";
 import community from "../../assets/images/DocComm.png";
 import chat from "../../assets/images/DrChat.png";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import Loadingg from "../Loadingg/Loadingg";
 
 export default function Doctor() {
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["doctor"],
+    queryFn: getDoctor,
+  });
 
+  async function getDoctor() {
+    return await axios.get(
+      `https://beige-wildcat-74200.zap.cloud/api/my_doctor`,
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+  }
+
+
+  const doctor=data?.data.my_doctor
+  console.log(doctor);
   
-  
-  return (
+
+  return (<>
+ {
+  isLoading?(
+    <Loadingg />
+  ):
+  <>
     <>
       <div className="container mt-28">
         <div className="bg-[#F5F5F5] w-full flex flex-col items-center rounded-[24px] p-4">
           {/* صورة الدكتور */}
           <div className="mt-6">
-            <img src={data.image} alt={data.name} className="rounded-[24px]" />
+            <img
+              src={doctor?.Image}
+              alt="doctor image"
+              className="rounded-[24px]"
+            />
           </div>
 
           {/* بيانات الدكتور */}
           <div className="flex flex-col items-center space-y-2 mt-4">
             <h1 className="text-[#1F1F1F] text-lg font-poppins font-semibold">
-              {data.name}
+              {doctor?.FullName}
             </h1>
             <p className="text-[#1F1F1F] text-base font-poppins font-semibold">
-              Specialty: <span className="font-normal">{data.specialty}</span>
+              Specialty: <span className="font-normal">{doctor?.Specialization}</span>
             </p>
             <p className="flex items-center gap-1 text-[#1F1F1F]">
               <MdStarRate className="text-[#FEB052] text-[25px]" />
-              <span className="font-semibold">{data.rating}</span>
-              <span className="text-[#878787] text-sm">(300 Rating)</span>
+              <span className="font-semibold">{doctor?.Statistics.AverageRating}</span>
+           
             </p>
           </div>
 
@@ -39,7 +71,7 @@ export default function Doctor() {
               <span className="text-gray-500 text-sm text-center">
                 Number of Patients
               </span>
-              <span className="font-bold text-lg mt-1">100</span>
+              <span className="font-bold text-lg mt-1">{doctor?.Statistics.NumberofPatients}</span>
             </div>
 
             {/* Divider */}
@@ -48,7 +80,7 @@ export default function Doctor() {
             {/* Views */}
             <div className="flex flex-col items-center">
               <span className="text-gray-500 text-sm">Views</span>
-              <span className="font-bold text-lg mt-1">30</span>
+              <span className="font-bold text-lg mt-1">{doctor?.Statistics.Views}</span>
             </div>
 
             {/* Divider */}
@@ -59,7 +91,7 @@ export default function Doctor() {
               <span className="text-gray-500 text-sm text-center">
                 Years of Experience
               </span>
-              <span className="font-bold text-lg mt-1">11</span>
+              <span className="font-bold text-lg mt-1">{doctor?.Years_of_Experience}</span>
             </div>
           </div>
         </div>
@@ -101,10 +133,11 @@ export default function Doctor() {
                   your experiences, and ask questions.
                 </p>
                 <div className="flex justify-end items-center">
-                  <button className="bg-mainColor text-white py-3 px-16 rounded-2xl">Join now</button>
+                  <button className="bg-mainColor text-white py-3 px-16 rounded-2xl">
+                    Join now
+                  </button>
                 </div>
               </div>
-
             </div>
           </div>
           <div className="bg-[#F5F5F5] w-full  rounded-[24px] p-4">
@@ -114,22 +147,25 @@ export default function Doctor() {
               </div>
               <div className="col-span-2 me-[32px] py-[24px]">
                 <p className="text-base font-semibold text-txt-black">
-                Chat with Your Doctor
+                  Chat with Your Doctor
                 </p>
                 <p className="text-base text-txt-op-0 mt-2">
-                If you need to contact your doctor or have any questions, you can send a message directly here.
+                  If you need to contact your doctor or have any questions, you
+                  can send a message directly here.
                 </p>
                 <div className="flex justify-end items-center">
-                  <button className="bg-mainColor text-white py-3 px-16 rounded-2xl">Start Chat </button>
+                  <button className="bg-mainColor text-white py-3 px-16 rounded-2xl">
+                    Start Chat{" "}
+                  </button>
                 </div>
               </div>
-
             </div>
           </div>
-        
-        
         </div>
       </div>
     </>
+  </>
+ }
+      </> 
   );
 }

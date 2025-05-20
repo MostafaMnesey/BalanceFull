@@ -99,7 +99,6 @@ export default function Modal({
  
 
   const [showToast, setShowToast] = useState(null);
-console.log(data);
 
   async function assignUserToDoctor(values) {
     setShowToast(false);
@@ -117,6 +116,7 @@ console.log(data);
       );
       if (res.status === 200) {
         setShowToast(true);
+        refetch()
       setTimeout(() => {
           onClose();
       }, 100);
@@ -161,9 +161,6 @@ console.log(data);
       durationOfAddication: "",
     },
     validationSchema: valudationSchema,
-    validate: (values) => {
-      console.log(values);
-    },
 
     onSubmit: (values) => {
       assignUserToDoctor(values);
@@ -778,7 +775,7 @@ const schema = Yup.object().shape({
                       onChange={formik2.handleChange}
                       onBlur={formik2.handleBlur}
                       className="bg-input  text-sm rounded-lg  block w-full p-2.5 focus:outline-none"
-                      placeholder="Flowbite"
+                      placeholder="Enter your Password"
                       required
                     />
                     {formik2.touched.password && formik2.errors.password ? (
@@ -801,7 +798,7 @@ const schema = Yup.object().shape({
                       onChange={formik2.handleChange}
                       onBlur={formik2.handleBlur}
                       className="bg-input  text-sm rounded-lg  block w-full p-2.5 focus:outline-none"
-                      placeholder="Doe"
+                      placeholder="Enter your Password Confirmation"
                       required
                     />
                     {formik2.touched.password_confirmation &&
@@ -825,7 +822,7 @@ const schema = Yup.object().shape({
                       onChange={formik2.handleChange}
                       onBlur={formik2.handleBlur}
                       className="bg-input  text-sm rounded-lg  block w-full p-2.5 focus:outline-none"
-                      placeholder="Flowbite"
+                      placeholder="Enter your Nick Name"
                       required
                     />
                     {formik2.touched.nickname && formik2.errors.nickname ? (
@@ -847,7 +844,7 @@ const schema = Yup.object().shape({
                       }}
                       value={formik2.values.age}
                       onBlur={formik2.handleBlur}
-                      placeholder="Enter Your Email"
+                      placeholder="Enter Your Age"
                       className="bg-input  text-sm rounded-lg  block w-full p-2.5 focus:outline-none "
                     />
                     {formik2.touched.age && formik2.errors.age ? (
