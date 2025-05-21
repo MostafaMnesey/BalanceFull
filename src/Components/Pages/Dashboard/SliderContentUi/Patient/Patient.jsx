@@ -2,7 +2,7 @@ import { FaFilter } from "react-icons/fa6";
 import filterImg from '../../../../../assets/images/avatars/document-filter.svg'
 import addSqr from '../../../../../assets/images/avatars/add-square.svg'
 import PatientTable from "./PatientTable/PatientTable";
-export default function Patient() {
+export default function Patient({ setSelectedPage, setSelectedPatient }) {
     return <>
         <section>
 
@@ -38,7 +38,8 @@ export default function Patient() {
                     </div>
                 </div>
 
-                <PatientTable/>
+                <PatientTable setSelectedPage={setSelectedPage}
+                    setSelectedPatient={setSelectedPatient} />
             </div>
 
 

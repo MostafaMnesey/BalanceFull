@@ -9,24 +9,24 @@ import { MdMarkUnreadChatAlt } from "react-icons/md";
 import { FaUserFriends } from "react-icons/fa";
 import logoImg from "../../../assets/images/Logo (Dark)-02 1.png";
 import { BiLogOut } from "react-icons/bi";
-import { NavLink, useNavigate } from "react-router-dom";
-import { IoIosCloseCircleOutline } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 import CommunityPage from "../CommunityPage/CommunityPage";
 import DashNav from "./DashNav/DashNav";
-import ErrPopUp from "./DashPopsUp/ErrPopUp/ErrPopUp";
 import SettingLayout from "./SliderContentUi/Setting/SettingLayout";
 import Patient from "./SliderContentUi/Patient/Patient";
+import PatientProf from "./SliderContentUi/Patient/PatientProf/PatientProf";
 
 export default function DashboardLayout() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [selectedPage, setSelectedPage] = useState("dashboard");
-    const navigate = useNavigate(); 
-    
+    const [selectedPatient, setSelectedPatient] = useState(null);
+
+    const navigate = useNavigate();
 
     const dashLinks = [
         { key: "dashboard", title: "Dashboard", icon: <RiDashboardFill className="text-2xl" /> },
         { key: "patient", title: "Patient", icon: <FaUserFriends className="text-2xl" /> },
-        { key: "dashboard-chat", title: "Chat", icon: <MdMarkUnreadChatAlt className="text-2xl" />, external: true }, 
+        { key: "dashboard-chat", title: "Chat", icon: <MdMarkUnreadChatAlt className="text-2xl" />, external: true },
         { key: "community", title: "Community", icon: <TbWorld className="text-2xl" /> },
         { key: "setting", title: "Setting", icon: <IoSettingsSharp className="text-2xl" /> },
     ];
@@ -36,28 +36,38 @@ export default function DashboardLayout() {
             case "dashboard":
                 return (
                     <>
-                        <DashNav/>
+                        <DashNav />
                         <DashCards />
                         <InfoChart1 />
                         <InfoChart2 />
                     </>
                 );
             case "patient":
-
-                return (<>
-                    <DashNav />
-                    < Patient />
-                </>) ;
+                return (
+                    <>
+                        <DashNav />
+                        <Patient
+                            setSelectedPage={setSelectedPage}
+                            setSelectedPatient={setSelectedPatient}
+                
+                        />
+                    </>
+                );
+            case "patient-profile":
+                return (
+                    <>
+                        <PatientProf patient={selectedPatient}/>
+                    </>
+                );
             case "community":
                 return <CommunityPage />;
             case "setting":
-
                 return (
                     <>
                         <DashNav />
                         <SettingLayout />
                     </>
-                ) 
+                );
             default:
                 return <DashCards />;
         }
@@ -68,7 +78,7 @@ export default function DashboardLayout() {
             <div>
                 {/* Sidebar */}
                 <aside
-                    className={`  fixed top-0 left-0 z-40 w-64 h-screen transition-transform duration-300 bg-mainColor sm:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                    className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform duration-300 bg-mainColor sm:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
                         }`}
                 >
                     <div className="relative h-full px-3 py-4 overflow-y-auto flex flex-col items-start gap-8">
@@ -80,12 +90,14 @@ export default function DashboardLayout() {
                                         onClick={() => {
                                             setIsSidebarOpen(false);
                                             if (link.external) {
-                                                navigate("/dashboard-chat"); 
+                                                navigate("/dashboard-chat");
                                             } else {
                                                 setSelectedPage(link.key);
+                                                
                                             }
                                         }}
-                                        className={`w-full flex items-center p-2 rounded-lg transition-all duration-300 ${selectedPage === link.key
+                                        className={`w-full flex items-center p-2 rounded-lg transition-all duration-300 ${selectedPage === link.key ||
+                                                (link.key === "patient" && selectedPage === "patient-profile")
                                                 ? "bg-gray-200 dark:bg-subColor text-white font-semibold"
                                                 : "text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-subColor"
                                             }`}
@@ -104,16 +116,7 @@ export default function DashboardLayout() {
                 </aside>
 
                 {/* Main Content */}
-
-                <div className="p-4 sm:ml-64">
-                    {/* <div className="p-4 rounded-lg dark:border-gray-700">
-                        {/* Top Bar */}
-                        {/* <DashNav/> */}
-
-                        {/* Conditional Page Content */}
-                    {/* </div> */} 
-                        {renderContent()}
-                </div>
+                <div className="p-4 sm:ml-64">{renderContent()}</div>
             </div>
         </section>
     );
