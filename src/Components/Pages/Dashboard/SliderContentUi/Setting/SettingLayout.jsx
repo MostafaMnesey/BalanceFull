@@ -86,11 +86,11 @@ export default function SettingLayout() {
                                 key={index}
                                 className="flex justify-between items-center  p-2"
                             >
-                                <span className="font-medium text-base text-gray-700 w-1/3">
+                                <span className="font-medium text-base text-gray-700 w-full sm:w-1/3">
                                     {field.label}
                                 </span>
-                                <span className="text-gray-500 w-1/3 text-sm">{field.value}</span>
-                                <button className="text-teal-600 hover:underline text-sm w-1/3 text-right">
+                                <span className="text-gray-500 w-full sm:w-1/3 text-sm">{field.value}</span>
+                                <button className="text-teal-600 hover:underline text-sm w-full sm:w-1/3 text-right">
                                     {values.btn}
                                 </button>
                             </li>
@@ -129,11 +129,11 @@ export default function SettingLayout() {
                                 key={index}
                                 className="flex justify-between items-center  p-2"
                             >
-                                <span className="font-medium text-base text-gray-700 w-1/3">
+                                <span className="font-medium  text-sm xl:text-base text-gray-700 w-full sm:w-1/3">
                                     {field.label}
                                 </span>
-                                <span className="text-gray-500 w-1/3 text-sm">{field.value}</span>
-                                <button className="text-teal-600 hover:underline text-sm w-1/3 text-right">
+                                <span className="text-gray-500 w-full sm:w-1/3  ml-8 lg:ml-0 text-start md:text-start text-sm xl:text-base">{field.value}</span>
+                                <button className="text-teal-600 hover:underline  text-sm xl:text-base w-full sm:w-1/3 text-right">
                                     {values.btn}
                                 </button>
                             </li>
@@ -142,7 +142,6 @@ export default function SettingLayout() {
                 </ul>
             </div>
 
-            {/* Action Buttons */}
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-end">
                 <button className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition">

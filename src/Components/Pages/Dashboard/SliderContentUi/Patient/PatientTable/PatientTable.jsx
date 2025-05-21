@@ -152,7 +152,7 @@ export default function PatientTable({ setSelectedPage, setSelectedPatient }) {
                                         setSelectedPatient(pattient);
                                         setSelectedPage("patient-profile");
                                       }}
-                                    className="text-mainColor font-semibold hover:underline"
+                                    className="text-gray-600 font-semibold hover:underline"
                                 >
                                     {pattient.name}
                                 </button>

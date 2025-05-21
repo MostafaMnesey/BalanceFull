@@ -32,6 +32,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // Slick Carousel styles
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import TaskPopUp from "./Components/Pages/Dashboard/SliderContentUi/Patient/PatientPopUp/TaskPopUp";
+import FeedbackPopUp from "./Components/Pages/Dashboard/SliderContentUi/Patient/PatientPopUp/FeedbackPopUp";
+import TaskTypePop from "./Components/Pages/Dashboard/SliderContentUi/Patient/PatientPopUp/taskTypePop";
+import DelPatient from "./Components/Pages/Dashboard/SliderContentUi/Patient/PatientPopUp/DelPatient";
 
 // React Query client
 const queryClient = new QueryClient();
@@ -124,14 +128,7 @@ const router = createBrowserRouter([
           </AuthGuard>
         ),
       },
-      {
-        path: "patient-profile/:id",
-        element: (
-          <AuthGuard>
-            <PatientProf />
-          </AuthGuard>
-        ),
-      },
+      
       {
         path: "challenges",
         element: (
