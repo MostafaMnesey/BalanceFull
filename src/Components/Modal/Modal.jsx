@@ -81,6 +81,7 @@ import axios from "axios";
 import Toast from "../Toast/Toast";
 import { s } from "motion/react-client";
 import { RiEdit2Line } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 export default function Modal({
   show,
@@ -276,7 +277,7 @@ const schema = Yup.object().shape({
                   {/* صورة الدكتور */}
                   <div className="mt-6 flex justify-center">
                     <img
-                      src={`https://beige-wildcat-74200.zap.cloud/storage/uploads/doctors/doctor_8.png`}
+                      src={data.Image}
                       alt="doctor image"
                       className="rounded-[24px] w-[30%] h-[30%] "
                     />
@@ -404,7 +405,7 @@ const schema = Yup.object().shape({
                         </span>
                       </div>
                       <button className="border border-gray-300 text-[#5F5F5F] px-4 py-2 rounded-lg text-sm hover:bg-mainColor hover:text-white transition">
-                        Join Community
+                        <Link to="/community">Join Now</Link>
                       </button>
                     </div>
                   </div>
@@ -1035,6 +1036,50 @@ const schema = Yup.object().shape({
           </div>
         </div>
       )}
+
+      {
+        type === "Quiz" && (
+
+        <>
+           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg md:w-[30%]  mx-4 p-6 relative   ">
+            {/* Close Button */}
+       {/*      <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button> */}
+
+            {/* Modal Content */}
+         
+            {/* Modal Footer */}
+            <div className="flex justify-center gap-2 mt-6">
+              <button
+                onClick={() => setShowModal(false)}
+                className="px-20 py-3 bg-bluee border transition-all border-transparent text-white rounded-[12px] hover:bg-white hover:text-mainColor hover:border-mainColor"
+              >
+                
+              </button>
+            </div>
+          </div>
+        </div>
+        </>
+        )
+      }
     </>
   );
 }
