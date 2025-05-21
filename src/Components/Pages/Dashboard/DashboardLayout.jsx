@@ -15,6 +15,7 @@ import DashNav from "./DashNav/DashNav";
 import SettingLayout from "./SliderContentUi/Setting/SettingLayout";
 import Patient from "./SliderContentUi/Patient/Patient";
 import PatientProf from "./SliderContentUi/Patient/PatientProf/PatientProf";
+import { VscListFlat } from "react-icons/vsc";
 
 export default function DashboardLayout() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -46,19 +47,11 @@ export default function DashboardLayout() {
                 return (
                     <>
                         <DashNav />
-                        <Patient
-                            setSelectedPage={setSelectedPage}
-                            setSelectedPatient={setSelectedPatient}
-                
-                        />
+                        <Patient setSelectedPage={setSelectedPage} setSelectedPatient={setSelectedPatient} />
                     </>
                 );
             case "patient-profile":
-                return (
-                    <>
-                        <PatientProf patient={selectedPatient}/>
-                    </>
-                );
+                return <PatientProf patient={selectedPatient} />;
             case "community":
                 return <CommunityPage />;
             case "setting":
@@ -74,7 +67,34 @@ export default function DashboardLayout() {
     };
 
     return (
-        <section>
+        <section className="relative">
+            {!isSidebarOpen && (
+                <button
+                    onClick={() => setIsSidebarOpen(true)}
+                    className="absolute top-12 left-10 z-50 p-2 rounded-md text-mainColor sm:hidden"
+                    aria-label="Toggle sidebar"
+                >
+                    <VscListFlat className="text-3xl " />
+                </button>
+            )}
+            {isSidebarOpen && (
+                <button
+                    onClick={() => setIsSidebarOpen(false)}
+                    className="sm:hidden  top-4 z-50 left-52 p-2 rounded-md text-white transition-all  hover:text-gray-200"
+                    aria-label="Close sidebar"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            )}
+
             <div>
                 {/* Sidebar */}
                 <aside
@@ -93,11 +113,9 @@ export default function DashboardLayout() {
                                                 navigate("/dashboard-chat");
                                             } else {
                                                 setSelectedPage(link.key);
-                                                
                                             }
                                         }}
-                                        className={`w-full flex items-center p-2 rounded-lg transition-all duration-300 ${selectedPage === link.key ||
-                                                (link.key === "patient" && selectedPage === "patient-profile")
+                                        className={`w-full flex items-center p-2 rounded-lg transition-all duration-300 ${selectedPage === link.key || (link.key === "patient" && selectedPage === "patient-profile")
                                                 ? "bg-gray-200 dark:bg-subColor text-white font-semibold"
                                                 : "text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-subColor"
                                             }`}

@@ -8,14 +8,14 @@ export default function Patient({ setSelectedPage, setSelectedPatient }) {
 
             <div className="container">
 
-                <div className="grid grid-cols-6">
-                    <div className="col-span-4 ">
+                <div className="grid grid-cols-1 md:grid-cols-6">
+                    <div className="col-span-4 text-center mb-3 lg:text-start">
                         <h1 className=" text-lg font-semibold">Patients</h1>
                         <span className="text-sm text-gray-500 lead">All patients you're currently working with</span>
                     </div>
                     <div className="col-span-2  flex justify-evenly">
                         <button>
-                            <div className="px-4 py-3.5 bg-[#F5F5F5] shadow rounded-[100px] outline outline-[0.60px] outline-offset-[-0.60px] outline-neutral-100 
+                            <div className="px-2 py-2 mt-2 xl:px-4 xl:py-3.5 bg-[#F5F5F5] shadow rounded-[100px] outline outline-[0.60px] outline-offset-[-0.60px] outline-neutral-100 
                             transition-all hover:-translate-y-2">
                                 <div className="flex justify-center items-center gap-4">
                                     <span className="text-stone-500 text-sm font-medium">Filter</span>
@@ -25,7 +25,7 @@ export default function Patient({ setSelectedPage, setSelectedPatient }) {
                             </div>
                         </button>
                         <button>
-                            <div className="px-4 py-3.5 bg-gray-400 shadow rounded-[100px] outline outline-[0.60px] outline-offset-[-0.60px] outline-neutral-100 
+                            <div className="px-2 py-2 mt-2 xl:px-4 xl:py-3.5 bg-gray-400 shadow rounded-[100px] outline outline-[0.60px] outline-offset-[-0.60px] outline-neutral-100 
                             transition-all hover:-translate-y-2">
                                 <div className="flex justify-center items-center gap-4">
                                     <span className="text-white text-sm font-medium">Add Task</span>
