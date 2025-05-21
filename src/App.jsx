@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 
 // Pages & Components
-import ChossePath from "./Components/ChoosePath/ChossePath";
+import ChoosePath from "./Components/ChoosePath/ChoosePath";
 import LoginPatient from "./Components/LoginPatient/LoginPatient";
 import SignUpPatient from "./Components/SignUpPatient/SignUpPatient";
 import SignUpDoctor from "./Components/SignUpDoctor/SignUpDoctor";
@@ -19,24 +19,23 @@ import DashboardLayout from "./Components/Pages/Dashboard/DashboardLayout";
 import HasDoctor from "./Components/HasDoctor/HasDoctor";
 import DashChat from "./Components/Pages/Dashboard/SliderContentUi/DashChat/DashChat";
 import SettingLayout from "./Components/Pages/Dashboard/SliderContentUi/Setting/SettingLayout";
-import Challanges from "./Components/Challanges/Challanges";
+import Challenges from "./Components/Challanges/Challanges";
+import ShowChallenge from "./Components/Challanges/ShowChallange/ShowChallange";
 import Patient from "./Components/Pages/Dashboard/SliderContentUi/Patient/Patient";
-import ShowChallange from "./Components/Challanges/ShowChallange/ShowChallange";
+import PatientProf from "./Components/Pages/Dashboard/SliderContentUi/Patient/PatientProf/PatientProf";
 
 // Context & Guards
 import AuthContextProvider from "./Context/AuthContext";
-import AuthGard from "./Components/Guard/AuthGard";
+import AuthGuard from "./Components/Guard/AuthGard";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Slick Carousel styles
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import PatientProf from "./Components/Pages/Dashboard/SliderContentUi/Patient/PatientProf/PatientProf";
 
 // React Query client
 const queryClient = new QueryClient();
 
-// Router configuration
 const router = createBrowserRouter([
   {
     path: "/",
@@ -47,98 +46,98 @@ const router = createBrowserRouter([
       {
         path: "tasks",
         element: (
-          <AuthGard>
+          <AuthGuard>
             <TasksPage />
-          </AuthGard>
+          </AuthGuard>
         ),
       },
       {
-        path: "Alldoctors",
+        path: "alldoctors",
         element: (
-          <AuthGard>
+          <AuthGuard>
             <AllDoctors />
-          </AuthGard>
+          </AuthGuard>
         ),
       },
       {
         path: "doctor",
         element: (
-          <AuthGard>
+          <AuthGuard>
             <Doctor />
-          </AuthGard>
+          </AuthGuard>
         ),
       },
       {
         path: "community",
         element: (
-          <AuthGard>
+          <AuthGuard>
             <CommunityPage />
-          </AuthGard>
+          </AuthGuard>
         ),
       },
       { path: "chat", element: <Chat /> },
       {
         path: "dashboard",
         element: (
-          <AuthGard>
+          <AuthGuard>
             <DashboardLayout />
-          </AuthGard>
+          </AuthGuard>
         ),
       },
       {
         path: "dashboard-chat",
         element: (
-          <AuthGard>
+          <AuthGuard>
             <DashChat />
-          </AuthGard>
+          </AuthGuard>
         ),
       },
       {
         path: "post/:postId",
         element: (
-          <AuthGard>
+          <AuthGuard>
             <Post />
-          </AuthGard>
+          </AuthGuard>
         ),
       },
       {
-        path: "Challenge/:ChallengeId",
+        path: "challenges/:challengeId",
         element: (
-          <AuthGard>
-            <ShowChallange />
-          </AuthGard>
+          <AuthGuard>
+            <ShowChallenge />
+          </AuthGuard>
         ),
       },
       {
         path: "setting",
         element: (
-          <AuthGard>
+          <AuthGuard>
             <SettingLayout />
-          </AuthGard>
+          </AuthGuard>
         ),
       },
       {
         path: "patient-account",
         element: (
-          <AuthGard>
+          <AuthGuard>
             <Patient />
-          </AuthGard>
+          </AuthGuard>
         ),
       },
       {
         path: "patient-profile/:id",
         element: (
-          <AuthGard>
+          <AuthGuard>
             <PatientProf />
-          </AuthGard>
+          </AuthGuard>
         ),
       },
       {
-        path: "Challenges",
+        path: "challenges",
         element: (
-          <AuthGard>
-            <Challanges />
-          </AuthGard>
+          <AuthGuard>
+            <Challenges />
+          </AuthGuard>
         ),
       },
     ],
@@ -146,13 +145,13 @@ const router = createBrowserRouter([
   { path: "signupPatient", element: <SignUpPatient /> },
   { path: "signupDoctor", element: <SignUpDoctor /> },
   { path: "loginPatient/:type", element: <LoginPatient /> },
-  { path: "choosePath", element: <ChossePath /> },
+  { path: "choosePath", element: <ChoosePath /> },
   {
     path: "profile",
     element: (
-      <AuthGard>
+      <AuthGuard>
         <Profile />
-      </AuthGard>
+      </AuthGuard>
     ),
   },
 ]);
