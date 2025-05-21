@@ -276,7 +276,7 @@ const schema = Yup.object().shape({
                   {/* صورة الدكتور */}
                   <div className="mt-6 flex justify-center">
                     <img
-                      src={data.Image}
+                      src={`https://beige-wildcat-74200.zap.cloud/storage/uploads/doctors/doctor_8.png`}
                       alt="doctor image"
                       className="rounded-[24px] w-[30%] h-[30%] "
                     />

@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 
 // Pages & Components
-import ChoosePath from "./Components/ChoosePath/ChoosePath";
+import ChossePath from "./Components/ChoosePath/ChossePath";
 import LoginPatient from "./Components/LoginPatient/LoginPatient";
 import SignUpPatient from "./Components/SignUpPatient/SignUpPatient";
 import SignUpDoctor from "./Components/SignUpDoctor/SignUpDoctor";
@@ -145,7 +145,7 @@ const router = createBrowserRouter([
   { path: "signupPatient", element: <SignUpPatient /> },
   { path: "signupDoctor", element: <SignUpDoctor /> },
   { path: "loginPatient/:type", element: <LoginPatient /> },
-  { path: "choosePath", element: <ChoosePath /> },
+  { path: "choosePath", element: <ChossePath /> },
   {
     path: "profile",
     element: (
