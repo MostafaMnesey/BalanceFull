@@ -6,6 +6,7 @@ import chat from "../../assets/images/DrChat.png";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Loadingg from "../Loadingg/Loadingg";
+import { Link } from "react-router-dom";
 
 export default function Doctor() {
   const { data, isLoading, isError, error } = useQuery({
@@ -41,11 +42,11 @@ export default function Doctor() {
       <div className="container mt-28">
         <div className="bg-[#F5F5F5] w-full flex flex-col items-center rounded-[24px] p-4">
           {/* صورة الدكتور */}
-          <div className="mt-6">
+          <div className="mt-6 flex justify-center">
             <img
               src={doctor?.Image}
               alt="doctor image"
-              className="rounded-[24px]"
+              className="rounded-[24px] w-5/12"
             />
           </div>
 
@@ -119,49 +120,28 @@ export default function Doctor() {
               </p>
             </div>
           </div>
-          <div className="bg-[#F5F5F5] w-full  rounded-[24px] p-4">
+        </div>
+         <div className="bg-[#F5F5F5] w-full mt-5 rounded-[24px] p-4">
             <div className="grid grid-cols-3  gap-2 ms-[32px]">
               <div className="ms-[32px] py-[24px]">
                 <img src={community} alt="" />
               </div>
               <div className="col-span-2 me-[32px] py-[24px]">
                 <p className="text-base font-semibold text-txt-black">
-                  Join Doctor's Community
+                  Join  Community
                 </p>
                 <p className="text-base text-txt-op-0 mt-2">
                   Connect with other patients in the doctor’s community, share
                   your experiences, and ask questions.
                 </p>
                 <div className="flex justify-end items-center">
-                  <button className="bg-mainColor text-white py-3 px-16 rounded-2xl">
-                    Join now
+                  <button className="bg-mainColor  hover:text-mainColor hover:bg-[#F5F5F5] border border-transparent hover:border-mainColor transition-all text-white  py-3 px-12 rounded-2xl">
+                    <Link to="/community"> Join Community</Link>
                   </button>
                 </div>
               </div>
             </div>
           </div>
-          <div className="bg-[#F5F5F5] w-full  rounded-[24px] p-4">
-            <div className="grid grid-cols-3  gap-2 ms-[32px]">
-              <div className="ms-[32px] py-[24px]">
-                <img src={chat} alt="" />
-              </div>
-              <div className="col-span-2 me-[32px] py-[24px]">
-                <p className="text-base font-semibold text-txt-black">
-                  Chat with Your Doctor
-                </p>
-                <p className="text-base text-txt-op-0 mt-2">
-                  If you need to contact your doctor or have any questions, you
-                  can send a message directly here.
-                </p>
-                <div className="flex justify-end items-center">
-                  <button className="bg-mainColor text-white py-3 px-16 rounded-2xl">
-                    Start Chat{" "}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </>
   </>

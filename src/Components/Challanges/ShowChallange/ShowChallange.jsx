@@ -3,17 +3,18 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Loadingg from "../../Loadingg/Loadingg";
 export default function ShowChallange() {
-  const { ChallengeId } = useParams();
+  const { challengeId } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+console.log(challengeId);
 
   useEffect(() => {
     async function fetchPost() {
       setLoading(true);
       setError(null);
       try {
-        const res = await axios.get(`https://beige-wildcat-74200.zap.cloud/api/challenges/${ChallengeId}`, {
+        const res = await axios.get(`https://beige-wildcat-74200.zap.cloud/api/challenges/${challengeId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -26,10 +27,10 @@ export default function ShowChallange() {
       }
     }
 
-    if (ChallengeId) {
+    if (challengeId) {
       fetchPost();
     }
-  }, [ChallengeId]);
+  }, [challengeId]);
 
   if (loading)
     return (
@@ -48,6 +49,8 @@ export default function ShowChallange() {
       </div>
     );
 
+    console.log(post);
+    
   return (
     <div className="max-w-3xl mx-auto p-6 mt-[8%] min-h-[60vh] bg-white rounded-lg shadow-md border border-gray-200">
       {/* User Info */}

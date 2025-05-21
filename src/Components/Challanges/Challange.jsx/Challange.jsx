@@ -194,7 +194,7 @@ export default function Challange({ allPosts, refetch }) {
                       </span>
                     </button>
                     <Link
-                      to={"/Challenge/" + post.id}
+                      to={"/challenges/" + post.id}
                       className={
                         "flex items-center my-2 gap-2 text-gray-600 text-lg"
                       }
