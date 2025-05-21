@@ -13,6 +13,7 @@ export default function Posts({ allPosts, refetch }) {
   const [showCommentFor, setShowCommentFor] = useState(null);
   const [commentTexts, setCommentTexts] = useState({});
   const [showPop,setShowPop]=useState(false)
+  console.log(allPosts);
   
   async function likePost(postId) {
     try {
@@ -48,6 +49,7 @@ export default function Posts({ allPosts, refetch }) {
     }
   }
 
+  
 async function handleCommentSubmit(postId) {
   const content = commentTexts[postId];
   if (!content?.trim()) return;
