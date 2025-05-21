@@ -4,6 +4,7 @@ import Modal from "../Modal/Modal";
 export default function Card({ doctor,view }) {
 
   
+
   
   
   return (

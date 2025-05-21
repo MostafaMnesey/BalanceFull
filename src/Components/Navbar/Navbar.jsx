@@ -8,6 +8,7 @@ import { PiSignOutFill } from "react-icons/pi";
 import axios from "axios";
 import Modal from "../Modal/Modal";
 import { useQuery } from "@tanstack/react-query";
+import avt from "../../assets/images/defAvatar.jpeg";
 
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -18,7 +19,7 @@ export default function Navbar() {
 
   const location = useLocation();
   const nav = useNavigate();
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: () => getUser(user),
     refetchOnMount: true,
@@ -171,11 +172,13 @@ export default function Navbar() {
                   onClick={toggleDropdown}
                 >
                   <span className="sr-only">Open user menu</span>
-                  <img
+                 {
+                  isLoading ? <div className="w-8 h-8 rounded-full animate-pulse bg-darkGreen"></div> :  <img
                     className="w-8 h-8 rounded-full"
-                    src={`https://beige-wildcat-74200.zap.cloud/${userDetails?.Avatar}`}
+                    src={`https://beige-wildcat-74200.zap.cloud/${userDetails?.Avatar}` }
                     alt="user photo"
                   />
+                 }
                 </button>
 
                 {isOpen && (
@@ -248,7 +251,7 @@ export default function Navbar() {
             } ring-1 ring-black ring-opacity-5 z-50 lg:hidden`}
           >
             <ul className="py-2">
-              {links.map((item, i) => (
+              {authenticatedUserLinks.map((item, i) => (
                 <li key={i}>
                   <ScrollLink
                     to={item.target}

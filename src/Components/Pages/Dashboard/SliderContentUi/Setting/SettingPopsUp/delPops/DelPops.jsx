@@ -1,6 +1,4 @@
-
 import sadEmj from '../../../../../../../assets/images/avatars/lets-icons_sad.svg'
-
 
 export default function DelPops() {
     return <>

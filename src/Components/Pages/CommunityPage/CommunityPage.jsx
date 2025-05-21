@@ -34,7 +34,7 @@ allPosts=data?.data.data
     return <>
         <section className='mt-28 '>
 
-        <CreatePost refetch={refetch} />
+        <CreatePost refetch={refetch} type={"post"} />
         <CommCards />
         <Posts allPosts={allPosts} refetch={refetch}/>
         </section>
