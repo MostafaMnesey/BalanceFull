@@ -98,6 +98,8 @@ const handleRegister = async (values) => {
         headers: { "Content-Type": "multipart/form-data" },
       }
     );
+    console.log(res);
+    
      if (res.status === 200) {
         setShowToast(true);
         setTimeout(() => {

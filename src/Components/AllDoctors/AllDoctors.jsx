@@ -26,7 +26,7 @@ export default function AllDoctors({refetchh}) {
     setSelectedDoctor(doctor); // تخزين بيانات الطبيب المحدد
     setShowModal(true); // عرض المودال
   };
-  const { data, isLoading,refetch } = useQuery({
+  const { data, isLoading,refetch } = useQuery({  
     queryKey: ["doctors"],
     queryFn: getDoctors, 
     refetchOnMount: true,

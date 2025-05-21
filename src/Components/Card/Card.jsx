@@ -15,7 +15,7 @@ export default function Card({ doctor,view }) {
       >
         <div className="mr-4">
           <img
-            src={doctor.Image}
+            src={`https://beige-wildcat-74200.zap.cloud/storage/uploads/doctors/doctor_8.png`}
             alt="doctor image"
             className="w-28 h-32 rounded-lg object-cover"
           />
