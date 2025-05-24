@@ -42,7 +42,7 @@ export default function CommCards() {
       )}
 
       <section className="mt-20">
-        <div className="container flex  gap-6 justify-center">
+        <div className="container grid grid-cols-1 md:grid-cols-2  gap-3  justify-center">
           {commCardData.map((card, index) => (
             <div
               key={index}
