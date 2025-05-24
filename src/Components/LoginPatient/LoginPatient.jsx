@@ -9,12 +9,14 @@ import * as Yup from "yup";
 import axios from "axios";
 import Toast from "../Toast/Toast";
 import AuthContextProvider, { AuthContext } from "../../Context/AuthContext";
+import { PulseLoader } from "react-spinners";
 
 export default function LoginPatient() {
   const { setUser, setToken } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string().required("Password is required"),
@@ -38,6 +40,8 @@ export default function LoginPatient() {
   });
 
   async function loginPatient(values) {
+    
+    setLoading(true);
     setShowToast(false);
     setErrorMessage("");
     try {
@@ -69,9 +73,12 @@ export default function LoginPatient() {
       }
 
       console.log(error);
+    }finally{
+      setLoading(false);
     }
   }
   async function loginDoctor(values) {
+    setLoading(true);
     setShowToast(false);
     setErrorMessage("");
     try {
@@ -103,6 +110,9 @@ export default function LoginPatient() {
       }
 
       console.log(error);
+    }
+    finally{
+      setLoading(false);
     }
   }
   
@@ -207,7 +217,17 @@ export default function LoginPatient() {
                 type="submit"
                 className="w-full py-3 bg-[#40C1BD] text-white font-semibold rounded-lg hover:bg-[#2D8986] transition-colors"
               >
-                Sign in
+                {
+                  loading ? (
+                    <PulseLoader
+                      color="#fff"
+                      size={8}
+                     speedMultiplier={1} />
+                  ): (
+                  
+                "Sign in"
+                  )
+                }
               </button>
               {errorMessage ? (
                 <Toast icon="error" title={errorMessage} show={showToast} />

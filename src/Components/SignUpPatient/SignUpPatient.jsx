@@ -45,6 +45,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import Toast from "../Toast/Toast";
+import { PulseLoader } from "react-spinners";
 
 export default function SignUpPatient() {
   const simplePasswordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$/;
@@ -101,6 +102,7 @@ export default function SignUpPatient() {
   const [selectedRole, setSelectedRole] = useState(null);
   const [selectedAvatar, setSelectedAvatar] = useState(0);
   const [showToast, setShowToast] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const roles = [
     {
@@ -169,6 +171,7 @@ export default function SignUpPatient() {
   ];
 
   async function Register(values) {
+    setLoading(true);
     try {
       const { data } = await axios.post(
         "https://beige-wildcat-74200.zap.cloud/api/patient/register",
@@ -190,6 +193,8 @@ export default function SignUpPatient() {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -204,9 +209,7 @@ export default function SignUpPatient() {
 
       {/* Right login section */}
       <div className="col-span-3 md:col-span-2 flex flex-col h-full">
-        <div className="flex justify-end p-6">
-        
-        </div>
+        <div className="flex justify-end p-6"></div>
         <form className="" onSubmit={formik.handleSubmit}>
           <div className="flex-grow flex items-center pb-32 justify-center px-4">
             <div className="w-9/12 mx-auto  p-6 bg-white  ">
@@ -649,7 +652,16 @@ export default function SignUpPatient() {
                       type="submit"
                       className="w-full  text-white py-2 bg-bluee rounded-md hover:bg-[#2D8986] transition"
                     >
-                      Sign Up
+                      {loading ? (
+                       <PulseLoader
+                       color="#fff"
+                       size={8}
+                       speedMultiplier={1}
+                       
+                       />
+                      ) : (
+                        "Sign Up"
+                      )}
                     </button>
                   </div>
                 </>
