@@ -1,3 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { useState } from "react";
 import { FaRegEye, FaEyeSlash, FaCheck } from "react-icons/fa";
 import { FaCirclePlus, FaMinus } from "react-icons/fa6";
@@ -5,6 +7,8 @@ import { GoTrash } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 
 function paginate(data, currentPage, rowsPerPage) {
+     
+
     const totalRows = data.length;
     const totalPages = Math.ceil(totalRows / rowsPerPage);
 
@@ -14,14 +18,38 @@ function paginate(data, currentPage, rowsPerPage) {
     );
 
     return { currentRows, totalPages };
+
 }
+
 
 export default function PatientTable({ setSelectedPage, setSelectedPatient }) {
     const [eyeVisibles, setEyeVisibles] = useState({});
     const [currentPage, setCurrentPage] = useState(1);
+    const [patients, setPatients] = useState([]);
+    let patientsData = [];
     const rowsPerPage = 13;
 
     const navigate = useNavigate();
+    const { data, isLoading, refetch } = useQuery({
+        queryKey: ["patients"],
+        queryFn: Allpatients,
+        refetchOnMount: true,
+    });
+          patientsData = data?.data?.patients || [];
+    console.log(data);
+
+    async function Allpatients() {
+        const options = {
+            url: "https://beige-wildcat-74200.zap.cloud/api/my_patients",
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        };
+        return axios.request(options)
+    }
+
 
 
     const tableData = [
@@ -37,55 +65,10 @@ export default function PatientTable({ setSelectedPage, setSelectedPatient }) {
                 },
             ],
         },
-        {
-            tableRow: [
-                { id: 1, name: "Adam", AddictionType: "Drugs", Age: "24", Gender: "Male", status: "Full Recovery" },
-                { id: 2, name: "Sara", AddictionType: "Alcohol", Age: "28", Gender: "Female", status: "Full Recovery" },
-                { id: 3, name: "Mo", AddictionType: "Smoking", Age: "32", Gender: "Male", status: "Full Recovery" },
-                { id: 4, name: "Laila", AddictionType: "Drugs", Age: "29", Gender: "Female", status: "Full Recovery" },
-                { id: 5, name: "Omar", AddictionType: "Drugs", Age: "35", Gender: "Male", status: "Partial Recovery" },
-                { id: 6, name: "Nour", AddictionType: "Alcohol", Age: "26", Gender: "Female", status: "Partial Recovery" },
-                { id: 7, name: "Youssef", AddictionType: "Smoking", Age: "30", Gender: "Male", status: "Partial Recovery" },
-                { id: 8, name: "Menna", AddictionType: "Drugs", Age: "22", Gender: "Female", status: "Partial Recovery" },
-                { id: 9, name: "Tamer", AddictionType: "Smoking", Age: "40", Gender: "Male", status: "Partial Recovery" },
-                { id: 10, name: "Menna", AddictionType: "Drugs", Age: "27", Gender: "Female", status: "Partial Recovery" },
-                { id: 11, name: "Zizo", AddictionType: "Drugs", Age: "24", Gender: "Male", status: "Under Treatment" },
-                { id: 12, name: "Judy", AddictionType: "Alcohol", Age: "28", Gender: "Female", status: "Under Treatment" },
-                { id: 13, name: "Leo", AddictionType: "Smoking", Age: "32", Gender: "Male", status: "Under Treatment" },
-                { id: 14, name: "Fady", AddictionType: "Drugs", Age: "29", Gender: "Female", status: "Under Treatment" },
-                { id: 15, name: "Adam", AddictionType: "Drugs", Age: "24", Gender: "Male", status: "Full Recovery" },
-                { id: 16, name: "Sara", AddictionType: "Alcohol", Age: "28", Gender: "Female", status: "Full Recovery" },
-                { id: 17, name: "Mo", AddictionType: "Smoking", Age: "32", Gender: "Male", status: "Full Recovery" },
-                { id: 18, name: "Laila", AddictionType: "Drugs", Age: "29", Gender: "Female", status: "Full Recovery" },
-                { id: 19, name: "Omar", AddictionType: "Drugs", Age: "35", Gender: "Male", status: "Partial Recovery" },
-                { id: 20, name: "Nour", AddictionType: "Alcohol", Age: "26", Gender: "Female", status: "Partial Recovery" },
-                { id: 21, name: "Youssef", AddictionType: "Smoking", Age: "30", Gender: "Male", status: "Partial Recovery" },
-                { id: 22, name: "Menna", AddictionType: "Drugs", Age: "22", Gender: "Female", status: "Partial Recovery" },
-                { id: 23, name: "Tamer", AddictionType: "Smoking", Age: "40", Gender: "Male", status: "Partial Recovery" },
-                { id: 24, name: "Menna", AddictionType: "Drugs", Age: "27", Gender: "Female", status: "Partial Recovery" },
-                { id: 25, name: "Zizo", AddictionType: "Drugs", Age: "24", Gender: "Male", status: "Under Treatment" },
-                { id: 26, name: "Judy", AddictionType: "Alcohol", Age: "28", Gender: "Female", status: "Under Treatment" },
-                { id: 27, name: "Leo", AddictionType: "Smoking", Age: "32", Gender: "Male", status: "Under Treatment" },
-                { id: 28, name: "Fady", AddictionType: "Drugs", Age: "29", Gender: "Female", status: "Under Treatment" },
-                { id: 29, name: "Adam", AddictionType: "Drugs", Age: "24", Gender: "Male", status: "Full Recovery" },
-                { id: 30, name: "Sara", AddictionType: "Alcohol", Age: "28", Gender: "Female", status: "Full Recovery" },
-                { id: 31, name: "Mo", AddictionType: "Smoking", Age: "32", Gender: "Male", status: "Full Recovery" },
-                { id: 32, name: "Laila", AddictionType: "Drugs", Age: "29", Gender: "Female", status: "Full Recovery" },
-                { id: 33, name: "Omar", AddictionType: "Drugs", Age: "35", Gender: "Male", status: "Partial Recovery" },
-                { id: 34, name: "Nour", AddictionType: "Alcohol", Age: "26", Gender: "Female", status: "Partial Recovery" },
-                { id: 35, name: "Youssef", AddictionType: "Smoking", Age: "30", Gender: "Male", status: "Partial Recovery" },
-                { id: 36, name: "Menna", AddictionType: "Drugs", Age: "22", Gender: "Female", status: "Partial Recovery" },
-                { id: 37, name: "Tamer", AddictionType: "Smoking", Age: "40", Gender: "Male", status: "Partial Recovery" },
-                { id: 38, name: "Menna", AddictionType: "Drugs", Age: "27", Gender: "Female", status: "Partial Recovery" },
-                { id: 39, name: "Zizo", AddictionType: "Drugs", Age: "24", Gender: "Male", status: "Under Treatment" },
-                { id: 40, name: "Judy", AddictionType: "Alcohol", Age: "28", Gender: "Female", status: "Under Treatment" },
-                { id: 41, name: "Leo", AddictionType: "Smoking", Age: "32", Gender: "Male", status: "Under Treatment" },
-                { id: 42, name: "Fady", AddictionType: "Drugs", Age: "29", Gender: "Female", status: "Under Treatment" },
-            ],
-        },
+        
     ];
 
-    const { currentRows, totalPages } = paginate(tableData[1].tableRow, currentPage, rowsPerPage);
+    const { currentRows, totalPages } = paginate(patients, currentPage, rowsPerPage);
 
     const handleClickEyeRow = (index) => {
         setEyeVisibles((prev) => ({
@@ -123,7 +106,7 @@ export default function PatientTable({ setSelectedPage, setSelectedPatient }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {currentRows.map((pattient, i) => (
+                    {patientsData.map((pattient, i) => (
                         <tr
                             key={i}
                             className="bg-white border-b border-gray-200 transition-all hover:bg-gray-200 hover:cursor-pointer text-center"
@@ -154,12 +137,12 @@ export default function PatientTable({ setSelectedPage, setSelectedPatient }) {
                                       }}
                                     className="text-gray-600 font-semibold hover:underline"
                                 >
-                                    {pattient.name}
+                                    {pattient.fullname}
                                 </button>
                             </th>
-                            <td className="px-6 py-4">{pattient.AddictionType}</td>
-                            <td className="px-6 py-4">{pattient.Age}</td>
-                            <td className="px-6 py-4">{pattient.Gender}</td>
+                            <td className="px-6 py-4">{pattient.addictionType}</td>
+                            <td className="px-6 py-4">{pattient.age}</td>
+                            <td className="px-6 py-4">{pattient.gender}</td>
                             <td className={`px-6 py-4 text-center`}>
                                 <span
                                     className={`text-xs px-4 py-1 rounded-full

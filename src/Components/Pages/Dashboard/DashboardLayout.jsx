@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DashCards from "./DashCards/DashCards";
 import InfoChart1 from "./infoChart1/infoChart1";
 import InfoChart2 from "./InfoChart2/InfoChart2";
@@ -17,10 +17,14 @@ import Patient from "./SliderContentUi/Patient/Patient";
 import PatientProf from "./SliderContentUi/Patient/PatientProf/PatientProf";
 import { VscListFlat } from "react-icons/vsc";
 
+
 export default function DashboardLayout() {
+
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [selectedPage, setSelectedPage] = useState("dashboard");
     const [selectedPatient, setSelectedPatient] = useState(null);
+    
+
 
     const navigate = useNavigate();
 
@@ -32,6 +36,8 @@ export default function DashboardLayout() {
         { key: "setting", title: "Setting", icon: <IoSettingsSharp className="text-2xl" /> },
     ];
 
+
+   
     const renderContent = () => {
         switch (selectedPage) {
             case "dashboard":
@@ -44,6 +50,7 @@ export default function DashboardLayout() {
                     </>
                 );
             case "patient":
+
                 return (
                     <>
                         <DashNav />
